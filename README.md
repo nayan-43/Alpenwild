@@ -1,4 +1,4 @@
-# Alpenwild Admin Migration
+# Alpenwild
 
 This is the React + Node + PostgreSQL application for Alpenwild.
 
