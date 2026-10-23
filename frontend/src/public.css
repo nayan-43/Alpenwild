@@ -1,0 +1,4278 @@
+@font-face {
+  font-family: "Alpen Lato";
+  src: url("/fonts/Lato-Light-webfont.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alpen Lato";
+  src: url("/fonts/Lato-Regular-webfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alpen Lato";
+  src: url("/fonts/Lato-Medium-webfont.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.static_page {
+
+  & h2,
+  h3,
+  h4 {
+    font-weight: bold !important;
+  }
+}
+
+/* h1,
+h2,
+h3,
+h4,*/
+/* p {
+  font-family: "Alpen Lato", Arial, sans-serif !important;
+} */
+
+.public-site {
+  min-height: 100vh;
+  /* color: #40545b; */
+  background: #fff;
+  /* font-family: "Alpen Lato", Arial, sans-serif; */
+}
+
+.public-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.public-loading-overlay img {
+  width: 32px;
+  height: 32px;
+}
+
+/* .client-header {
+  background: #fff;
+  box-shadow: 0 1px 2px #172d3826;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: box-shadow 0.4s ease;
+} */
+
+/* .client-header.is-compact {
+  box-shadow: 0 2px 8px #172d3840;
+} */
+/* .client-header-main,
+.client-nav,
+.client-container,
+.client-footer-main {
+  max-width: 1170px;
+  margin: auto;
+} */
+
+/* .client-header-main {
+  min-height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  transition:
+    min-height 0.4s ease,
+    padding 0.4s ease;
+} */
+
+/* .client-logo img {
+  width: 285px;
+  height: 60px;
+  max-width: 55vw;
+  margin-top: 6px;
+  object-fit: cover;
+  display: block;
+  transition: width 0.4s ease;
+} */
+
+/* .client-header-tools {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.client-header-tools nav {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  vertical-align: middle;
+  gap: 10px;
+} */
+
+.client-header a {
+  color: #52686e;
+  text-decoration: none;
+}
+
+/* .client-header-tools nav a {
+  position: relative;
+  padding-left: 14px;
+  margin-left: 13px;
+  font-size: 17px;
+  line-height: 21px;
+  color: #3f3f3f;
+  font-weight: 300;
+} */
+
+/* .client-header-tools nav a:first-child {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.client-header-tools nav a:not(:first-child)::before {
+  content: "|";
+  position: absolute;
+  left: 0;
+  color: #3f3f3f;
+  font-size: 14px;
+} */
+
+/* .client-phone {
+  color: #111;
+  display: inline-block;
+  margin: 0 0 0 30px;
+  font-size: 18px;
+  line-height: 21px;
+  vertical-align: middle;
+} */
+
+/* .client-header-tools form {
+  display: inline-flex;
+  border: 1px solid #d8dfdb;
+  width: 200px;
+  height: 35px;
+  margin-left: 15px;
+  padding: 5px 10px;
+  vertical-align: middle;
+  background: #f9f9f9;
+} */
+
+/* .client-header-tools input {
+  border: 0;
+  flex: 1;
+  min-width: 0;
+  padding: 2px 0 0;
+  outline: 0;
+  background: transparent;
+  font:
+    14px/21px Lato,
+    Arial,
+    sans-serif;
+} */
+.header_right_phone::before,
+.mob-phone::after {
+  content: "801-226-9026";
+}
+
+/* .public-site .client-header-tools .search {
+  width: 40px;
+  height: 23px;
+  border: 0;
+  padding: 3px 12px;
+  background-color: transparent;
+  background-image: url("/images/search_icon.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+} */
+
+/* .public-site .client-header-tools button:hover,
+.public-site .client-header-tools button:focus {
+  background-color: transparent;
+  outline: 0;
+} */
+
+.client-nav {
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.client-nav a {
+  position: relative;
+  padding: 5px 23px 5px 17px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 21px;
+  color: #111;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    padding 0.4s ease,
+    margin 0.4s ease;
+}
+
+.client-nav-item {
+  position: relative;
+  align-self: flex-start;
+}
+
+.client-nav>.client-nav-item {
+  margin-right: 25px;
+}
+
+.client-nav>.client-nav-item:first-child {
+  margin-right: 25px;
+}
+
+.client-nav>.client-nav-item:first-child>a {
+  padding-left: 0;
+}
+
+.client-nav-item>a {
+  display: block;
+}
+
+.client-nav a:hover {
+  color: #1492ef;
+  text-decoration: none;
+}
+
+.client-nav a:focus {
+  text-decoration: none;
+}
+
+.client-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 12;
+  display: none;
+  width: 300px;
+  max-height: calc(100vh - 120px);
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 15px;
+  background: #fff;
+  border-top: 3px solid #1492ef;
+  border-bottom: 3px solid #1492ef;
+  box-shadow: 0 2px 5px 2px #fff6;
+  list-style: none;
+}
+
+.client-nav-item:hover>.client-dropdown,
+.client-nav-item.open>.client-dropdown {
+  display: block;
+}
+
+.client-dropdown a {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 5px 17px;
+  border-bottom: 1px solid #9696964d;
+  font-size: 16px;
+  line-height: 31px;
+  color: #333;
+}
+
+.client-dropdown a:last-child {
+  border-bottom: 0;
+}
+
+.client-dropdown a:hover {
+  color: #1492ef;
+}
+
+.client-dropdown-nested {
+  position: fixed;
+  border-top-width: 3px;
+}
+
+.client-nav-nested-item {
+  position: relative;
+}
+
+.client-nav-item>a .nav-chevron {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+  /* transform: rotate(-45deg); */
+}
+
+.nav-chevron {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(180deg);
+}
+
+.client-carousel {
+  width: 1170px;
+  max-width: 100%;
+  height: 505px;
+  margin: 0 auto;
+  background: #273a42;
+  position: relative;
+  overflow: hidden;
+}
+
+.client-banner {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.75s ease-in-out;
+}
+
+.client-banner>a {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.client-banner.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.client-banner>a>img {
+  width: 100%;
+  height: 505px;
+  object-fit: cover;
+  opacity: 0.84;
+}
+
+.client-banner-copy {
+  position: absolute;
+  left: max(calc((100% - 1120px) / 2), 7%);
+  top: auto;
+  bottom: 48px;
+  max-width: 570px;
+  text-shadow: 0 2px 12px #0008;
+}
+
+.client-banner-copy h1 {
+  font:
+    700 clamp(36px, 5vw, 48px)/1.05 Lato,
+    Arial,
+    serif;
+  margin: 0;
+  padding: 0 0 17px;
+  border-bottom: 1px solid #fff;
+}
+
+.client-banner-copy p {
+  font-size: 18px;
+  color: inherit;
+}
+
+/* .client-header.is-compact .client-header-main {
+  min-height: 57px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.client-header.is-compact .client-logo img {
+  width: 245px;
+  height: 52px;
+  margin-top: 0;
+}
+.client-header.is-compact .client-header-tools nav {
+  margin-bottom: 0;
+}
+.client-header.is-compact .client-nav a {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.client-header.is-compact .nav-chevron {
+  transform: rotate(45deg) translate(-1px, -1px);
+} */
+.client-banner-button {
+  position: absolute;
+  left: max(calc((100% - 1120px) / 2), 7%);
+  bottom: 55px;
+  background: #aec34e;
+  color: #263b40;
+  padding: 12px 19px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.client-banner-tooltip {
+  position: absolute;
+  right: 30px;
+  bottom: 25px;
+  max-width: min(444px, calc(100% - 60px));
+  padding: 15px 30px;
+  background: rgb(255 255 255 / 90%);
+  color: #222;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.client-banner-camera {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.client-banner-camera:hover,
+.client-banner-camera:focus {
+  color: #fff;
+  background: transparent;
+}
+
+.client-carousel-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.client-carousel-controls button {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 71px;
+  border: 0;
+  background: #fffc;
+  padding: 20px 0;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translateY(-50%);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.client-carousel-controls button:first-child {
+  left: 23px;
+}
+
+.client-carousel-controls button:last-child {
+  right: 23px;
+}
+
+.client-carousel-controls button:hover {
+  background: #fff;
+  color: #1492ef;
+}
+
+.client-carousel-controls button img {
+  display: block;
+  width: 15px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.client-banner-empty {
+  display: block;
+  padding: 120px 8%;
+}
+
+.client-banner-empty h1 {
+  font:
+    400 54px Georgia,
+    serif;
+}
+
+.client-section {
+  padding: 65px 20px;
+  background: #fff;
+}
+
+.client-section-blue {
+  background: #edf3f1;
+}
+
+/* .client-section h2 {
+  color: #354e56;
+  font:
+    500 30px/31px "Alpen Lato",
+    Arial,
+    sans-serif;
+  margin: 0 0 20px;
+} */
+
+.client-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 9px 22px #18323b32;
+}
+
+.client-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.client-trip-leader-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.client-trip-leader-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e1e5e8;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.client-trip-leader-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgb(24 50 59 / 14%);
+}
+
+.client-trip-leader-card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.client-trip-leader-image {
+  aspect-ratio: 270 / 183;
+  background: #f1f3f4;
+}
+
+.client-trip-leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.client-trip-leader-info {
+  padding: 16px;
+  text-align: center;
+}
+
+.client-trip-leader-info h2 {
+  margin: 0 0 8px;
+  color: #354e56;
+  font:
+    500 20px/25px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-leader-info p {
+  min-height: 48px;
+  margin-bottom: 14px;
+  color: #555;
+  font:
+    400 14px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-leader-info .client-button {
+  min-width: 0;
+  padding: 8px 18px;
+  background: #337ab7;
+  color: #fff;
+  font:
+    400 14px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-transform: none;
+}
+
+.client-trip-leader-info .client-button:hover {
+  background: #286090;
+}
+
+.client-trip-leader-heading {
+  margin: 48px 0 24px;
+  color: #354e56;
+  font:
+    500 26px/32px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-leader-page .client-static-content h1,
+.client-trip-leader-detail-page .client-static-content h1 {
+  margin-bottom: 30px;
+}
+
+.client-trip-leader-detail-image {
+  display: block;
+  width: 270px;
+  max-width: 100%;
+  margin: 0 auto 30px;
+}
+
+.client-trip-leader-description-block {
+  clear: both;
+  overflow: hidden;
+  margin: 0 0 30px;
+  color: #191717;
+  font:
+    400 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-leader-description-block img {
+  float: left;
+  width: 270px;
+  max-width: 42%;
+  height: auto;
+  margin: 0 25px 15px 0;
+}
+
+.client-trip-leader-posts {
+  clear: both;
+  margin-top: 42px;
+}
+
+.client-trip-leader-posts h2 {
+  margin: 0 0 20px;
+  color: #354e56;
+  font:
+    500 26px/32px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-leader-posts-empty {
+  min-height: 70px;
+  margin: 0;
+  padding: 24px;
+  border: 1px solid #e1e5e8;
+  color: #666;
+  font:
+    400 15px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .client-trip-leader-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .client-trip-leader-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.client-static-related .client-card-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.client-static-related .client-card img {
+  height: 183px;
+}
+
+.client-card {
+  display: block;
+  background: #fff;
+  color: #52666c;
+  text-decoration: none;
+  box-shadow: 0 2px 10px #18323b1c;
+}
+
+.client-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.client-card>div {
+  padding: 18px 20px 20px;
+}
+
+.client-card h3 {
+  color: #000;
+  font:
+    400 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+  margin: 0 0 8px;
+  font-weight: bold;
+}
+
+.client-card p {
+  color: #191717;
+  font:
+    300 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+  margin: 0;
+}
+
+.client-alert {
+  padding: 12px;
+  text-align: center;
+  background: #fff3cd;
+  color: #695400;
+}
+
+.client-payment-alert {
+  margin: 0 0 16px;
+  border: 1px solid #ebccd1;
+  background: #f2dede;
+  color: #a94442;
+}
+
+.client-search-page {
+  padding: 40px 0 20px;
+}
+
+.client-search-page h1 {
+  margin: 0 0 20px;
+  padding-left: 15px;
+  border-left: 5px solid #1c70c3;
+  color: #111;
+  font:
+    30px/31px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-search-result {
+  display: block;
+  margin: 0 0 15px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #ddd;
+  color: #191717;
+  text-decoration: none;
+}
+
+.client-search-result:hover {
+  background: #f4f6f7;
+  text-decoration: none;
+}
+
+.client-search-result h2 {
+  margin: 0 0 8px;
+  /* color: #1c70c3; */
+  font:
+    500 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-search-result p {
+  margin: 0;
+  color: #191717;
+  font:
+    300 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-detail-banner {
+  position: relative;
+  width: 1170px;
+  max-width: 100%;
+  height: 448px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #273a42;
+}
+
+.client-detail-banner>img {
+  width: 100%;
+  /* height: 100%; */
+  object-fit: cover;
+}
+
+/* .client-detail-banner-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 30px 20px;
+  color: #fff;
+  background: linear-gradient(transparent, #111b26d9);
+}
+
+.client-detail-banner-copy h1 {
+  position: relative;
+  margin: 0 0 25px;
+  font:
+    500 35px/29px "Alpen Lato",
+    Arial,
+    sans-serif;
+  padding-bottom: 8px;
+  border-bottom: 0;
+}
+
+.client-detail-banner-copy h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: min(100%, 900px);
+  height: 1px;
+  background: #fff;
+}
+
+.client-detail-banner-copy p {
+  max-width: 820px;
+  margin: 0 0 8px;
+  font:
+    300 14px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+} */
+
+.client-trip-type-banner-camera {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  z-index: 3;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.client-trip-type-banner-tooltip {
+  position: absolute;
+  right: 30px;
+  bottom: 25px;
+  z-index: 2;
+  max-width: 444px;
+  padding: 15px 30px;
+  background: #fff;
+  color: #111;
+}
+
+.client-trip-type-banner-tooltip p {
+  margin: 0;
+}
+
+.client-detail-banner-actions {
+  position: absolute;
+  right: 15px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.inner_banner .fa {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.client-detail-banner-action {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px; */
+  padding: 0;
+  border: 0;
+  background: transparent;
+  /* color: #fff;
+  font-size: 20px;
+  cursor: pointer; */
+}
+
+.client-detail-banner-action img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.client-detail-banner-popover {
+  position: absolute;
+  right: 85px;
+  bottom: 25px;
+  z-index: 2;
+  max-width: 444px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 15px 30px;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 2px 8px #0004;
+}
+
+.client-detail-banner-popover p {
+  margin: 0;
+}
+
+.client-detail-banner-photo {
+  right: 30px;
+}
+
+.client-detail-banner-activity-popover {
+  right: 85px;
+}
+
+.client-trip-listing {
+  padding-top: 35px;
+}
+
+.client-section .client-section-title {
+  color: #111010;
+}
+
+.client-section .client-section-title::before {
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  margin-top: 3px;
+  margin-right: 15px;
+  background: #1c70c3;
+  content: "";
+  vertical-align: top;
+}
+
+/* .client-trip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.client-trip-listing .client-trip-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+} */
+
+/* .client-trip-card {
+  display: block;
+  overflow: hidden;
+  color: #40545b;
+  background: #fff;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease-out;
+}
+
+.client-trip-listing .client-trip-card {
+  width: 100%;
+  max-width: 270px;
+  margin: 0 auto;
+}
+
+.client-trip-card:hover {
+  color: #40545b;
+  box-shadow: 0 0 2px 2px #cecece;
+}
+
+.client-trip-card>img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 270 / 183;
+  object-fit: cover;
+}
+
+.client-trip-card-image {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 270 / 183;
+}
+
+.public-site .client-trip-listing .client-trip-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.public-site .client-trip-listing .client-trip-card:hover .client-trip-card-image img {
+  transform: scale(1.05, 1.05);
+}
+
+.client-trip-card-info {
+  padding: 0 5px 3px;
+}
+
+.client-trip-card-info h3 {
+  margin: 17px 0 10px;
+  color: #000;
+  font:
+    500 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-card-info p {
+  margin: 0 0 20px;
+  color: #191717;
+  font:
+    300 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-card-info span {
+  display: inline-block;
+  margin: 0;
+  color: #191717;
+  font:
+    300 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-card-info span:first-of-type {
+  margin-right: 10px;
+}
+
+.client-trip-card-info span i {
+  margin-right: 5px;
+  color: inherit;
+} */
+
+.client-enjoy-section {
+  padding-top: 10px;
+}
+
+/* .client-enjoy-card .client-trip-card-info {
+  padding-bottom: 18px;
+} */
+
+.client-trip-detail {
+  padding: 25px 0 0;
+}
+
+.client-trip-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(260px, 4fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.client-trip-gallery-layout {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+}
+
+.client-trip-gallery-layout .client-trip-right {
+  display: none;
+}
+
+/* .client-trip-sidebar {
+  border-right: 1px solid #979797;
+  padding-right: 15px;
+  padding-bottom: 150px;
+} */
+
+.client-trip-tabs {
+  display: block;
+}
+
+/* .client-trip-tabs a {
+  display: block;
+  padding: 12px 0;
+  border-bottom: 1px solid #979797;
+  color: #111010;
+  font:
+    500 18px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-decoration: none;
+}
+
+.client-trip-tabs a:hover,
+.client-trip-tabs a.active {
+  color: #1b6fc3;
+} */
+
+/* .client-trip-book {
+  background: #1c70c3;
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 17px;
+  line-height: 21px;
+  float: left;
+  display: flex;
+  cursor: pointer;
+  margin: 10px auto 0;
+  font:
+    400 17px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-decoration: none !important;
+}*/
+
+.client-trip-book:hover {
+  background: #1b5da1;
+  border-color: #1b5da1;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* .client-trip-book span {
+  display: inline-block;
+  margin-left: 40px;
+  padding-left: 20px;
+  border-left: 0;
+  background: url("/images/book_bg.jpg") left center no-repeat;
+  color: #fff;
+} */
+
+.client-trip-print {
+  display: block;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin: 100px 0 25px;
+  color: #2d6330;
+  font:
+    500 17px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-print img {
+  display: block;
+  width: 157px;
+  height: 28px;
+  max-width: none;
+}
+
+.client-print-toolbar {
+  padding: 0 0 15px;
+  border-bottom: 1px solid #0003;
+}
+
+.client-print-toolbar button {
+  border: 0;
+  background: transparent;
+  color: #1b6fc3;
+  font:
+    500 18px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+  cursor: pointer;
+}
+
+.client-print-error {
+  margin: 15px 0 0;
+  color: #a94442;
+  font:
+    400 14px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-print-content {
+  padding: 15px;
+  color: #191717;
+}
+
+.client-modal .client-print-content h2 {
+  margin: 20px 0 30px;
+  color: #111010;
+  font:
+    500 30px/31px "Alpen Lato",
+    Arial,
+    sans-serif;
+  font-size: 21px;
+  line-height: 24px;
+}
+
+.client-modal .client-print-content h2::before {
+  margin-right: 15px;
+  margin-top: 3px;
+}
+
+.client-print-day {
+  margin-bottom: 10px;
+  font:
+    300 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-print-day h3 {
+  margin: 0 0 12px;
+  color: #000;
+  font:
+    500 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-print-day p {
+  margin: 0 0 20px;
+  color: #191717;
+  font:
+    500 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-sidebar-section {
+  position: relative;
+  width: 100%;
+  float: left;
+  margin: 0 0 30px;
+}
+
+.client-trip-sidebar-section h3 {
+  margin: 0 0 10px;
+  color: #000;
+  font:
+    400 16px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-testimonial {
+  width: 100%;
+  padding: 30px 20px 0;
+  border: 1px solid #a3a3a3;
+  background: #fff url("/uploads/quote_icon.jpg") 18px 10px no-repeat;
+  color: #191717;
+  font:
+    300 15px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-testimonial p {
+  margin: 0 0 10px;
+  color: #191717;
+  line-height: 24px;
+}
+
+.client-trip-testimonial em {
+  font-size: 13px;
+}
+
+/* .client-trip-posts ul {
+  margin: 0;
+  padding: 20px 12px;
+  border: 1px solid #a3a3a3;
+  list-style: none;
+} */
+
+.client-trip-posts li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.highlight_details ul.post-list li {
+  padding-left: 0;
+  border-top: 1px solid #ddd;
+  margin: 0;
+  padding: 12px 0 12px 60px;
+  min-height: 82px;
+  position: relative;
+  list-style: none !important;
+
+  &::after {
+    content: "" !important;
+  }
+}
+
+.highlight_details ul.post-list li:first-child {
+  border-top: 0;
+}
+
+.client-trip-posts li:last-child {
+  margin-bottom: 0;
+  border-top: 0;
+}
+
+.client-trip-posts img {
+  /* width: 55px;
+  height: 55px;
+  object-fit: cover; */
+  position: absolute;
+  left: 0;
+  top: 15px;
+  max-width: 50px !important;
+  margin: 0;
+}
+
+.client-trip-posts a {
+  color: #000;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.client-trip-detail article {
+  min-width: 0;
+}
+
+.client-trip-description,
+.client-trip-itinerary {
+  color: #191717;
+  font:
+    400 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-itinerary-day {
+  margin: 0 0 24px;
+}
+
+.client-trip-itinerary-day h3,
+.client-trip-gallery-page h2,
+.client-rich-text h2 {
+  color: #111;
+  font:
+    500 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-itinerary h2::before,
+.client-trip-gallery-page h2::before,
+.client-rich-text h2::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: top;
+  background: #1c70c3;
+}
+
+.client-trip-itinerary-day h3 {
+  margin: 0 0 12px;
+  font:
+    500 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.client-trip-gallery-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 370 / 250;
+  object-fit: cover;
+}
+
+.client-trip-gallery-preview .client-trip-box {
+  padding: 0;
+}
+
+.client-trip-gallery-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.client-trip-faq {
+  margin-bottom: 24px;
+}
+
+.client-trip-faq h3 {
+  margin-bottom: 12px;
+}
+
+/* .client-rich-text p {
+  color: #191717;
+  font:
+    300 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+  margin: 0 0 20px;
+} */
+
+.client-rich-text h3 {
+  margin: 0 0 12px;
+  color: #000;
+  font:
+    500 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-itinerary {
+  margin-top: 30px;
+}
+
+.client-trip-itinerary h2 {
+  margin: 0 0 15px;
+  color: #000;
+  font:
+    500 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-itinerary p {
+  margin: 0 0 10px;
+}
+
+.client-trip-book-inline {
+  margin-top: 10px;
+}
+
+.client-trip-right {
+  border-right: 0;
+  padding-bottom: 0;
+}
+
+.client-trip-panel {
+  margin-bottom: 30px;
+}
+
+.client-trip-panel h3 {
+  margin: 0 0 12px;
+  color: #111010;
+  font:
+    400 19px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+/* .client-trip-box {
+  padding: 20px 20px 0;
+  border: 1px solid #a3a3a3;
+  background: #fff;
+  color: #191717;
+  font:
+    300 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+} */
+
+.client-trip-box p {
+  margin: 0 0 8px;
+}
+
+/* .client-trip-box p:last-child {
+  margin-bottom: 0;
+} */
+
+/* .client-trip-box strong {
+  color: #000;
+  font-weight: 500;
+} */
+
+.client-trip-date-status {
+  padding-left: 5px;
+  color: #ff0000;
+  font-weight: 600;
+}
+
+.client-trip-box a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.client-trip-box a:hover,
+.client-trip-box a:active {
+  color: #ff7e00;
+  text-decoration: underline;
+}
+
+.client-private-departure-link {
+  font:
+    300 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+/* .client-static-page {
+  padding-top: 40px;
+  padding-bottom: 50px;
+} */
+
+.client-static-banner {
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.client-static-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.client-static-content {
+  padding-top: 0;
+  width: 1200px;
+  max-width: calc(100% - 30px);
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.client-static-content h1 {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  margin: 0 0 20px;
+  color: #111010;
+  font-weight: bold !important;
+  font:
+    700 30px/31px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-static-content h1::before {
+  content: "";
+  flex: 0 0 5px;
+  width: 5px;
+  height: 20px;
+  margin: 3px 15px 0 0;
+  background: #1c70c3;
+}
+
+.client-static-share {
+  min-height: 62px;
+  margin: 10px 0 20px;
+}
+
+.client-static-share .main-share-div {
+  margin: 20px 0 0;
+}
+
+.client-static-share .main-share-div>div {
+  float: left;
+  min-height: 30px;
+  line-height: 30px;
+}
+
+.client-static-share .like-tools {
+  padding: 6px 0;
+}
+
+.client-static-description {
+  color: #191717;
+  font:
+    400 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-book-trip-selector {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 870px;
+  margin: 35px auto 0;
+  padding: 18px 0;
+  color: #191717;
+  font:
+    400 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-book-trip-selector label {
+  flex: 0 0 150px;
+  font-weight: 600;
+}
+
+.client-book-trip-selector select {
+  min-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.static_page .row p {
+  /* color: #191717; */
+  font:
+    400 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+/* .client-payment-section {
+  max-width: 570px;
+  margin: 35px auto 0;
+} */
+
+.tabContainer .tabContent {
+  border: 1px solid #1c70c3;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.static_page .tabContainer .booking_tips ol {
+  padding: 0 0 0 15px !important;
+}
+
+.static_page .tabContainer .booking_tips ol li {
+  list-style: outside none decimal !important;
+  margin-bottom: 20px !important;
+  font-family: 'latolight' !important;
+  line-height: 24px;
+}
+
+.client-payment-form-wrap {
+  padding: 20px;
+  border: 1px solid #1c70c3;
+  background: #fff;
+}
+
+.client-payment-form-wrap h2 {
+  margin: 0 0 20px;
+  color: #000;
+  font:
+    400 21px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-payment-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.client-payment-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font:
+    400 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-payment-fields input,
+.client-payment-fields select {
+  width: 100%;
+  height: 35px;
+  min-height: 35px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font:
+    400 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-payment-fields input:focus,
+.client-payment-fields select:focus {
+  border-color: #337ab7;
+  outline: 0;
+  box-shadow: 0 0 0 2px rgb(51 122 183 / 15%);
+}
+
+.client-payment-submit-wrap {
+  margin: 0;
+  text-align: center;
+}
+
+.client-payment-form-wrap .client-payment-submit {
+  min-width: 0;
+  margin-top: 0;
+  padding: 6px 12px;
+  border: 1px solid #2e6da4;
+  border-radius: 4px;
+  background: #337ab7;
+  color: #fff;
+  font:
+    500 14px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-transform: none;
+}
+
+.client-payment-form-wrap .client-payment-submit:hover {
+  background: #286090;
+  border-color: #204d74;
+}
+
+.client-payment-page-tips {
+  width: 100%;
+  margin-top: 33px;
+  padding: 10px;
+  background: #59a8f6;
+  color: #fff;
+}
+
+.client-payment-page-tips h3 {
+  margin: 0 0 10px;
+  color: #fff;
+  font:
+    700 15px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-payment-page-tips ol {
+  margin: 0;
+  padding: 0 0 0 12px;
+}
+
+.client-payment-page-tips li {
+  margin: 0;
+  color: #fff;
+  font:
+    400 15px/18px Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.client-payment-page-tips a {
+  color: #ff0;
+}
+
+.activity-box {
+  & p {
+    font-weight: 100;
+  }
+}
+
+.client-trip-booking-page {
+  padding: 40px 0 60px;
+  width: auto;
+  margin: 0;
+}
+
+.rs label {
+  font-weight: 400;
+  margin: 8px 20px 0px 4px;
+}
+
+.client-trip-booking-banner {
+  width: min(1170px, 100%);
+  margin: 0 auto;
+  position: relative;
+  min-height: 300px;
+  overflow: hidden;
+  background: #1d3440;
+}
+
+.client-trip-booking-banner img {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  opacity: 0.82;
+}
+
+.client-trip-booking-banner-copy {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 45px max(24px, calc((100% - 1170px) / 2));
+  background: linear-gradient(transparent, rgb(15 31 40 / 82%));
+  color: #fff;
+}
+
+.client-trip-booking-banner-copy h1 {
+  margin: 0 0 8px;
+  font:
+    500 34px/40px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-banner-copy p {
+  margin: 0;
+  font:
+    400 18px/26px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-tooltip,
+.client-trip-booking-activity {
+  position: absolute;
+  right: max(24px, calc((100% - 1170px) / 2));
+  padding: 7px 12px;
+  background: rgb(20 38 48 / 78%);
+  color: #fff;
+  font:
+    400 14px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-activity p {
+  margin: 0;
+}
+
+.client-trip-booking-banner-copy>div p {
+  margin: 0;
+}
+
+.client-trip-booking-tooltip {
+  top: 24px;
+}
+
+.client-trip-booking-activity {
+  bottom: 24px;
+}
+
+.client-trip-booking-camera {
+  position: absolute;
+  right: max(24px, calc((100% - 1170px) / 2));
+  bottom: 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.client-trip-booking-page .tabNav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.client-trip-booking-page .tabNav::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.client-trip-booking-page .tabNav li {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.client-trip-booking-page .tabNav a {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid #1c70c3;
+  border-bottom: 0;
+  color: #1c70c3;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.client-trip-booking-page .tabNav li:not(.active) a:hover,
+.client-trip-booking-page .tabNav li:not(.active) a:focus-visible {
+  background: #1c70c3;
+  color: #fff;
+}
+
+.client-trip-booking-page .tabNav .active a {
+  background: #1c70c3;
+  color: #fff;
+}
+
+.client-trip-booking-page .tabContainer .tabContent {
+  padding: 20px;
+  border: 1px solid #1c70c3;
+  background: #fff;
+}
+
+.client-trip-booking-page .additional-box {
+  margin-bottom: 20px;
+}
+
+.client-trip-booking-page .right_side .side_div {
+  margin-bottom: 30px;
+}
+
+/* .client-trip-booking-page .right_side .box {
+  width: 100%;
+  padding: 20px 20px 0;
+  border: 1px solid #a3a3a3;
+}
+
+.client-trip-booking-page .right_side .box p {
+  margin: 0 0 12px;
+  color: #191717;
+  font:
+    400 15px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+} */
+
+.client-trip-booking-page .button-type {
+  margin-left: 8px;
+  padding: 5px 14px;
+  border: 1px solid #1c70c3;
+  background: #1c70c3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.client-trip-booking-page .button-type:hover {
+  border-color: #155a9c;
+  background: #155a9c;
+}
+
+.client-trip-booking-sidebar {
+  padding-right: 15px;
+  background: transparent;
+}
+
+.client-trip-booking-menu {
+  width: 100%;
+  margin: 0 0 30px;
+  border-right: 1px solid #979797;
+}
+
+.client-trip-booking-nav {
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.client-trip-booking-nav li {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #979797;
+}
+
+.client-trip-booking-nav li:last-child {
+  border-bottom: 0;
+}
+
+.client-trip-booking-sidebar h3 {
+  margin: 0 0 18px;
+  color: #354e56;
+  font:
+    500 18px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-sidebar a {
+  display: block;
+  padding: 12px 0;
+  color: #111010;
+  text-decoration: none;
+  font:
+    500 18px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-nav a {
+  border-bottom: 0;
+}
+
+.client-trip-booking-sidebar a:hover {
+  color: #1b6fc3;
+}
+
+.client-trip-booking-sidebar .client-trip-booking-now {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+  padding: 15px 20px;
+  border: 0;
+  background: #1c70c3;
+  color: #fff;
+  font:
+    400 17px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-sidebar .client-trip-booking-now:hover {
+  color: #fff;
+  background: #1b5da1;
+}
+
+.client-trip-booking-sidebar .client-trip-booking-now span {
+  display: inline-block;
+  margin-left: 40px;
+  padding-left: 20px;
+  background: url("/images/book_bg.jpg") left center no-repeat;
+  color: #fff;
+}
+
+.client-trip-booking-sidebar .client-trip-booking-now:hover span {
+  color: #fff;
+}
+
+.client-trip-booking-form {
+  padding: 0 15px 25px;
+}
+
+.client-booking-captcha {
+  margin: 20px 0;
+}
+
+.client-booking-tab-content {
+  padding: 20px;
+  border: 1px solid #1c70c3;
+  background: #fff;
+}
+
+.client-booking-tab-content form {
+  padding: 0;
+  border: 0;
+}
+
+.client-booking-alert {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.client-booking-alert-error {
+  border-color: #ebccd1;
+  background: #f2dede;
+  color: #a94442;
+}
+
+.client-booking-alert-success {
+  border-color: #d6e9c6;
+  background: #dff0d8;
+  color: #3c763d;
+}
+
+.client-booking-alert h4 {
+  margin: 0 0 5px;
+  color: inherit;
+  font:
+    700 18px/1.1 "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-booking-alert-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font:
+    700 21px/1 Arial,
+    sans-serif;
+  opacity: 0.45;
+  cursor: pointer;
+}
+
+.client-booking-alert-close:hover {
+  opacity: 0.75;
+}
+
+.client-trip-booking-form h1 {
+  margin: 0 0 20px;
+  color: #111;
+  font:
+    500 30px/31px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-form>h1::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  margin: 3px 15px 0 0;
+  background: #1c70c3;
+  vertical-align: top;
+}
+
+.client-trip-booking-form h2 {
+  margin: 12px 0 8px;
+  padding: 4px;
+  background: #1c70c3;
+  color: #fff;
+  font:
+    700 15px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-transform: none;
+  letter-spacing: 1px;
+}
+
+.client-booking-trip-name {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  color: #000 !important;
+  background: transparent !important;
+  font-size: 21px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+
+.client-booking-tabs {
+  display: flex;
+  margin-top: 8px;
+  border-bottom: 1px solid #2878c5;
+}
+
+.client-booking-tabs a,
+.client-booking-tabs span {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid #1c70c3;
+  border-bottom: 0;
+  color: #1c70c3;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.client-booking-tabs .active {
+  background: #1c70c3;
+  color: #fff;
+}
+
+.client-booking-tabs a:hover {
+  background: #1c70c3;
+  color: #fff;
+  text-decoration: none;
+}
+
+.client-trip-booking-activity-panel {
+  align-self: start;
+  margin-left: 15px;
+  padding: 0;
+  background: #fff;
+}
+
+.client-trip-booking-activity-panel h3 {
+  margin: 0 0 20px;
+  color: #000;
+  font:
+    400 19px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-activity-panel div {
+  width: 100%;
+  padding: 20px 20px 0;
+  border: 1px solid #a3a3a3;
+  color: #333;
+  font:
+    400 15px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-trip-booking-activity-panel p {
+  margin: 0 0 12px;
+}
+
+.client-trip-booking-activity-panel ul,
+.client-trip-booking-activity-panel ol {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+
+.client-trip-booking-activity-panel strong {
+  color: #222;
+}
+
+.client-form-grid textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* .client-form-grid small,
+small {
+  display: block;
+  color: #111;
+  font:
+    400 10px/14px Arial,
+    sans-serif;
+} */
+
+.client-booking-terms {
+  margin: 8px 0 12px;
+  color: #111;
+  font:
+    300 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-booking-payment-note a,
+.client-booking-terms a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.client-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.client-form-grid label {
+  gap: 7px;
+  color: #111;
+  font:
+    600 15px/35px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-form-grid input,
+.client-form-grid select {
+  width: 100%;
+  min-height: 35px;
+  height: 35px;
+  padding: 5px 15px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-form-grid textarea {
+  width: 100%;
+  min-height: 90px;
+  height: 90px;
+  padding: 5px 15px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-booking-radio-field {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-booking-radio-field legend {
+  float: left;
+  width: auto;
+  margin: 0 8px 0 0;
+  font: inherit;
+}
+
+.client-booking-radio-field label,
+.client-booking-checkbox {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  color: #111 !important;
+  font:
+    300 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-booking-radio-field input,
+.client-booking-checkbox input {
+  width: auto;
+  min-height: 0;
+  height: auto;
+}
+
+.client-booking-date-selects {
+  display: flex;
+  gap: 5px;
+}
+
+.client-form-grid .client-booking-date-selects select {
+  flex: 0 0 30%;
+  width: 30%;
+  margin-right: 4%;
+}
+
+.client-form-grid .client-booking-date-selects select:last-child {
+  margin-right: 0;
+}
+
+.client-booking-discount input {
+  display: inline-block;
+  width: 90px;
+  height: 35px;
+  min-height: 35px;
+  padding: 5px 15px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+  margin-left: 4px;
+}
+
+.client-booking-discount {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  color: #111;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-booking-discount-button {
+  min-height: 35px;
+  margin-left: 8px;
+  padding: 5px 14px;
+  border: 1px solid #1c70c3;
+  background: #1c70c3;
+  color: #fff;
+  cursor: pointer;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-booking-discount-button:hover {
+  background: #155a9c;
+  border-color: #155a9c;
+}
+
+.client-booking-deposit {
+  color: #111 !important;
+  margin: 12px 0;
+  font:
+    400 15px/18px Arial,
+    sans-serif;
+}
+
+.client-booking-checkbox a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.client-trip-booking-form .client-payment-submit {
+  /* display: block;
+  width: 75px;
+  margin: 12px auto 0;
+  padding: 4px 8px;
+  font: 400 15px/18px Arial, sans-serif; */
+  display: inline-block;
+  min-width: auto !important;
+  padding: 6px 12px !important;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.client-payment-tips {
+  width: 100%;
+  margin-top: 33px;
+  padding: 0;
+  background: transparent;
+  color: #111;
+}
+
+.client-payment-tips h3 {
+  margin: 0 0 20px;
+  padding: 4px;
+  background: #1c70c3;
+  color: #fff;
+  font:
+    700 15px/20px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-payment-tips ol {
+  margin: 0 0 10px;
+  padding: 0 0 0 40px;
+  color: #111;
+}
+
+.client-payment-tips li {
+  margin: 0;
+  color: #111;
+  font:
+    400 15px/18px Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.client-payment-tips a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .client-book-trip-selector {
+    display: block;
+  }
+
+  .client-book-trip-selector label,
+  .client-book-trip-selector select {
+    display: block;
+    width: 100%;
+  }
+
+  .client-book-trip-selector select {
+    min-width: 0;
+    margin-top: 8px;
+  }
+
+  .client-payment-form-wrap {
+    padding: 20px;
+  }
+}
+
+.client-static-description [style*="font-family:latoregular"],
+.client-static-description [style*="font-family: latoregular"],
+.client-static-description [style*="font-family:latomedium"],
+.client-static-description [style*="font-family: latomedium"],
+.client-static-description [style*="font-family:latolight"],
+.client-static-description [style*="font-family: latolight"] {
+  font-family: "Alpen Lato", Arial, sans-serif !important;
+}
+
+.client-static-description img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.client-static-description img[style*="left"],
+.client-static-description img.left_align {
+  margin: 0 20px 20px 0 !important;
+}
+
+.client-static-description img[style*="right"],
+.client-static-description img.right_align {
+  margin: 0 0 20px 20px !important;
+}
+
+.client-static-description .pull-right {
+  float: right;
+}
+
+.client-static-description .pull-left {
+  float: left;
+}
+
+.client-static-description .right-img,
+.client-static-description .right-img.entryImg {
+  float: right !important;
+  margin: 10px 0 20px;
+}
+
+.client-static-description .right-img img[style*="right"] {
+  margin: 0 !important;
+}
+
+.client-static-description .left-img,
+.client-static-description .left-img.entryImg {
+  float: left !important;
+  margin: 0 20px 20px 0;
+}
+
+.client-static-description .row.img-align {
+  display: block;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.client-static-description .row.img-align::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.client-static-description .row.img-align>.col-md-4 {
+  width: 33.333333%;
+  float: right;
+}
+
+.client-static-description .row.img-align>.col-md-4.pull-center {
+  float: left;
+}
+
+.client-static-description .row.img-align>.col-md-8 {
+  width: 66.666667%;
+  float: left;
+}
+
+.client-static-description iframe {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+
+.client-static-description h1,
+.client-static-description h2,
+.client-static-description h3,
+.client-static-description h4 {
+  color: #111010;
+  font-family: "Alpen Lato", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.client-static-description h2 {
+  margin: 0 0 20px;
+  font-size: 21px;
+  line-height: 24px;
+}
+
+.client-static-description h3 {
+  margin: 0 0 20px;
+  font-size: 19px;
+  line-height: 22px;
+}
+
+.client-static-description ul,
+.client-static-description ol {
+  padding-left: 20px;
+}
+
+.client-static-description li {
+  margin-bottom: 8px;
+}
+
+.client-static-description p {
+  margin: 0 0 20px;
+  font-family: "Alpen Lato", Arial, sans-serif;
+}
+
+.client-static-description a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.client-static-description a:hover,
+.client-static-description a:active {
+  color: #ff7e00;
+  text-decoration: underline;
+}
+
+.client-static-description strong {
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+
+  .client-static-description img,
+  .client-static-description img[style*="left"],
+  .client-static-description img[style*="right"],
+  .client-static-description img.left_align,
+  .client-static-description img.right_align {
+    display: block;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 10px auto !important;
+  }
+
+  .client-static-description .right-img img[style*="right"] {
+    margin: 10px auto !important;
+  }
+
+  .client-static-description .pull-right,
+  .client-static-description .pull-left,
+  .client-static-description .right-img,
+  .client-static-description .left-img {
+    float: none !important;
+    margin: 10px auto !important;
+  }
+
+  .client-static-description .row.img-align {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .client-static-description .row.img-align>.col-md-4,
+  .client-static-description .row.img-align>.col-md-8 {
+    width: 100%;
+    float: none;
+  }
+
+  .client-static-related .client-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  .public-site #header #mainnav {
+    position: relative;
+    z-index: 1000;
+    overflow: visible;
+  }
+
+  .public-site #header #mainnav .client-nav {
+    overflow: visible;
+  }
+
+  .public-site #header #mainnav .client-nav-item:hover,
+  .public-site #header #mainnav .client-nav-item.open {
+    z-index: 10001;
+  }
+
+  .public-site #header #mainnav .client-dropdown {
+    z-index: 10000;
+  }
+
+  .public-site #header #mainnav .client-dropdown-nested {
+    position: fixed;
+    z-index: 10002;
+  }
+}
+
+.public-site #header #mainnav .client-nav a:link,
+.public-site #header #mainnav .client-nav a:visited,
+.public-site #header #mainnav .client-nav a:hover,
+.public-site #header #mainnav .client-nav a:focus,
+.public-site #header #mainnav .client-nav a:active {
+  text-decoration: none !important;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .client-static-related .client-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.client-calendar-year {
+  margin-bottom: 30px;
+}
+
+.client-calendar-year h2 {
+  margin: 0 0 15px;
+  color: #000;
+  font:
+    500 18px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-calendar-entry {
+  margin: 0 0 12px;
+  color: #191717;
+  font:
+    300 16px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-calendar-entry strong {
+  color: #000;
+  font-weight: 500;
+}
+
+.client-calendar-entry a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.client-calendar-entry a:hover,
+.client-calendar-entry a:active {
+  color: #ff7e00;
+  text-decoration: underline;
+}
+
+.client-calendar-status {
+  padding-left: 8px;
+  color: #555;
+  font-weight: 600;
+}
+
+.client-calendar-status.is-sold-out {
+  color: #ff0000;
+}
+
+.client-trip-map {
+  width: 100%;
+  max-width: 372px;
+  margin: 0 auto 30px;
+}
+
+.client-trip-video .client-trip-box {
+  padding-bottom: 20px;
+}
+
+.client-trip-video iframe,
+.client-trip-video video,
+.client-trip-video embed,
+.client-trip-video object {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 190px;
+  border: 0;
+}
+
+.client-trip-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.client-newsletter {
+  padding: 30px 20px 25px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  background: #fff;
+}
+
+.client-newsletter h3 {
+  margin: 0;
+  color: #1b3147;
+  font:
+    700 19px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-transform: uppercase;
+}
+
+.client-newsletter p {
+  margin: 10px 0 20px;
+  color: #191717;
+  font:
+    300 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-newsletter p a {
+  color: #1c70c3;
+  text-decoration: none;
+}
+
+.client-newsletter-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1170px;
+  margin: 0 auto 15px;
+}
+
+.client-newsletter-fields input {
+  width: 100%;
+  height: 34px;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  font:
+    14px/24px "Alpen Lato",
+    Arial,
+    sans-serif;
+  color: #111;
+  box-sizing: border-box;
+}
+
+.client-interests {
+  max-width: 1170px;
+  margin: 0 auto 20px;
+  text-align: left;
+  color: #000;
+  font:
+    400 16px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-interests strong {
+  display: inline-block;
+  padding-right: 15px;
+  font-weight: 700;
+}
+
+.client-interests label {
+  display: inline-block;
+  margin-right: 12px;
+  font-weight: 400;
+}
+
+.client-interests input {
+  width: 13px;
+  height: 13px;
+  margin: 0 5px 0 0;
+  vertical-align: -1px;
+}
+
+.client-button {
+  display: inline-block;
+  padding: 11px 20px;
+  background: #1b3147;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 24px;
+  min-width: 250px;
+  cursor: pointer;
+}
+
+.client-button:hover {
+  background: #284b6d;
+  color: #fff;
+}
+
+.client-footer-partners {
+  padding: 20px 20px;
+  background: #fff;
+}
+
+.client-footer-partners-inner {
+  max-width: 1170px;
+  min-height: 60px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.client-partner-logos {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.client-partner-logos img {
+  max-width: 145px;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.client-social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #505050;
+  font-size: 16px;
+}
+
+.client-social a {
+  color: #505050;
+  font-size: 22px;
+  transition: color 0.2s ease;
+}
+
+.client-social a:hover {
+  color: #000;
+}
+
+.client-footer {
+  background: #1b3147;
+  color: #c6d0cf;
+  font-family: "Alpen Lato", Arial, sans-serif;
+  font-weight: 300;
+  padding: 10px 0;
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+.client-footer-main {
+  display: grid;
+  grid-template-columns: 190px repeat(3, 1fr);
+  grid-template-rows: 163px auto;
+  column-gap: 5px;
+  row-gap: 24px;
+  padding: 10px 0;
+}
+
+.client-footer-main>a img {
+  width: 95px;
+  max-width: 100%;
+}
+
+.client-footer-group h4 {
+  color: #fff;
+  font:
+    400 19px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+  font-weight: 600;
+  margin: 0 0 15px;
+}
+
+.client-footer-group:nth-of-type(-n + 3) {
+  position: relative;
+  top: 37px;
+}
+
+.client-footer-group ul {
+  list-style: disc;
+  margin: 0;
+  padding: 0 0 0 25px;
+}
+
+.client-footer-group li {
+  margin: 0 0 5px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.client-footer-group:nth-of-type(4) {
+  grid-column: 2;
+}
+
+.client-footer-group:nth-of-type(5) {
+  grid-column: 3;
+}
+
+.client-footer-group a {
+  color: #fff;
+  margin-right: 5px;
+  padding-left: 5px;
+  text-decoration: none;
+}
+
+.client-footer-group a:hover {
+  color: #999;
+  text-decoration: none;
+}
+
+.client-copyright {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0;
+  text-align: center;
+  color: #fff;
+  font:
+    300 15px/18px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-mobile-bar,
+.client-mobile-search-form {
+  display: none;
+}
+
+#mob-search_box {
+  position: absolute;
+  top: 58px;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  padding: 8px 18px 12px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+#mob-search_box .search_box {
+  display: flex;
+  width: 100%;
+}
+
+#mob-search_box .search_box input {
+  min-width: 0;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d8dfdb;
+}
+
+.client-mobile-search-form button,
+#mob-search_box .search_box button {
+  width: 42px;
+  border: 1px solid #d8dfdb;
+  background: #f7f7f7 url("/images/search_icon.png") no-repeat center center;
+}
+
+.client-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 30px 15px;
+  box-sizing: border-box;
+  background: #000000cc;
+  animation: client-fade-in 0.2s ease;
+}
+
+.client-modal {
+  position: relative;
+  width: min(475px, 100%);
+  overflow: visible;
+  flex: 0 0 auto;
+  padding: 30px 30px 10px;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 35%);
+  animation: client-modal-in 0.25s ease;
+}
+
+.client-modal.client-print-modal {
+  width: min(475px, 100%);
+}
+
+.client-callback-form {
+  padding: 0;
+}
+
+/* .client-header-form .form_holder {
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+} */
+
+/* .client-header-form .form_holder label {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  color: #333;
+  font:
+    400 16px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+} */
+
+.client-header-form .form_holder input:not([type="checkbox"]),
+.client-header-form .form_holder select {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  padding: 5px;
+  border: 1px solid #b2b2b2;
+  border-radius: 0;
+  background: #f3f2f2;
+  color: #333;
+  font:
+    400 16px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-finder-select {
+  position: relative;
+}
+
+.client-finder-select-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  padding: 5px 8px;
+  border: 1px solid #b2b2b2;
+  border-radius: 0;
+  background: #f3f2f2;
+  color: #536878;
+  font:
+    400 14px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+  text-align: left;
+}
+
+.client-finder-select-control i {
+  color: #000;
+  font-size: 12px;
+}
+
+.client-finder-options {
+  position: absolute;
+  z-index: 3;
+  top: 40px;
+  left: 0;
+  display: none;
+  width: 100%;
+  max-height: 372px;
+  overflow-y: auto;
+  padding: 3px 0;
+  border: 1px solid #aaa;
+  background: #fff;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 18%);
+}
+
+.client-finder-select.is-open .client-finder-options {
+  display: block;
+}
+
+.client-finder-option {
+  display: flex !important;
+  align-items: center;
+  width: 100% !important;
+  min-height: 27px;
+  margin: 0 !important;
+  color: #000 !important;
+  padding: 2px 18px;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  cursor: pointer;
+
+  & span {
+    color: #000 !important;
+  }
+}
+
+.client-finder-option:hover {
+  background: #f1f1f1;
+}
+
+.client-finder-option input {
+  display: inline-block !important;
+  width: 13px !important;
+  min-height: 13px !important;
+  height: 13px !important;
+  margin: 0 8px 0 0;
+  padding: 0 !important;
+}
+
+/* .client-finder-all {
+  border: 2px solid #222;
+  padding-left: 17px;
+} */
+
+.client-newsletter-interests .checkbox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 0 8px;
+
+  & label {
+    width: fit-content;
+    font-size: 13px;
+    color: #666;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0 0 0 5px;
+  }
+
+  & input {
+    position: static;
+    margin: 0;
+  }
+}
+
+.chkwrap {
+  display: flex;
+  align-items: center;
+
+  & .checkbox {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+
+    & label {
+      width: fit-content;
+      margin: 0;
+      padding: 0 0 0 5px;
+    }
+
+    & input {
+      position: static;
+      margin: 0;
+    }
+  }
+}
+
+.no-result {
+  margin-left: 18px;
+}
+
+/*.client-newsletter-interests .checkbox-inline input {
+  display: inline-block !important;
+  width: auto !important;
+  min-height: 0 !important;
+  margin-right: 5px;
+  vertical-align: middle;
+} */
+
+.enjoyBox .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.enjoyBox .container .gridCol .trip_type h2 {
+  font-weight: 600;
+  text-align: center;
+}
+
+.client-header-form-submit {
+  margin-bottom: 0 !important;
+}
+
+.client-header-form-submit p {
+  margin: 0 0 12px;
+}
+
+.client-modal .client-form-error {
+  color: #a94442;
+}
+
+.client-modal .client-form-success {
+  color: #3c763d;
+}
+
+.client-modal .client-form-status {
+  color: #536878;
+}
+
+.client-modal .client-form-retry {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #1c70c3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.client-header-form-submit button {
+  display: table;
+  float: right;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 0;
+  background: #1c70c3;
+  color: #fff;
+  font:
+    400 17px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-header-form-submit button:hover {
+  background: #121212;
+}
+
+.client-header-form-submit button:disabled,
+.client-callback-submit button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.client-callback-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.client-callback-field label {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  color: #333;
+  font:
+    400 16px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-callback-field input,
+.client-callback-field textarea {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #b2b2b2;
+  border-radius: 0;
+  background: #f3f2f2;
+  color: #333;
+  font:
+    400 16px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-callback-field textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.client-callback-trap {
+  display: none !important;
+}
+
+.client-callback-submit {
+  margin-bottom: 0;
+}
+
+.client-callback-submit button {
+  display: table;
+  float: right;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 0;
+  background: #1c70c3;
+  color: #fff;
+  font:
+    400 17px/21px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-callback-submit button:hover {
+  background: #121212;
+}
+
+@media (max-width: 767px) {
+  .client-modal-backdrop {
+    padding: 10px;
+  }
+}
+
+.client-modal h2 {
+  margin: 0 0 12px;
+  color: #354e56;
+  font:
+    400 30px Georgia,
+    serif;
+}
+
+.client-modal p {
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+
+.client-modal-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.client-modal-close i {
+  display: block;
+}
+
+@keyframes client-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes client-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 991px) {
+  .public-site {
+    border-top-width: 5px;
+  }
+
+  .client-mobile-bar {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+  }
+
+  .client-mobile-logo img {
+    width: 150px;
+  }
+
+  .client-menu-toggle,
+  .client-mobile-search,
+  .client-mobile-phone {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    background: transparent;
+    color: #53656c;
+    cursor: pointer;
+  }
+
+  .client-mobile-phone {
+    display: grid;
+    place-items: center;
+    color: #53656c;
+  }
+
+  .client-menu-toggle {
+    display: grid;
+    align-content: center;
+    gap: 5px;
+  }
+
+  .client-menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.2s ease;
+  }
+
+  .client-menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .client-menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .client-menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .client-mobile-search-form {
+    display: flex;
+    padding: 8px 18px 12px;
+    border-top: 1px solid #eee;
+  }
+
+  .client-mobile-search-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d8dfdb;
+  }
+
+  .client-mobile-search-form button {
+    width: 42px;
+    border: 1px solid #d8dfdb;
+    background: #f7f7f7 url("/images/search_icon.png") no-repeat center center;
+  }
+
+  /* .client-header-main {
+    display: none;
+  } */
+
+  /* .client-header.is-compact .client-mobile-bar {
+    min-height: 48px;
+  } */
+  /* .client-header-tools {
+    display: none;
+  } */
+
+  .client-logo {
+    margin: auto;
+  }
+
+  .client-nav {
+    display: none;
+    padding: 0;
+    border-bottom: 0;
+    background: #0e0e0e;
+  }
+
+  .client-nav.mobile-open {
+    display: block;
+    max-height: calc(100vh - 58px);
+    max-height: calc(100dvh - 58px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .client-nav a {
+    display: block;
+    padding: 13px 18px;
+    margin: 0;
+    color: #fff;
+    border-top: 1px solid #ffffff1c;
+    font-size: 14px;
+  }
+
+  .client-nav-item>a {
+    padding: 13px 18px;
+  }
+
+  .client-nav>.client-nav-item {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .client-nav>.client-nav-item:first-child>a {
+    padding-left: 18px;
+  }
+
+  .client-dropdown {
+    position: static;
+    width: 100%;
+    padding: 0 15px;
+    border-top: 1px solid #78787833;
+    border-bottom: 0;
+    background: #333;
+    box-shadow: none;
+  }
+
+  .client-dropdown-nested {
+    position: static;
+    top: auto;
+    left: auto;
+    padding-left: 15px;
+    background: #292929;
+    border-top: 1px solid #78787833;
+  }
+
+  .client-dropdown a {
+    padding: 8px 17px;
+    border-bottom: 1px solid #78787833;
+    color: #ddd;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .client-nav a:hover {
+    background: #222;
+  }
+
+  .client-carousel,
+  .client-banner>a>img {
+    height: 360px;
+  }
+
+  .client-banner {
+    height: 360px;
+  }
+
+  .client-detail-banner {
+    height: 360px;
+    margin-top: 15px;
+  }
+
+  /* .client-detail-banner-copy h1 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .client-detail-banner-copy p {
+    font-size: 16px;
+    line-height: 22px;
+  } */
+
+  .client-trip-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  /* .client-trip-sidebar {
+    border-right: 0;
+    padding-bottom: 25px;
+  } */
+
+  .client-trip-tabs {
+    text-align: center;
+  }
+
+  /* .client-trip-tabs a {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #979797;
+  } */
+
+  .client-trip-right {
+    text-align: left;
+  }
+
+  .client-trip-map {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* .client-trip-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  } */
+
+  /* .client-trip-card-info h3 {
+    font-size: 17px;
+    line-height: 21px;
+  }
+
+  .client-trip-card-info p {
+    min-height: 0;
+  } */
+
+  .client-banner-copy {
+    left: 25px;
+    top: 23%;
+    right: 20px;
+  }
+
+  .client-banner-copy h1 {
+    font-size: 42px;
+  }
+
+  .client-carousel-controls button {
+    width: 34px;
+    height: 58px;
+    font-size: 36px;
+  }
+
+  .client-carousel-controls button:first-child {
+    left: 10px;
+  }
+
+  .client-carousel-controls button:last-child {
+    right: 10px;
+  }
+
+  .client-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .client-newsletter-fields {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .client-interests {
+    text-align: left;
+  }
+
+  .client-interests strong,
+  .client-interests label {
+    display: block;
+    margin: 7px 0;
+  }
+
+  .client-footer-partners-inner {
+    display: block;
+  }
+
+  .client-partner-logos {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .client-social {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .client-footer-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .client-footer-group:nth-of-type(4),
+  .client-footer-group:nth-of-type(5) {
+    grid-column: auto;
+  }
+
+  .client-footer-group:nth-of-type(-n + 3) {
+    top: 0;
+  }
+
+  .client-footer-main>a {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+}
+
+/* @media (min-width: 768px) and (max-width: 991px) {
+  .client-trip-listing .client-trip-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .client-trip-listing .client-trip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .client-trip-listing .client-trip-grid {
+    grid-template-columns: 1fr;
+  }
+} */
+
+@media (max-width: 767px) {
+  .client-modal.client-print-modal {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+.client-shop-page {
+  padding-top: 36px;
+  padding-bottom: 45px;
+}
+
+/* .client-shop-page>h1,
+.client-shop-product h1 {
+  margin: 0 0 24px;
+  color: #1b3147;
+} */
+
+/* .client-shop-product {
+  padding-top: 30px;
+  padding-bottom: 45px;
+} */
+
+.client-shop-breadcrumb {
+  margin-bottom: 20px;
+}
+
+.prdctDetailBox .prdctPic {
+  border: 1px solid rgba(50, 50, 50, 0.07);
+  padding: 15px;
+  margin: 0 auto 15px;
+}
+
+.product-title-style h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.prdctDetailBox .prdctId {
+  font-size: 16px;
+  color: #1b3147;
+}
+
+.prdctPrice {
+  color: #1b3147;
+}
+
+.prdctPrice span {
+  font-size: 35px;
+  color: #1c70c3;
+}
+
+.quan-block {
+  padding: 25px 0;
+  border-top: rgba(50, 50, 50, 0.07) solid 1px;
+}
+
+.quan {
+  float: left;
+  margin-right: 10px;
+}
+
+.prdctDetailBox .prdctDesc .quan label {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 15px;
+  width: auto;
+  margin-right: 15px;
+}
+
+.prdctDesc .quan input[type="number"] {
+  width: 80px;
+  border: 1px solid #ebebeb;
+  padding: 5px 10px;
+  line-height: 20px;
+  height: 44px;
+  text-align: center;
+}
+
+.addto {
+  float: left;
+}
+
+.button-style {
+  background: #1c70c3;
+  padding: 11px 20px;
+  color: #fff;
+  font-size: 17px;
+  line-height: 21px;
+  float: left;
+  display: block;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background: #1b3147;
+    color: #ffffff;
+  }
+}
+
+.button-type {
+  background: #1c70c3;
+  padding: 11px 20px;
+  color: #fff;
+  font-size: 17px;
+  line-height: 21px;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background: #1b3147;
+    color: #ffffff;
+    text-decoration: none;
+  }
+}
+
+.prdctDetailBox .bx-next,
+.prdctDetailBox .bx-prev {
+  margin-top: -31px;
+}
+
+.description-style {
+  padding-top: 30px;
+  padding-bottom: 15px;
+  margin-top: 35px;
+  border-top: rgba(50, 50, 50, 0.1) solid 1px;
+  border-bottom: rgba(50, 50, 50, 0.1) solid 1px;
+}
+
+.description-style h3.text-uppercase {
+  text-transform: uppercase;
+  color: #1b3147;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.cart-table-cover {
+  width: 100%;
+  overflow: auto;
+}
+
+.checkout-table {
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  border-collapse: collapse;
+}
+
+.checkout-table>thead>tr>th h4 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #1b3147;
+  text-transform: uppercase;
+}
+
+.checkout-table>thead>tr>th,
+.checkout-table>tbody>tr>td {
+  border: 1px solid rgba(50, 50, 50, 0.2);
+}
+
+.img-wrap {
+  padding: 3px;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  display: inline-block;
+}
+
+.cartQuan input[type="text"] {
+  width: 40px;
+  border: 1px solid #ebebeb;
+  padding: 5px 10px;
+  line-height: 20px;
+  height: 40px;
+  text-align: center;
+}
+
+.coupon-table>tbody>tr>td {
+  border-top: 1px solid rgba(50, 50, 50, 0.2);
+  border-bottom: 1px solid rgba(50, 50, 50, 0.2);
+  padding: 20px 0;
+}
+
+.coupon-table input[type="text"],
+.place-order input[type="email"] {
+  width: 200px;
+  border: 1px solid #ebebeb;
+  padding: 5px 10px;
+  line-height: 20px;
+  height: 44px;
+}
+
+.total-table {
+  width: 100%;
+  max-width: 400px;
+  float: right;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  border-collapse: collapse;
+}
+
+.total-table>tbody>tr>td {
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  padding: 5px 15px;
+}
+
+.total-table>tbody>tr>td h4 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #1b3147;
+  text-transform: uppercase;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* .client-shop-product-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 25px;
+} */
+
+.client-shop-gallery,
+.client-shop-product-info {
+  min-width: 0;
+}
+
+.client-shop-main-image {
+  display: block;
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border: 1px solid #eee;
+  padding: 12px;
+}
+
+.client-shop-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.client-shop-thumbnails button {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.client-shop-thumbnails img {
+  width: 76px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.client-shop-price {
+  color: #1c70c3;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.client-shop-field,
+.client-shop-address>label {
+  display: block;
+  margin: 0 0 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.client-shop-field input,
+.client-shop-field select,
+.client-shop-address input,
+.client-contest-form input:not([type="checkbox"]),
+.client-contest-form select,
+.client-contest-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.client-shop-cart-link {
+  margin-left: 16px;
+}
+
+.client-shop-description {
+  grid-column: 1 / -1;
+  padding: 25px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.client-shop-cart-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.client-shop-cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.client-shop-cart-table th,
+.client-shop-cart-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.client-shop-cart-table th {
+  color: #1b3147;
+  text-transform: uppercase;
+}
+
+.client-shop-cart-table td img {
+  display: block;
+  width: 90px;
+  height: 67px;
+  margin-bottom: 6px;
+  object-fit: contain;
+}
+
+.client-shop-cart-table input {
+  width: 70px;
+  min-height: 38px;
+  padding: 5px;
+  text-align: center;
+}
+
+.client-shop-coupon,
+.client-shop-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.client-shop-coupon input {
+  min-height: 42px;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.client-shop-totals {
+  width: min(100%, 400px);
+  margin-left: auto;
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+}
+
+.client-shop-totals p {
+  margin: 8px 0;
+}
+
+.client-shop-totals strong {
+  display: block;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.client-shop-actions {
+  justify-content: flex-end;
+}
+
+.client-shop-empty {
+  padding: 25px;
+  border: 1px solid #ddd;
+}
+
+.client-shop-checkout-form {
+  display: grid;
+  gap: 22px;
+  max-width: 900px;
+  margin-top: 25px;
+}
+
+.client-shop-address {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid #ddd;
+}
+
+.client-shop-address legend {
+  float: none;
+  width: auto;
+  margin: 0;
+  padding: 0 8px;
+  color: #1b3147;
+  font-size: 20px;
+}
+
+.client-shop-same-address,
+.client-shop-terms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.client-shop-order-summary {
+  max-width: 600px;
+  padding: 18px;
+  border: 1px solid #ddd;
+}
+
+.client-shop-order-summary h2 {
+  margin-top: 0;
+}
+
+.client-shop-notice {
+  margin: 12px 0;
+  padding: 12px;
+  background: #dff0d8;
+  color: #3c763d;
+}
+
+.client-contest {
+  margin: 30px 0;
+}
+
+.client-contest-tabs,
+.client-contest-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.client-contest-tabs button,
+.client-contest-filters button {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.client-contest-tabs button.active {
+  border-bottom-color: #1c70c3;
+  background: #1c70c3;
+  color: #fff;
+}
+
+.client-contest-form {
+  display: grid;
+  gap: 18px;
+}
+
+.client-contest-form>label,
+.client-contest-entry>label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.client-contest-contact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+.client-contest-entry {
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+
+.client-contest-entry legend {
+  float: none;
+  width: auto;
+  padding: 0 8px;
+  color: #5b681b;
+}
+
+.client-contest-entry small {
+  display: block;
+  margin: -6px 0 12px;
+}
+
+.client-contest-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.client-contest-gallery article {
+  min-width: 0;
+}
+
+.client-contest-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  /* .client-shop-product-layout,
+  .client-shop-address,
+  .client-contest-contact {
+    grid-template-columns: 1fr;
+  } */
+
+  .client-shop-description {
+    grid-column: auto;
+  }
+
+  .client-contest-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

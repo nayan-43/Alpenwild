@@ -1,0 +1,1189 @@
+/* ==========================================================================
+   Alpenwild – legacy PHP parity layer (public site)
+   --------------------------------------------------------------------------
+   Source of truth (declarations copied verbatim from the PHP project):
+     css/bootstrap.css            -> Bootstrap 3 layout and component classes
+     css/style-8.css              -> homepage, carousel, cards, footer
+     css/responsive5.css          -> responsive overrides
+     css/common-for-all_17.css    -> mobile header, newsletter, <=767px rules
+     header.php / footer.php      -> inline <style> blocks
+   The legacy stylesheets are loaded in that order, so the order of the rules
+   below mirrors it: later blocks win on equal specificity, exactly like PHP.
+   The Bootstrap grid is provided by frontend/public/vendor/bootstrap.css;
+   these styles cover the remaining public-site legacy components.
+   ========================================================================== */
+
+/* Responsive images (bootstrap.css) */
+.public-site img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: 0;
+}
+
+/* PHP testimonials page: alternating Bootstrap-style testimonial panels. */
+.public-site .client-testimonials-list {
+  width: 100%;
+  padding: 0 !important;
+  margin-bottom: 50px;
+}
+
+.public-site .client-testimonials-list blockquote {
+  margin: 15px 0 0;
+  padding: 10px;
+  border: 2px solid #fff;
+}
+
+.public-site .client-testimonials-list blockquote.even {
+  background: #1c70c3;
+}
+
+.public-site .client-testimonials-list blockquote.odd {
+  background: #59a8f6;
+}
+
+.public-site .client-testimonials-list blockquote p {
+  margin: 0 0 10px;
+  color: #fff;
+  line-height: 24px;
+}
+
+.public-site .client-testimonials-list blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* CMS static-page descriptions use the Bootstrap row/column markup emitted by PHP. */
+.public-site .client-static-description .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.public-site .client-static-description .row>[class*="col-"] {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
+}
+
+.public-site .client-static-description .pull-right {
+  float: right;
+}
+
+@media (min-width: 768px) {
+  .public-site .client-static-description .row>.col-sm-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .public-site .client-static-description .row>.col-md-4 {
+    width: 33.33333333%;
+  }
+
+  .public-site .client-static-description .row>.col-md-8 {
+    width: 66.66666667%;
+  }
+
+  .public-site .client-static-description .row>.pull-right {
+    float: right;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Legacy header values, mapped onto the React header markup
+      (#header.fixed is 109px tall on the PHP site:
+       header_top 67px = 5px padding + 60px logo, nav 42px = 10px + 31px + 1px)
+   -------------------------------------------------------------------------- */
+.public-site .client-header {
+  background: #fff;
+  box-shadow: none;
+  z-index: 999;
+}
+
+/* .public-site .client-header-main {
+  min-height: 67px;
+} */
+
+/* .public-site .client-logo img {
+  width: 285px;
+  height: 60px;
+  margin-top: 5px;
+} */
+
+/* .public-site .client-header-tools nav a {
+  padding-left: 0;
+  margin-left: 13px;
+  color: #3f3f3f;
+  font:
+    300 17px/21px "Alpen Lato",
+    Arial,
+    Helvetica,
+    sans-serif;
+  text-decoration: none;
+}
+
+.public-site .client-header-tools nav a:first-child {
+  margin-left: 0;
+}
+
+.public-site .client-header-tools nav a:not(:first-child)::before {
+  content: "|";
+  position: absolute;
+  left: -13px;
+  color: #3f3f3f;
+  font:
+    300 14px/21px "Alpen Lato",
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.public-site .client-header-tools nav a:hover {
+  color: #262626;
+  text-decoration: none;
+} */
+
+/* .public-site .client-phone {
+  color: #262626;
+  font:
+    400 18px/21px "Alpen Lato",
+    Arial,
+    Helvetica,
+    sans-serif;
+  user-select: none;
+} */
+
+/* .public-site .client-header-tools form {
+  width: 200px;
+  height: auto;
+  margin-left: 15px;
+  padding: 5px 10px;
+  border: 1px solid #e5e5e5;
+  background: #f9f9f9;
+} */
+
+.public-site .client-header-tools input:not([type="submit"]) {
+  width: 85%;
+  flex: none;
+  padding: 2px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: 0 0;
+  color: #111;
+  font:
+    300 14px/21px "Alpen Lato",
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+/* .public-site .client-header-tools button {
+  width: 28px;
+  height: 23px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #63727a;
+  font-size: 14px;
+  line-height: 23px;
+  cursor: pointer;
+} */
+
+/* .public-site .client-nav {
+  padding: 10px 0 0;
+  min-height: 42px;
+  border-bottom: 1px solid #aeaeae;
+  background: #fff;
+} */
+
+#mainnav ul ul li a>.submenuIcon {
+  position: absolute;
+  width: 40px;
+  height: 100%;
+  right: 0;
+  top: 0;
+  text-align: center;
+  line-height: 40px;
+  border-left: 1px solid #ddd;
+}
+
+.public-site .client-nav a {
+  padding: 5px 23px 5px 17px;
+  color: #000;
+  font:
+    400 18px/21px "Alpen Lato",
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.public-site .client-nav>.client-nav-item:first-child>a {
+  padding-left: 0;
+}
+
+.public-site .client-nav a:hover,
+.public-site .client-nav>.client-nav-item:hover>a {
+  color: #1492ef;
+}
+
+.public-site .client-nav-item>a .nav-chevron {
+  position: absolute;
+  top: 8px;
+  right: 11px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+  transform: none;
+  color: #666;
+  font: normal normal normal 17px/1 FontAwesome;
+}
+
+.public-site .client-nav-item>a .nav-chevron::before {
+  content: "\f107";
+}
+
+.public-site .client-nav-nested-item>a .nav-chevron::before {
+  content: "\f105";
+}
+
+.public-site .client-dropdown {
+  width: 300px;
+  padding: 15px;
+  background: #fff;
+  border-top: #1492ef solid 3px;
+  border-bottom: #1492ef solid 3px;
+  box-shadow: 0 2px 5px 2px rgb(255 255 255 / 40%);
+}
+
+.public-site .client-dropdown a {
+  padding: 5px 17px;
+  color: #000;
+  font-size: 16px;
+  line-height: 31px;
+  border-bottom: 1px solid rgb(150 150 150 / 30%);
+}
+
+.public-site .client-dropdown a:hover {
+  color: #1492ef;
+}
+
+/* --------------------------------------------------------------------------
+   3. Homepage carousel + banner (style-8.css + bootstrap.css, PHP index.php)
+   -------------------------------------------------------------------------- */
+.public-site .homepage_carousel {
+  width: 100%;
+  float: left;
+  margin-bottom: 35px;
+}
+
+.public-site .carousel {
+  position: relative;
+}
+
+.public-site .carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.public-site .carousel-inner>.item {
+  position: relative;
+  display: none;
+  transition: transform 0.6s ease-in-out;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.public-site .carousel-inner>.item.next,
+.public-site .carousel-inner>.item.active.right {
+  left: 0;
+  transform: translate3d(100%, 0, 0);
+}
+
+.public-site .carousel-inner>.item.prev,
+.public-site .carousel-inner>.item.active.left {
+  left: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.public-site .carousel-inner>.item.next.left,
+.public-site .carousel-inner>.item.prev.right,
+.public-site .carousel-inner>.item.active {
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+.public-site .carousel-inner>.active,
+.public-site .carousel-inner>.next,
+.public-site .carousel-inner>.prev {
+  display: block;
+}
+
+.public-site .carousel-inner>.active {
+  left: 0;
+}
+
+.public-site .carousel-inner>.next,
+.public-site .carousel-inner>.prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.public-site .carousel-inner>.next {
+  left: 100%;
+}
+
+.public-site .carousel-inner>.prev {
+  left: -100%;
+}
+
+.public-site .carousel-inner>.next.left,
+.public-site .carousel-inner>.prev.right {
+  left: 0;
+}
+
+.public-site .carousel-inner>.active.left {
+  left: -100%;
+}
+
+.public-site .carousel-inner>.active.right {
+  left: 100%;
+}
+
+/* Legacy banner thumbnail sizing is reproduced with the same CSS crop. */
+.public-site .homepage_carousel .carousel-inner>.item {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.public-site .carousel-inner>.item>img,
+.public-site .carousel-inner>.item>a>img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1170 / 569;
+  object-fit: cover;
+  line-height: 1;
+}
+
+.public-site .carousel-indicators {
+  display: none;
+}
+
+.public-site .carousel-control {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 71px;
+  padding-top: 20px;
+  border: 0;
+  background-color: rgb(255 255 255 / 90%);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.5;
+  transform: translateY(-50%);
+}
+
+.public-site .carousel-control:hover,
+.public-site .carousel-control:focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  opacity: 0.9;
+}
+
+.public-site .carousel-control.left {
+  left: 2%;
+}
+
+.public-site .carousel-control.right {
+  left: auto;
+  right: 2%;
+}
+
+.public-site .carousel-control>img {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Banner text block, photo-credit tooltip and the "learn more" button.
+   The PHP site inherits `proxima_nova_rgregular` for h1, but that font has no
+   @font-face/file in the project, so PHP actually renders h1 in Arial. */
+/* .public-site .banner_txt {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 30px;
+  color: #fff;
+  text-align: left;
+  background: url("/images/banner_shadow.png") center bottom repeat-x;
+} */
+
+/* .public-site .banner_txt h1 {
+  width: 100%;
+  margin: 0 0 25px;
+  padding: 0 0 15px;
+  position: relative;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 60px;
+}
+
+.public-site .banner_txt h1::after {
+  content: "";
+  width: 100%;
+  max-width: 900px;
+  height: 1px;
+  border: none;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.public-site .banner_txt p {
+  margin: 0 0 8px;
+  display: block;
+  color: #f0f0f0;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 30px;
+} */
+
+.public-site .homepage_carousel .fa {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  padding: 0;
+  border: 0;
+  background: 0 0;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.public-site .homepage_carousel .banner_content {
+  position: absolute;
+  right: 30px;
+  bottom: 25px;
+  display: none;
+  max-width: 444px;
+  padding: 15px 30px;
+  background: #fff;
+  z-index: 9999;
+}
+
+.public-site .homepage_carousel .banner_content p,
+.public-site .homepage_carousel .banner_content .openit p {
+  margin-bottom: 0;
+  color: #191717;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/* footer.php inline <style> – the tooltip only shows on the active slide */
+.public-site .homepage_carousel .carousel-inner>.item.active .openit {
+  display: block;
+}
+
+.public-site .learn_more_btn {
+  position: absolute;
+  right: 60px;
+  bottom: 39px;
+  display: table;
+  padding: 5px 10px;
+  border: #fff solid 1px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.public-site .learn_more_btn:hover {
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+}
+
+/* --- Responsive, in the exact legacy cascade order: style-8.css, then
+       responsive5.css, then common-for-all_17.css ------------------------- */
+@media (max-width: 1200px) {
+  /* .public-site .banner_txt {
+    padding: 50px 30px 65px;
+  } */
+
+  .public-site .learn_more_btn {
+    bottom: 16px;
+    left: 30px;
+  }
+}
+
+/* @media (max-width: 991px) {
+  .public-site .banner_txt h1 {
+    font-size: 35px;
+    line-height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .public-site .banner_txt p {
+    font-size: 20px;
+    line-height: 25px;
+  }
+} */
+
+@media (max-width: 768px) {
+  .public-site .learn_more_btn {
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .public-site .homepage_carousel .banner_content {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-site .homepage_carousel .banner_txt {
+    padding: 15px 2px 65px;
+  }
+
+  .public-site .homepage_carousel .carousel-inner>.item {
+    min-height: 300px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .public-site .homepage_carousel .carousel-inner>.item img {
+    display: none;
+  }
+
+  /* .public-site .banner_txt {
+    padding: 15px 0 10px;
+  }
+
+  .public-site .banner_txt h1,
+  .public-site .banner_txt p {
+    width: 75%;
+    margin: 0 auto 8px;
+  } */
+}
+
+/* @media (max-width: 480px) {
+  .public-site .banner_txt {
+    background: rgb(0 0 0 / 50%);
+  }
+}
+
+@media (max-width: 360px) {
+  .public-site .banner_txt h1 {
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+
+  .public-site .banner_txt p {
+    font-size: 15px;
+    line-height: 20px;
+  }
+} */
+
+/* common-for-all_17.css comes after responsive5.css, so these win at <=767px */
+@media (max-width: 767px) {
+  .public-site .homepage_carousel .carousel-inner>.item {
+    min-height: 200px;
+  }
+
+  .public-site .homepage_carousel>.container {
+    padding: 0;
+  }
+
+  .public-site .carousel-control {
+    width: 25px;
+    height: 45px;
+    padding-top: 12px;
+    background: #fff;
+    opacity: 1;
+  }
+
+  .public-site .carousel-control>img {
+    max-width: 15px;
+  }
+
+  /* .public-site .banner_txt {
+    top: 50%;
+    bottom: auto;
+    width: 100%;
+    transform: translateY(-50%);
+    padding: 15px 30px !important;
+    background: 0 0;
+  } */
+
+  /* .public-site .banner_txt h1 {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+    border: 0;
+    text-align: center;
+    text-shadow: 0 0 3px #000;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  .public-site .banner_txt h1::after {
+    display: none;
+  }
+
+  .public-site .banner_txt p {
+    display: none;
+  }*/
+}
+
+/* @media (max-width: 320px) {
+  .public-site .banner_txt h1 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}  */
+
+/* --------------------------------------------------------------------------
+   4. Homepage body: typography baseline, sections, "Choose Your Trip Style"
+      / Special Features / Offers and Promotions cards (style-8.css, index.php)
+   -------------------------------------------------------------------------- */
+/* body{font:15px/18px proxima_nova_rgregular,Arial,...;color:#111} – the
+   proxima_nova file does not exist in the project, so PHP falls back to Arial */
+.public-site.legacy-home {
+  color: #111;
+  background: #fff;
+  font:
+    15px/18px Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.legacy-home a {
+  text-decoration: none;
+}
+
+.legacy-home a:hover {
+  color: #ff7e00;
+  text-decoration: underline;
+}
+
+/* .public-site .section {
+  background: #fff;
+  padding: 40px 0 10px;
+} */
+
+.public-site .section.gray {
+  background: #eef2f4;
+}
+
+.public-site .blue_bg {
+  background: #eef2f4;
+}
+
+.public-site .gap_small {
+  padding-bottom: 0;
+}
+
+.public-site .gap_small p {
+  margin-bottom: 4px;
+}
+
+.public-site .title h1 {
+  font-weight: 600;
+}
+
+/* .public-site .title h1,
+.public-site .title h2 {
+  margin: 0 0 20px;
+  color: #111010;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 31px;
+}
+
+.public-site .title h1::before,
+.public-site .title h2::before {
+  content: "";
+  width: 5px;
+  height: 20px;
+  background: #1c70c3;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15px;
+  margin-top: 3px;
+} */
+
+/* .public-site .trip_type {
+  width: 100%;
+  max-width: 371px;
+  margin: 0 auto 20px;
+}
+
+.public-site .trip_type:hover {
+  box-shadow: 0 0 2px 2px #cecece;
+} */
+
+/* .public-site .trip_img,
+.public-site .trip_info {
+  width: 100%;
+  float: left;
+  transition: all 0.3s ease-out;
+} */
+
+/* .public-site .trip_img {
+  overflow: hidden;
+  max-height: 183px;
+  text-align: center;
+  position: relative;
+} */
+
+/* .public-site .trip_img img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 370 / 183;
+  object-fit: cover;
+  transform: scale(1, 1);
+  transition: all 0.3s ease-out;
+} */
+
+/* .public-site .trip_type:hover .trip_img img {
+  transform: scale(1.05, 1.05);
+}
+
+.public-site .trip_type h2 {
+  float: left;
+  width: 100%;
+  margin: 17px 0 10px;
+  color: #000;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 24px;
+} */
+
+/* .public-site .trip_info {
+  padding: 0 5px 3px;
+}
+
+.public-site .trip_info p {
+  margin-bottom: 4px;
+  color: #191717;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+} */
+
+/* responsive5.css / style-8.css */
+@media (max-width: 768px) {
+  /* .public-site .title h2 {
+    font-size: 22px;
+    line-height: 25px;
+    text-align: left;
+  } */
+
+  .public-site .trip_img {
+    text-align: left;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .public-site .gridCol {
+    width: 50%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Partner logo bar + social icons (footer_top.php, style-8.css)
+   -------------------------------------------------------------------------- */
+.public-site .client_logo {
+  padding-right: 0;
+}
+
+.public-site .client_logo ul {
+  text-align: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.public-site .client_logo ul::before,
+.public-site .client_logo ul::after {
+  content: " ";
+  display: table;
+}
+
+.public-site .client_logo ul::after {
+  clear: both;
+}
+
+.public-site .client_logo ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.public-site .client_logo ul li:first-child {
+  margin-left: 0;
+}
+
+.public-site .client_logo ul li:last-child {
+  margin-right: 0;
+}
+
+.public-site .client_logo ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.public-site .footer_top_align {
+  display: flex;
+  align-items: center;
+}
+
+.public-site .client_logo ul li img {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
+.public-site .client_logo ul li:first-child img {
+  width: 85px !important;
+}
+
+.public-site .social_logo {
+  font-size: 16px;
+  line-height: 18px;
+  text-align: right;
+  padding-top: 9px;
+}
+
+.public-site .social_logo ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+
+.public-site .social_logo ul li {
+  display: inline-block;
+  margin: 0 9px 0;
+}
+
+.public-site .social_logo ul li:last-child {
+  margin-right: 0;
+}
+
+.public-site .social_logo ul li a {
+  font-size: 22px;
+  line-height: 24px;
+  color: #505050;
+}
+
+.public-site .social_logo ul li a:hover {
+  color: #000;
+}
+
+@media screen and (max-width: 1200px) {
+  .public-site .client_logo ul li {
+    float: none;
+  }
+
+  .public-site .social_logo ul li {
+    margin: 0 6px 0;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .public-site .social_logo {
+    text-align: center;
+  }
+
+  .public-site .social_logo ul {
+    float: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .public-site .client_logo ul li {
+    float: none;
+  }
+
+  .public-site .social_logo {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .public-site .client_logo ul li {
+    width: 100%;
+    margin: 0 0 10px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Newsletter sign-up (footer.php + common-for-all_17.css)
+   -------------------------------------------------------------------------- */
+.public-site .newsletter-signup {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.public-site .newsletter-signup h3 {
+  margin: 0;
+  color: #1b3147;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+
+.public-site .newsletter-signup p {
+  margin: 10px 0 20px 0;
+  color: #191717;
+  text-decoration: none;
+}
+
+.public-site .newsletter-signup .form-control {
+  width: 100%;
+  height: 34px;
+  margin: 0 0 15px 0;
+  padding: 5px 15px !important;
+  border: 1px solid #ccc;
+  border-color: #ccc;
+  border-radius: 0;
+  background: #fff;
+  color: #555;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.public-site .newsletter-signup .chkwrap {
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.public-site .newsletter-signup .chkwrap>span.flabel {
+  padding: 7px 15px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.public-site .newsletter-signup .btn {
+  display: inline-block;
+  min-width: 250px;
+  margin: 0 0 5px 0;
+  padding: 10px 15px;
+  border: 1px solid #1b3147;
+  border-color: #1b3147;
+  border-radius: 0;
+  background: #1b3147;
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* .public-site .checkbox-inline {
+  position: relative;
+  display: inline-block;
+  padding-left: 20px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  font-weight: 400;
+  cursor: pointer;
+} */
+
+/* .public-site .checkbox-inline+.checkbox-inline {
+  margin-top: 0;
+  margin-left: 10px;
+} */
+
+/* .public-site .checkbox-inline input[type="checkbox"] {
+  position: absolute;
+  margin-top: 4px;
+  margin-left: -20px;
+} */
+
+/* --------------------------------------------------------------------------
+   7. Footer (footer.php + style-8.css)
+   -------------------------------------------------------------------------- */
+.public-site footer {
+  background: #1b3147;
+  margin-top: 30px;
+  padding: 10px 0;
+  color: #fff;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.public-site footer a {
+  margin-right: 5px;
+  padding-left: 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.public-site footer a:hover {
+  color: #999;
+  text-decoration: none;
+}
+
+.public-site footer img {
+  max-width: 100%;
+  height: auto;
+}
+
+.public-site .fooler_link {
+  margin-top: 20px;
+}
+
+.public-site .fooler_link h4 {
+  margin: 0 0 15px 0;
+  color: #fff;
+  font-family: "Alpen Lato", Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.public-site .fooler_link ul {
+  width: 100%;
+  float: left;
+  margin: 0;
+  padding: 0 0 0 25px;
+  list-style: disc;
+}
+
+.public-site .fooler_link ul li {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.public-site .copy {
+  width: 100%;
+  float: left;
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+
+  .public-site .fooler_link,
+  .public-site footer {
+    text-align: left;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Mobile header bar (common-for-all_17.css `.header` / `.mob-*` values)
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .public-site .client-mobile-bar {
+    height: 50px;
+    min-height: 50px;
+    padding: 0 10px 0 40px;
+    justify-content: flex-start;
+    background: #1b3147;
+    text-align: center;
+  }
+
+  .public-site .client-mobile-bar a,
+  .public-site .client-mobile-bar button {
+    padding: 5px;
+    border: 0;
+    background: 0 0;
+    color: #fff;
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  .public-site .client-mobile-bar a:focus,
+  .public-site .client-mobile-bar a:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+  }
+
+  .public-site .client-menu-toggle {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+
+  .public-site .client-menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 3px;
+    margin: 5px 0;
+    background: #fff;
+  }
+
+  .public-site .client-mobile-logo {
+    margin-right: auto;
+  }
+
+  .public-site .client-mobile-logo img {
+    width: auto;
+    max-height: 40px;
+    margin: 0;
+  }
+
+  .public-site .client-mobile-phone {
+    order: 1;
+  }
+
+  .public-site .client-mobile-search {
+    order: 2;
+    margin-left: 10px;
+  }
+}
+
+.public-site a:focus {
+  outline: none;
+}
+
+/* --- end of parity layer --- */

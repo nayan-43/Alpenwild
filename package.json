@@ -1,0 +1,51 @@
+{
+  "name": "alpenwild-pern",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "node --watch backend/src/app.js",
+    "dev:frontend": "vite --config frontend/vite.config.js",
+    "start": "node backend/src/app.js",
+    "db:migrate": "node backend/src/migrate.js",
+    "cron:payment-reminders": "node backend/scripts/payment-reminders.js",
+    "cron:cleanup-unsuccessful-bookings": "node backend/scripts/cleanup-unsuccessful-bookings.js",
+    "format": "prettier --write \"frontend/src/**/*.{js,jsx,css}\" \"backend/src/**/*.js\" \"*.{json,md}\"",
+    "build": "vite build --config frontend/vite.config.js",
+    "test": "node --test backend/test/*.test.js"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "archiver": "^8.0.0",
+    "axios": "^1.20.0",
+    "bcryptjs": "^3.0.3",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "jquery": "^3.7.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.3.0",
+    "mysql2": "^3.24.5",
+    "nodemailer": "^10.0.2",
+    "pdfkit": "^0.20.2",
+    "pg": "^8.23.0",
+    "react-bootstrap-icons": "^1.11.6",
+    "react-router-dom": "^7.18.3",
+    "sharp": "^0.34.3",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "prettier": "^3.9.6",
+    "react": "^19.2.8",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.8",
+    "vite": "^8.2.2"
+  }
+}

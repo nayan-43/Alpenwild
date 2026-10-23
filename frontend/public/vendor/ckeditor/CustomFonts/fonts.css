@@ -1,0 +1,44 @@
+@font-face {
+	font-family: 'latolight';
+	src: url('../../../../fonts/Lato-Light-webfont.eot');
+	src: url('../../../../fonts/Lato-Light-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../../../../fonts/Lato-Light-webfont.woff2') format('woff2'),
+	url('../../../../fonts/Lato-Light-webfont.woff') format('woff'),
+	url('../../../../fonts/Lato-Light-webfont.ttf') format('truetype'),
+	url('../../../../fonts/Lato-Light-webfont.svg#latolight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'latoregular';
+	src: url('../../../../fonts/Lato-Regular-webfont.eot');
+	src: url('../../../../fonts/Lato-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../../../../fonts/Lato-Regular-webfont.woff2') format('woff2'),
+	url('../../../../fonts/Lato-Regular-webfont.woff') format('woff'),
+	url('../../../../fonts/Lato-Regular-webfont.ttf') format('truetype'),
+	url('../../../../fonts/Lato-Regular-webfont.svg#latoregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'latolight_italic';
+	src: url('../../../../fonts/Lato-LightItalic-webfont.eot');
+	src: url('../../../../fonts/Lato-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../../../../fonts/Lato-LightItalic-webfont.woff2') format('woff2'),
+	url('../../../../fonts/Lato-LightItalic-webfont.woff') format('woff'),
+	url('../../../../fonts/Lato-LightItalic-webfont.ttf') format('truetype'),
+	url('../../../../fonts/Lato-LightItalic-webfont.svg#latolight_italic') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'latomedium';
+	src: url('../../../../fonts/Lato-Medium-webfont.eot');
+	src: url('../../../../fonts/Lato-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../../../../fonts/Lato-Medium-webfont.woff2') format('woff2'),
+	url('../../../../fonts/Lato-Medium-webfont.woff') format('woff'),
+	url('../../../../fonts/Lato-Medium-webfont.ttf') format('truetype'),
+	url('../../../../fonts/Lato-Medium-webfont.svg#latomedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
