@@ -191,6 +191,7 @@ export default function PublicSite() {
       items.forEach((item) => {
         item.style.height = "auto";
       });
+      if (window.innerWidth <= 767) return;
       let group = [];
       let rowTop = null;
       const flush = () => {

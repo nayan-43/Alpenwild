@@ -714,6 +714,48 @@ export default function PublicStaticPage() {
   const boxImages = page?.box_images || [];
   const showCategoryListing = String(page?.id) === "1673";
   const videoGroups = buildPublicVideoGroups(tripTypes, trips, tripGalleries);
+  const enjoyBoxRef = useRef(null);
+
+  useEffect(() => {
+    const section = enjoyBoxRef.current;
+    if (!section || !boxImages.length) return undefined;
+
+    const equalize = () => {
+      const cards = Array.from(section.querySelectorAll(".gridCol .trip_type"));
+      cards.forEach((card) => {
+        card.style.height = "auto";
+      });
+      if (window.innerWidth <= 767) return;
+
+      const rows = new Map();
+      cards.forEach((card) => {
+        const top = card.offsetTop;
+        const row = rows.get(top) || [];
+        row.push(card);
+        rows.set(top, row);
+      });
+      rows.forEach((row) => {
+        const height = Math.max(...row.map((card) => card.offsetHeight), 0);
+        row.forEach((card) => {
+          card.style.height = `${height}px`;
+        });
+      });
+    };
+
+    const frame = window.requestAnimationFrame(equalize);
+    const images = Array.from(section.querySelectorAll("img"));
+    images.forEach((image) => image.addEventListener("load", equalize));
+    window.addEventListener("resize", equalize);
+    const observer = new ResizeObserver(equalize);
+    observer.observe(section);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      images.forEach((image) => image.removeEventListener("load", equalize));
+      window.removeEventListener("resize", equalize);
+      observer.disconnect();
+    };
+  }, [boxImages]);
 
   function handleTripSelection(event) {
     const slugValue = event.target.value;
@@ -945,7 +987,7 @@ export default function PublicStaticPage() {
         </div>
       </div>
       {boxImages.length > 0 && (
-        <section className="section enjoyBox">
+        <section className="section enjoyBox" ref={enjoyBoxRef}>
           <div className="container">
             <div className="clearfix">
               <div className="col-xs-12 title">
@@ -961,10 +1003,7 @@ export default function PublicStaticPage() {
                     className="col-md-3 col-sm-4 col-xs-12 gridCol"
                     key={box.id}
                   >
-                    <div
-                      className="trip_type clearfix"
-                      style={{ height: "260px" }}
-                    >
+                    <div className="trip_type clearfix">
                       <CardLink {...linkProps}>
                         <div className="trip_img">
                           {box.image_url && (

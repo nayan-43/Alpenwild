@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import PublicFooter from "@/components/public/PublicFooter";
 import PublicFooterExtras from "@/components/public/PublicFooterExtras";
@@ -32,6 +32,7 @@ export default function PublicTripTypePage() {
   const [publicSettings, setPublicSettings] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const tripTypeContentRef = useRef(null);
 
   useEffect(() => {
     if (!tripType) return undefined;
@@ -84,6 +85,52 @@ export default function PublicTripTypePage() {
     };
   }, [slug]);
 
+  useEffect(() => {
+    const equalizeTripCards = () => {
+      const cards = Array.from(
+        tripTypeContentRef.current?.querySelectorAll(".trip_type") || [],
+      );
+      cards.forEach((card) => {
+        card.style.height = "auto";
+      });
+      if (window.innerWidth <= 767) return;
+
+      const rows = new Map();
+      cards.forEach((card) => {
+        const row = Math.round(card.getBoundingClientRect().top);
+        const rowCards = rows.get(row) || [];
+        rowCards.push(card);
+        rows.set(row, rowCards);
+      });
+
+      rows.forEach((rowCards) => {
+        const height = Math.max(
+          ...rowCards.map((card) => card.getBoundingClientRect().height),
+        );
+        rowCards.forEach((card) => {
+          card.style.height = `${Math.ceil(height)}px`;
+        });
+      });
+    };
+
+    equalizeTripCards();
+    window.addEventListener("resize", equalizeTripCards);
+    window.addEventListener("load", equalizeTripCards);
+    const images = Array.from(
+      tripTypeContentRef.current?.querySelectorAll("img") || [],
+    );
+    images.forEach((image) => {
+      image.addEventListener("load", equalizeTripCards);
+    });
+    return () => {
+      window.removeEventListener("resize", equalizeTripCards);
+      window.removeEventListener("load", equalizeTripCards);
+      images.forEach((image) => {
+        image.removeEventListener("load", equalizeTripCards);
+      });
+    };
+  }, [tripType, trips]);
+
   return (
     <div className="public-site">
       <PublicHeader />
@@ -120,27 +167,23 @@ export default function PublicTripTypePage() {
                       </p>
                     </div>
                   </div>
-                  {tripType.tooltip_text && (
-                    <>
-                      <div
-                        className="banner_content"
-                        style={{ display: showTooltip ? "block" : "none" }}
-                      >
-                        <p>{tripType.tooltip_text}</p>
-                      </div>
-                      <button
-                        className="fa fa-camera client-trip-type-banner-camera"
-                        type="button"
-                        aria-label="Show photo credit"
-                        aria-expanded={showTooltip}
-                        onClick={() => setShowTooltip((visible) => !visible)}
-                      />
-                    </>
-                  )}
+                  <div
+                    className="banner_content"
+                    style={{ display: showTooltip ? "block" : "none" }}
+                  >
+                    <p>{tripType.tooltip_text || ""}</p>
+                  </div>
+                  <button
+                    className="fa fa-camera"
+                    type="button"
+                    aria-label="Show photo credit"
+                    aria-expanded={showTooltip}
+                    onClick={() => setShowTooltip((visible) => !visible)}
+                  />
                 </div>
               </div>
             </div>
-            <div className="section">
+            <div className="section" ref={tripTypeContentRef}>
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 title">
@@ -151,7 +194,7 @@ export default function PublicTripTypePage() {
                       className="col-md-3 col-sm-4 col-xs-6 types gridCol"
                       key={trip.id}
                     >
-                      <div className="trip_type clearfix" style={{height: "427px"}}>
+                      <div className="trip_type clearfix">
                         <Link
                           to={`/trip/${encodeURIComponent(trip.slug)}/overview`}
                         >
@@ -209,7 +252,7 @@ export default function PublicTripTypePage() {
                           className="col-md-3 col-sm-4 col-xs-12"
                           key={box.id}
                         >
-                          <div className="trip_type clearfix" style={{height: "260px"}}>
+                          <div className="trip_type clearfix">
                             <CardLink {...linkProps}>
                               <div className="trip_img">
                                 <img

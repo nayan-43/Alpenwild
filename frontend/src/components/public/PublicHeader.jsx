@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import $ from "@/vendor/jqueryValidationEngine";
 import PublicLoader from "@/components/public/PublicLoader";
 import { localAssetUrl, thumbnailAssetUrl } from "@/lib/assets";
@@ -33,10 +33,13 @@ function resetCaptcha(form) {
 }
 
 export default function PublicHeader() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuPath, setMobileMenuPath] = useState([]);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const mobileSearchRef = useRef(null);
   const [modal, setModal] = useState("");
   const [compact, setCompact] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
@@ -109,6 +112,69 @@ export default function PublicHeader() {
   }, []);
 
   useEffect(() => {
+    setMobileMenuOpen(false);
+    setMobileMenuPath([]);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+    const bodyOverflow = document.body.style.overflow;
+    const htmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      document.documentElement.style.overflow = htmlOverflow;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const panel = mobileSearchRef.current;
+    if (!panel) return undefined;
+    let frame;
+    let timer;
+    if (mobileSearchOpen) {
+      panel.style.visibility = "visible";
+      panel.style.height = "0px";
+      frame = window.requestAnimationFrame(() => {
+        panel.style.height = `${panel.scrollHeight}px`;
+      });
+      timer = window.setTimeout(() => {
+        panel.style.height = "auto";
+      }, 400);
+    } else {
+      panel.style.height = `${panel.scrollHeight}px`;
+      frame = window.requestAnimationFrame(() => {
+        panel.style.height = "0px";
+      });
+      timer = window.setTimeout(() => {
+        panel.style.visibility = "hidden";
+      }, 400);
+    }
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [mobileSearchOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        setMobileMenuPath([]);
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [mobileMenuOpen]);
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+    setMobileMenuPath([]);
+  }
+
+  useEffect(() => {
     let cancelled = false;
     setNavigationState({ status: "loading", error: "" });
     fetch("/api/public-navigation")
@@ -120,7 +186,7 @@ export default function PublicHeader() {
             .then((body) => {
               throw new Error(
                 body.message ||
-                  `Unable to load the navigation (${response.status}).`,
+                `Unable to load the navigation (${response.status}).`,
               );
             });
         }
@@ -256,10 +322,11 @@ export default function PublicHeader() {
             className={`mob-navicon client-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
             type="button"
             aria-label="Toggle menu"
-            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-expanded={mobileMenuOpen}
+            onClick={() =>
+              mobileMenuOpen ? closeMobileMenu() : setMobileMenuOpen(true)
+            }
           >
-            <span />
-            <span />
             <span />
           </button>
           <Link className="mob-logo client-mobile-logo" to="/">
@@ -270,36 +337,40 @@ export default function PublicHeader() {
             className="fa fa-search mob-search client-mobile-search"
             type="button"
             aria-label="Toggle search"
+            aria-expanded={mobileSearchOpen}
             onClick={() => setMobileSearchOpen((open) => !open)}
-          >
-            <i className="fa fa-search" />
-          </button>
+          />
           <span
             className="fa fa-phone mob-phone client-mobile-phone"
             aria-label="Call Alpenwild"
           />
         </div>
-        {mobileSearchOpen && (
-          <div className="clearfix" id="mob-search_box">
-            <form
-              className="search_box"
-              onSubmit={(event) => {
-                event.preventDefault();
-                const value = new FormData(event.currentTarget).get("stse");
-                if (String(value || "").trim())
-                  navigate(`/search?stse=${encodeURIComponent(value)}`);
-              }}
-            >
-              <input
-                name="stse"
-                type="text"
-                placeholder="Enter Your Search"
-                autoFocus
-              />
-              <button type="submit" aria-label="Submit search"></button>
-            </form>
-          </div>
-        )}
+        <div
+          className="clearfix client-mobile-search-panel"
+          id="mob-search_box"
+          aria-hidden={!mobileSearchOpen}
+          ref={mobileSearchRef}
+        >
+          <form
+            className="search_box"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const value = new FormData(event.currentTarget).get("stse");
+              if (String(value || "").trim()) {
+                navigate(`/search?stse=${encodeURIComponent(value)}`);
+                setMobileSearchOpen(false);
+              }
+            }}
+          >
+            <input
+              name="stse"
+              type="text"
+              placeholder="Enter Your Search"
+              autoFocus
+            />
+            <button type="submit" aria-label="Submit search"></button>
+          </form>
+        </div>
         <div className="header_top hidden-xs hidden-sm">
           <div className="container">
             <div className="navbar client-header-main" role="navigation">
@@ -389,7 +460,7 @@ export default function PublicHeader() {
             </div>
           </div>
         </div>
-        <div className="navwrap">
+        <div className="navwrap hidden-xs hidden-sm">
           <div className="container">
             <div className="col-xs-12">
               <div className="row">
@@ -436,6 +507,22 @@ export default function PublicHeader() {
           </div>
         </div>
       </header>
+      <>
+        <button
+          type="button"
+          className={`client-mobile-menu-blocker ${mobileMenuOpen ? "open" : ""}`}
+          aria-label="Close menu"
+          tabIndex={mobileMenuOpen ? 0 : -1}
+          onClick={closeMobileMenu}
+        />
+        <MobileMenu
+          items={navigationItems}
+          open={mobileMenuOpen}
+          path={mobileMenuPath}
+          setPath={setMobileMenuPath}
+          onClose={closeMobileMenu}
+        />
+      </>
       {modal && (
         <div className="client-modal-backdrop" onClick={() => setModal("")}>
           <div
@@ -1007,6 +1094,101 @@ function NavItem({
         </ul>
       )}
     </li>
+  );
+}
+
+function MobileMenu({ items, open, path, setPath, onClose }) {
+  const levels = [
+    { title: "Menu", items },
+    ...path.map((item) => ({ title: item.label, items: item.children })),
+  ];
+  const activeLevel = levels.length - 1;
+  const [visibleLevel, setVisibleLevel] = useState(activeLevel);
+
+  useLayoutEffect(() => {
+    const frame = window.requestAnimationFrame(() =>
+      setVisibleLevel(activeLevel),
+    );
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeLevel]);
+
+  function renderLink(item, hasChildren) {
+    const handleClick = (event) => {
+      if (item.href === "#" && hasChildren) {
+        event.preventDefault();
+        setPath((current) => [...current, item]);
+        return;
+      }
+      if (item.href === "#") event.preventDefault();
+      onClose();
+    };
+    return item.href.startsWith("/") ? (
+      <Link to={item.href} onClick={handleClick}>
+        {item.label}
+      </Link>
+    ) : (
+      <a href={item.href} onClick={handleClick}>
+        {item.label}
+      </a>
+    );
+  }
+
+  return (
+    <>
+      <div
+        className={`client-mobile-menu ${open ? "open" : ""}`}
+        aria-hidden={!open}
+      >
+        <div className="mm-panels">
+          {levels.map((level, index) => {
+            const isActive = index === visibleLevel;
+            const isParent = index === visibleLevel - 1;
+            return (
+              <section
+                className={`mm-panel mm-panel_has-navbar ${isActive ? "mm-panel_opened" : ""} ${isParent ? "mm-panel_opened-parent" : ""}`}
+                key={`${index}-${level.title}`}
+                aria-hidden={!isActive && !isParent}
+              >
+                <div className="mm-navbar">
+                  {index > 0 && (
+                    <button
+                      className="mm-btn mm-btn_prev"
+                      type="button"
+                      aria-label="Back to previous menu"
+                      onClick={() => setPath((current) => current.slice(0, -1))}
+                    />
+                  )}
+                  <span className="mm-navbar__title">{level.title}</span>
+                </div>
+                <ul className="mm-listview">
+                  {level.items.map((item) => {
+                    const hasChildren = item.children?.length > 0;
+                    return (
+                      <li
+                        className={`mm-listitem ${hasChildren ? "mm-listitem_has-next" : ""}`}
+                        key={item.key}
+                      >
+                        {renderLink(item, hasChildren)}
+                        {hasChildren && (
+                          <button
+                            className="mm-btn mm-btn_next"
+                            type="button"
+                            aria-label={`Open ${item.label} submenu`}
+                            onClick={() =>
+                              setPath((current) => [...current, item])
+                            }
+                          />
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
+      </div>
+    </>
   );
 }
 

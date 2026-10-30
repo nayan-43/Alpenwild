@@ -96,9 +96,18 @@
        header_top 67px = 5px padding + 60px logo, nav 42px = 10px + 31px + 1px)
    -------------------------------------------------------------------------- */
 .public-site .client-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background: #fff;
   box-shadow: none;
   z-index: 999;
+  transition: all 0.4s ease;
+}
+
+.public-site .header_right_search .search_box {
+  font-family: proxima_nova_rgregular, Arial, Helvetica, sans-serif;
 }
 
 /* .public-site .client-header-main {
@@ -268,6 +277,19 @@
 
 .public-site .client-dropdown a:hover {
   color: #1492ef;
+}
+
+.public-site .client-dropdown li:last-child a {
+  border-bottom: 0;
+}
+
+#mainnav ul ul li:after {
+    content: '\f105';
+    font-family: FontAwesome;
+    color: #666;
+    position: absolute;
+    top: 13px;
+    left: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -614,6 +636,35 @@
     min-height: 200px;
   }
 
+  .public-site.legacy-home .homepage_carousel .banner_txt {
+    top: 50%;
+    bottom: auto;
+    width: 100%;
+    transform: translateY(-50%);
+    padding: 15px 30px !important;
+    background: 0 0;
+  }
+
+  .public-site.legacy-home .homepage_carousel .banner_txt h1 {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+    border: 0;
+    text-align: center;
+    text-shadow: 0 0 3px #000;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  .public-site.legacy-home .homepage_carousel .banner_txt h1::after {
+    display: none;
+  }
+
+  .public-site.legacy-home .homepage_carousel .banner_txt p {
+    display: none;
+  }
+
   .public-site .homepage_carousel>.container {
     padding: 0;
   }
@@ -712,9 +763,9 @@
   margin-bottom: 4px;
 }
 
-.public-site .title h1 {
+/* .public-site .title h1 {
   font-weight: 600;
-}
+} */
 
 /* .public-site .title h1,
 .public-site .title h2 {
@@ -810,6 +861,10 @@
   .public-site .trip_img {
     text-align: left;
   }
+
+  .public-site .trip_img img {
+    width: 100%;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
@@ -819,7 +874,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Partner logo bar + social icons (footer_top.php, style-8.css)
+   5. Partner logo bar + social icons (style-8.css)
    -------------------------------------------------------------------------- */
 .public-site .client_logo {
   padding-right: 0;
@@ -892,7 +947,7 @@
 
 .public-site .social_logo ul {
   list-style: none;
-  display: inline-block;
+  /* display: inline-block; */
   padding: 0;
   margin: 0;
   float: right;
@@ -1122,9 +1177,16 @@
     height: 50px;
     min-height: 50px;
     padding: 0 10px 0 40px;
-    justify-content: flex-start;
+    display: flex !important;
+    justify-content: space-between;
     background: #1b3147;
+    line-height: 40px;
     text-align: center;
+  }
+
+  .public-site .client-mobile-bar::before,
+  .public-site .client-mobile-bar::after {
+    display: none;
   }
 
   .public-site .client-mobile-bar a,
@@ -1154,6 +1216,19 @@
     padding: 10px;
   }
 
+  .public-site .client-mobile-bar .client-menu-toggle {
+    display: block;
+    padding: 10px;
+  }
+
+  .public-site .client-menu-toggle::before,
+  .public-site .client-menu-toggle::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: #fff;
+  }
+
   .public-site .client-menu-toggle span {
     display: block;
     width: 20px;
@@ -1163,10 +1238,15 @@
   }
 
   .public-site .client-mobile-logo {
-    margin-right: auto;
+    display: block;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 5px;
   }
 
   .public-site .client-mobile-logo img {
+    display: block;
+    float: left;
     width: auto;
     max-height: 40px;
     margin: 0;
@@ -1174,11 +1254,45 @@
 
   .public-site .client-mobile-phone {
     order: 1;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    color: #fff;
+    font-size: 14px;
+    line-height: 14px;
+    transform: translateY(-5px);
+  }
+
+  .public-site .client-mobile-phone::before {
+    display: inline-block;
+    margin-right: 5px;
   }
 
   .public-site .client-mobile-search {
     order: 2;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
     margin-left: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .public-site .client-mobile-bar .client-mobile-search {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 500px) {
+  .public-site .client-mobile-logo {
+    width: 125px;
+    padding: 14px 5px;
+  }
+}
+
+@media (max-width: 991px) {
+  .public-site {
+    padding-top: 50px;
   }
 }
 

@@ -187,7 +187,7 @@ export default function PublicFooterExtras({ publicSettings = {} }) {
                   </div>
                 </div>
                 <div className="col-xs-12 col-sm-12 text-left">
-                  <div className="clearfix chkwrap">
+                  <div className="clearfix chkwrap newsletter-interests">
                     <span className="flabel">
                       <strong>Interests: </strong>
                     </span>
@@ -198,9 +198,7 @@ export default function PublicFooterExtras({ publicSettings = {} }) {
                         value="Interests – Hiking and trekking"
                         id="news_signup1"
                       />
-                      <label htmlFor="news_signup1">
-                        Hiking and trekking
-                      </label>
+                      <label htmlFor="news_signup1">Hiking and trekking</label>
                     </span>
                     <span className="checkbox">
                       <input
@@ -209,9 +207,7 @@ export default function PublicFooterExtras({ publicSettings = {} }) {
                         value="Interests – Cultural and gourmet"
                         id="news_signup2"
                       />
-                      <label htmlFor="news_signup2">
-                        Cultural and gourmet
-                      </label>
+                      <label htmlFor="news_signup2">Cultural and gourmet</label>
                     </span>
                     <span className="checkbox">
                       <input
@@ -220,9 +216,7 @@ export default function PublicFooterExtras({ publicSettings = {} }) {
                         value="Interests – Ski and winter"
                         id="news_signup3"
                       />
-                      <label htmlFor="news_signup3">
-                        Ski and winter
-                      </label>
+                      <label htmlFor="news_signup3">Ski and winter</label>
                     </span>
                   </div>
                 </div>

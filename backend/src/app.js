@@ -15,6 +15,7 @@ import { config } from "./config.js";
 import { slugifyCategoryName } from "./categorySlug.js";
 import { pool, query } from "./db.js";
 import { createTripLeaderAuthorsService } from "./tripLeaderAuthors.js";
+import { createTripLeaderPostsService } from "./tripLeaderPosts.js";
 import { calculatePublicBookingAmounts } from "./tripBookingAmounts.js";
 import {
   createBookingConfirmationHtml,
@@ -38,6 +39,9 @@ if (!pool) {
 }
 const authCookieName = "alpenwild_admin_session";
 const tripLeaderAuthors = createTripLeaderAuthorsService(
+  config.tripLeaderAuthorsMysql,
+);
+const tripLeaderPosts = createTripLeaderPostsService(
   config.tripLeaderAuthorsMysql,
 );
 const loginAttempts = new Map();
@@ -441,12 +445,13 @@ app.get("/api/public-thumbnail", async (req, res, next) => {
     const sourceStats = await fs.stat(realSourcePath);
     if (
       !sourceStats.isFile() ||
-      !/\.(?:jpe?g|png|webp|gif)$/i.test(realSourcePath)
+      !/\.(?:jpe?g|jfif|png|webp|gif)$/i.test(realSourcePath)
     ) {
       return res.status(404).json({ message: "Thumbnail source not found." });
     }
     const sourceMetadata = await sharp(realSourcePath).metadata();
-    const outputFormat = sourceMetadata.hasAlpha ? "png" : "jpeg";
+    const outputFormat =
+      zoomCrop === 2 || !sourceMetadata.hasAlpha ? "jpeg" : "png";
 
     const cacheKey = crypto
       .createHash("sha256")
@@ -482,6 +487,7 @@ app.get("/api/public-thumbnail", async (req, res, next) => {
           fit: ["fill", "cover", "contain", "inside"][zoomCrop],
           position: "centre",
           withoutEnlargement: false,
+          ...(zoomCrop === 2 ? { background: "#ffffff" } : {}),
         });
         const thumbnail =
           outputFormat === "png"
@@ -1114,6 +1120,7 @@ app.put(
 
 const publicApiPaths = new Set([
   "/public-thumbnail",
+  "/public-redirection",
   "/banners",
   "/promotions",
   "/special-features",
@@ -9607,6 +9614,28 @@ app.get("/api/public-trip-leaders/:slug", async (req, res, next) => {
   }
 });
 
+app.get("/api/public-trip-leaders/:slug/posts", async (req, res, next) => {
+  try {
+    const result = await query(
+      `${tripLeaderSelect} WHERE trip_leader_slug=$1 AND trip_leader_status='Active' LIMIT 1`,
+      [req.params.slug],
+    );
+    if (!result.rowCount)
+      return res.status(404).json({ message: "Trip leader not found." });
+    const leader = result.rows[0];
+    res.json(
+      await tripLeaderPosts.load({
+        alpsHiking: leader.alps_hiking_author,
+        switzerlandTravel: leader.switzerlandtravel_author,
+        mySwissKitchen: leader.myswisskitchennew_author,
+      }),
+    );
+  } catch (error) {
+    console.error("Unable to load trip-leader posts.", error);
+    next(error);
+  }
+});
+
 app.patch("/api/trip-leaders/:id/order", async (req, res, next) => {
   try {
     const displayOrder = z.coerce.number().int().parse(req.body.display_order);
@@ -10322,6 +10351,25 @@ app.get("/api/redirections", async (_req, res, next) => {
   try {
     const result = await query(`${redirectionSelect()} ORDER BY id ASC`);
     res.json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/public-redirection", async (req, res, next) => {
+  try {
+    const requestedPath = String(req.query.path || "").trim();
+    if (!requestedPath || requestedPath.length > 2048) {
+      return res.json(null);
+    }
+    const result = await query(
+      `${redirectionSelect()}
+       WHERE LOWER(TRIM(BOTH '/' FROM old_redirection_url)) =
+         LOWER(TRIM(BOTH '/' FROM $1))
+       LIMIT 1`,
+      [requestedPath],
+    );
+    res.json(result.rows[0] || null);
   } catch (error) {
     next(error);
   }

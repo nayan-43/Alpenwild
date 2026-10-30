@@ -101,7 +101,7 @@ export default function PublicProductPage() {
 
     const updateVisibleThumbnails = () => {
       setThumbnailCount(
-        Math.max(1, Math.min(10, Math.floor(column.clientWidth / 94))),
+        Math.max(1, Math.min(10, Math.floor(column.clientWidth / 96))),
       );
     };
     updateVisibleThumbnails();
@@ -278,6 +278,7 @@ export default function PublicProductPage() {
                       className="bx-viewport"
                       style={{
                         width: "100%",
+                        height: "69px",
                         overflow: "hidden",
                         position: "relative",
                       }}
@@ -304,7 +305,9 @@ export default function PublicProductPage() {
                             style={{
                               display: "block",
                               flex: "0 0 94px",
-                              width: "94px",
+                              width: "96px",
+                              minWidth: "96px",
+                              height: "69px",
                               border: "1px solid #ddd",
                             }}
                             onClick={(event) => {
@@ -333,20 +336,20 @@ export default function PublicProductPage() {
                             className="bx-prev"
                             href="#"
                             aria-label="Previous product images"
-                            style={{
-                              position: "absolute",
-                              top: "50%",
-                              left: 0,
-                              zIndex: 999,
-                              display: "block",
-                              transform: "translateY(-50%)",
-                              padding: "5px",
-                              backgroundColor: "rgba(0, 0, 0, .5)",
-                              color: "#fff",
-                              fontSize: "35px",
-                              lineHeight: "24px",
-                              textDecoration: "none",
-                            }}
+                            // style={{
+                            //   position: "absolute",
+                            //   top: "50%",
+                            //   left: 0,
+                            //   zIndex: 999,
+                            //   display: "block",
+                            //   transform: "translateY(-50%)",
+                            //   padding: "5px",
+                            //   backgroundColor: "rgba(0, 0, 0, .5)",
+                            //   color: "#fff",
+                            //   fontSize: "35px",
+                            //   lineHeight: "24px",
+                            //   textDecoration: "none",
+                            // }}
                             onClick={(event) => {
                               event.preventDefault();
                               moveThumbnails(-1);
@@ -358,20 +361,20 @@ export default function PublicProductPage() {
                             className="bx-next"
                             href="#"
                             aria-label="Next product images"
-                            style={{
-                              position: "absolute",
-                              top: "50%",
-                              right: 0,
-                              zIndex: 999,
-                              display: "block",
-                              transform: "translateY(-50%)",
-                              padding: "5px",
-                              backgroundColor: "rgba(0, 0, 0, .5)",
-                              color: "#fff",
-                              fontSize: "35px",
-                              lineHeight: "24px",
-                              textDecoration: "none",
-                            }}
+                            // style={{
+                            //   position: "absolute",
+                            //   top: "50%",
+                            //   right: 0,
+                            //   zIndex: 999,
+                            //   display: "block",
+                            //   transform: "translateY(-50%)",
+                            //   padding: "5px",
+                            //   backgroundColor: "rgba(0, 0, 0, .5)",
+                            //   color: "#fff",
+                            //   fontSize: "35px",
+                            //   lineHeight: "24px",
+                            //   textDecoration: "none",
+                            // }}
                             onClick={(event) => {
                               event.preventDefault();
                               moveThumbnails(1);
@@ -392,7 +395,7 @@ export default function PublicProductPage() {
                     <p className="prdctId">
                       Item model number: <strong>COCO-01</strong>
                     </p>
-                    <h4 className="prdctPrice">
+                    <h4 className="prdctPrice blue">
                       Price: $
                       <span>{Number(product.price || 0).toFixed(2)}</span>
                     </h4>

@@ -3,7 +3,23 @@ const localHosts = new Set([
   "www.alpenwild.com",
   "localhost",
   "127.0.0.1",
+  "192.168.0.121",
 ]);
+
+const wordpressPathHosts = {
+  Alpshiking: "https://alpshiking.swisshikingvacations.com",
+  Switzerlandtravel: "https://switzerlandtravel.swisshikingvacations.com",
+  myswisskitchen: "https://myswisskitchen.swisshikingvacations.com",
+};
+
+export function legacyWordpressUrl(value) {
+  const source = String(value || "").trim();
+  if (!source) return "";
+  return source.replace(
+    /^https?:\/\/(?:www\.)?alpenwild\.com\/(Alpshiking|Switzerlandtravel|myswisskitchen)\//i,
+    (_match, path) => `${wordpressPathHosts[path]}/`,
+  );
+}
 
 export function thumbnailAssetUrl(
   value,
@@ -75,7 +91,7 @@ export function localAssetUrl(value) {
   let pathname = source;
   let suffix = "";
   if (/^https?:\/\//i.test(source)) {
-    const url = new URL(source);
+    const url = new URL(legacyWordpressUrl(source));
     if (!localHosts.has(url.hostname.toLowerCase())) return source;
     if (/\/timthumb\.php$/i.test(url.pathname)) {
       return legacyThumbnailUrl(url.href);
@@ -116,9 +132,27 @@ export function localAppLink(value) {
   }
 
   let pathname = url.pathname.replace(/^\/alpen(?=\/|$)/i, "") || "/";
+  const wordpressPath = pathname.match(
+    /^\/(Alpshiking|Switzerlandtravel|myswisskitchen)(?:\/(.*))?$/i,
+  );
+  if (wordpressPath) {
+    const sourcePath = Object.keys(wordpressPathHosts).find(
+      (key) => key.toLowerCase() === wordpressPath[1].toLowerCase(),
+    );
+    if (sourcePath) {
+      const suffix = wordpressPath[2]
+        ? `/${wordpressPath[2].replace(/^\/+/, "")}`
+        : "/";
+      return `${wordpressPathHosts[sourcePath]}${suffix}${url.search}${url.hash}`;
+    }
+  }
   pathname = pathname
     .replace(/^\/welcome\/where-we-stay\/?$/i, "/staticpage/where-we-stay/")
     .replace(/^\/welcome\/how-we-travel\/?$/i, "/staticpage/how-we-travel/")
+    .replace(
+      /^\/haute-route\/haute-route-essentials\/?$/i,
+      "/staticpage/haute-route-essentials/",
+    )
     .replace(/^\/trip\/details\/([^/]+)\/?$/i, "/trip/$1/overview/");
   if (/\/trip_search\.php$/i.test(pathname)) {
     return `/search${url.search}${url.hash}`;

@@ -30,6 +30,7 @@ import PublicCheckoutPage from "./pages/PublicCheckoutPage";
 import PublicCheckoutConfirmPage from "./pages/PublicCheckoutConfirmPage";
 import PublicUserRegistrationPage from "./pages/PublicUserRegistrationPage";
 import PublicNotFoundPage from "./pages/PublicNotFoundPage";
+import { localAppLink } from "@/lib/assets";
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -45,10 +46,15 @@ function PublicLegacyStylesheet() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    const stylesheet = document.getElementById("public-legacy-stylesheet");
-    if (stylesheet instanceof HTMLLinkElement) {
-      const isAdminPath = /^\/(?:administrator|admin)(?:\/|$)/.test(pathname);
-      stylesheet.media = isAdminPath ? "not all" : "all";
+    const isAdminPath = /^\/(?:administrator|admin)(?:\/|$)/.test(pathname);
+    for (const id of [
+      "public-legacy-stylesheet",
+      "public-responsive-stylesheet",
+    ]) {
+      const stylesheet = document.getElementById(id);
+      if (stylesheet instanceof HTMLLinkElement) {
+        stylesheet.media = isAdminPath ? "not all" : "all";
+      }
     }
   }, [pathname]);
 
@@ -65,10 +71,42 @@ function LegacyAdminRedirect() {
   );
 }
 
+function PublicRedirectionResolver() {
+  const { pathname, search, hash } = useLocation();
+
+  useEffect(() => {
+    if (/^\/(?:administrator|admin|api)(?:\/|$)/i.test(pathname)) return;
+    let cancelled = false;
+    const currentUrl = `${pathname}${search}${hash}`;
+    fetch(`/api/public-redirection?path=${encodeURIComponent(pathname)}`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((redirect) => {
+        if (cancelled || !redirect?.new_redirection_url) return;
+        const destination = localAppLink(redirect.new_redirection_url);
+        if (!destination || destination === currentUrl) return;
+        if (/^https?:\/\//i.test(destination)) {
+          window.location.replace(destination);
+        } else {
+          window.history.replaceState({}, "", destination);
+          window.dispatchEvent(new PopStateEvent("popstate"));
+        }
+      })
+      .catch((error) => {
+        console.error("Unable to resolve public redirect.", error);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname, search, hash]);
+
+  return null;
+}
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <ScrollToTop />
     <PublicLegacyStylesheet />
+    <PublicRedirectionResolver />
     <Routes>
       <Route path="/" element={<PublicSite />} />
       <Route path="/administrator/*" element={<AdminApp />} />
@@ -88,12 +126,12 @@ createRoot(document.getElementById("root")).render(
       <Route path="/search" element={<PublicSearchPage />} />
       <Route path="/product/:slug" element={<PublicProductPage />} />
       <Route path="/cart" element={<PublicCartPage />} />
-      <Route path="/user-registration" element={<PublicUserRegistrationPage />} />
-      <Route path="/checkout" element={<PublicCheckoutPage />} />
       <Route
-        path="/checkoutconfirm"
-        element={<PublicCheckoutConfirmPage />}
+        path="/user-registration"
+        element={<PublicUserRegistrationPage />}
       />
+      <Route path="/checkout" element={<PublicCheckoutPage />} />
+      <Route path="/checkoutconfirm" element={<PublicCheckoutConfirmPage />} />
       <Route path="*" element={<PublicNotFoundPage />} />
     </Routes>
   </BrowserRouter>,
