@@ -225,19 +225,19 @@ h4,*/
   align-self: flex-start;
 }
 
-.client-nav>.client-nav-item {
+.client-nav > .client-nav-item {
   margin-right: 25px;
 }
 
-.client-nav>.client-nav-item:first-child {
+.client-nav > .client-nav-item:first-child {
   margin-right: 25px;
 }
 
-.client-nav>.client-nav-item:first-child>a {
+.client-nav > .client-nav-item:first-child > a {
   padding-left: 0;
 }
 
-.client-nav-item>a {
+.client-nav-item > a {
   display: block;
 }
 
@@ -270,8 +270,8 @@ h4,*/
   list-style: none;
 }
 
-.client-nav-item:hover>.client-dropdown,
-.client-nav-item.open>.client-dropdown {
+.client-nav-item:hover > .client-dropdown,
+.client-nav-item.open > .client-dropdown {
   display: block;
 }
 
@@ -303,7 +303,7 @@ h4,*/
   position: relative;
 }
 
-.client-nav-item>a .nav-chevron {
+.client-nav-item > a .nav-chevron {
   position: absolute;
   top: 12px;
   right: 11px;
@@ -340,7 +340,7 @@ h4,*/
   transition: opacity 0.75s ease-in-out;
 }
 
-.client-banner>a {
+.client-banner > a {
   position: absolute;
   inset: 0;
   display: block;
@@ -354,7 +354,7 @@ h4,*/
   z-index: 1;
 }
 
-.client-banner>a>img {
+.client-banner > a > img {
   width: 100%;
   height: 505px;
   object-fit: cover;
@@ -731,7 +731,7 @@ h4,*/
   display: block;
 }
 
-.client-card>div {
+.client-card > div {
   padding: 18px 20px 20px;
 }
 
@@ -1553,7 +1553,7 @@ h4,*/
   margin: 20px 0 0;
 }
 
-.client-static-share .main-share-div>div {
+.client-static-share .main-share-div > div {
   float: left;
   min-height: 30px;
   line-height: 30px;
@@ -1821,7 +1821,7 @@ h4,*/
   margin: 0;
 }
 
-.client-trip-booking-banner-copy>div p {
+.client-trip-booking-banner-copy > div p {
   margin: 0;
 }
 
@@ -2094,7 +2094,7 @@ h4,*/
     sans-serif;
 }
 
-.client-trip-booking-form>h1::before {
+.client-trip-booking-form > h1::before {
   content: "";
   display: inline-block;
   width: 5px;
@@ -2529,16 +2529,16 @@ small {
   content: "";
 }
 
-.client-static-description .row.img-align>.col-md-4 {
+.client-static-description .row.img-align > .col-md-4 {
   width: 33.333333%;
   float: right;
 }
 
-.client-static-description .row.img-align>.col-md-4.pull-center {
+.client-static-description .row.img-align > .col-md-4.pull-center {
   float: left;
 }
 
-.client-static-description .row.img-align>.col-md-8 {
+.client-static-description .row.img-align > .col-md-8 {
   width: 66.666667%;
   float: left;
 }
@@ -2600,7 +2600,6 @@ small {
 }
 
 @media (max-width: 767px) {
-
   .client-static-description img,
   .client-static-description img[style*="left"],
   .client-static-description img[style*="right"],
@@ -2631,8 +2630,8 @@ small {
     margin-right: 0;
   }
 
-  .client-static-description .row.img-align>.col-md-4,
-  .client-static-description .row.img-align>.col-md-8 {
+  .client-static-description .row.img-align > .col-md-4,
+  .client-static-description .row.img-align > .col-md-8 {
     width: 100%;
     float: none;
   }
@@ -2641,8 +2640,8 @@ small {
     grid-template-columns: 1fr;
   }
 
-  .homepage_carousel>.container,
-  .banner>.container {
+  .homepage_carousel > .container,
+  .banner > .container {
     padding-left: 0;
     padding-right: 0;
   }
@@ -2927,7 +2926,7 @@ small {
   padding: 10px 0;
 }
 
-.client-footer-main>a img {
+.client-footer-main > a img {
   width: 95px;
   max-width: 100%;
 }
@@ -3230,19 +3229,19 @@ small {
     align-items: flex-start;
   }
 
-  .public-site .newsletter-signup .newsletter-interests>.flabel {
+  .public-site .newsletter-signup .newsletter-interests > .flabel {
     flex: 0 0 auto;
     padding: 7px 5px 0 0;
   }
 
-  .public-site .newsletter-signup .newsletter-interests>.checkbox {
+  .public-site .newsletter-signup .newsletter-interests > .checkbox {
     flex: 0 0 auto;
     min-width: 0;
     margin: 0 10px 8px 0;
     align-items: flex-start;
   }
 
-  .public-site .newsletter-signup .newsletter-interests>.checkbox label {
+  .public-site .newsletter-signup .newsletter-interests > .checkbox label {
     line-height: 16px;
     white-space: nowrap;
   }
@@ -3529,7 +3528,7 @@ small {
   }
 
   .client-carousel,
-  .client-banner>a>img {
+  .client-banner > a > img {
     height: 360px;
   }
 
@@ -3662,7 +3661,7 @@ small {
     top: 0;
   }
 
-  .client-footer-main>a {
+  .client-footer-main > a {
     grid-column: 1 / -1;
     text-align: center;
   }
@@ -3850,7 +3849,7 @@ small {
   border-bottom: 1px solid #2a4f74;
 }
 
-.client-mobile-menu .mm-listitem>a {
+.client-mobile-menu .mm-listitem > a {
   display: block;
   overflow: hidden;
   margin: 0;
@@ -3861,12 +3860,11 @@ small {
   white-space: nowrap;
 }
 
-.client-mobile-menu .mm-listitem_has-next>a {
+.client-mobile-menu .mm-listitem_has-next > a {
   margin-right: 50px;
 }
 
 @media (min-width: 992px) {
-
   .client-mobile-menu-blocker,
   .client-mobile-menu {
     display: none;
@@ -4063,7 +4061,7 @@ small {
   border-collapse: collapse;
 }
 
-.checkout-table>thead>tr>th h4 {
+.checkout-table > thead > tr > th h4 {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -4071,8 +4069,8 @@ small {
   text-transform: uppercase;
 }
 
-.checkout-table>thead>tr>th,
-.checkout-table>tbody>tr>td {
+.checkout-table > thead > tr > th,
+.checkout-table > tbody > tr > td {
   border: 1px solid rgba(50, 50, 50, 0.2);
 }
 
@@ -4091,7 +4089,7 @@ small {
   text-align: center;
 }
 
-.coupon-table>tbody>tr>td {
+.coupon-table > tbody > tr > td {
   border-top: 1px solid rgba(50, 50, 50, 0.2);
   border-bottom: 1px solid rgba(50, 50, 50, 0.2);
   padding: 20px 0;
@@ -4114,12 +4112,12 @@ small {
   border-collapse: collapse;
 }
 
-.total-table>tbody>tr>td {
+.total-table > tbody > tr > td {
   border: 1px solid rgba(50, 50, 50, 0.2);
   padding: 5px 15px;
 }
 
-.total-table>tbody>tr>td h4 {
+.total-table > tbody > tr > td h4 {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -4176,7 +4174,7 @@ small {
 }
 
 .client-shop-field,
-.client-shop-address>label {
+.client-shop-address > label {
   display: block;
   margin: 0 0 14px;
   color: #333;
@@ -4369,8 +4367,8 @@ small {
   gap: 18px;
 }
 
-.client-contest-form>label,
-.client-contest-entry>label {
+.client-contest-form > label,
+.client-contest-entry > label {
   display: block;
   margin-bottom: 12px;
   font-weight: 600;

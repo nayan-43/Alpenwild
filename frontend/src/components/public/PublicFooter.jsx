@@ -39,9 +39,7 @@ export default function PublicFooter({ footerMenus }) {
                   <h4>{group.title}</h4>
                   <ul>
                     {group.items.map((item) => (
-                      <li key={item.id}>
-                        {renderFooterLink(item)}
-                      </li>
+                      <li key={item.id}>{renderFooterLink(item)}</li>
                     ))}
                   </ul>
                 </div>
@@ -56,9 +54,7 @@ export default function PublicFooter({ footerMenus }) {
                   <h4>{group.title}</h4>
                   <ul>
                     {group.items.map((item) => (
-                      <li key={item.id}>
-                        {renderFooterLink(item)}
-                      </li>
+                      <li key={item.id}>{renderFooterLink(item)}</li>
                     ))}
                   </ul>
                 </div>
@@ -79,13 +75,23 @@ export default function PublicFooter({ footerMenus }) {
 
 function renderFooterLink(item) {
   const link = String(item.link || "");
+  const target = item.link_target || "_self";
   const localLink = localAppLink(link);
-  if (localLink) return <Link to={localLink}>{item.title}</Link>;
+  if (localLink)
+    return (
+      <Link
+        to={localLink}
+        target={target}
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      >
+        {item.title}
+      </Link>
+    );
   return (
     <a
       href={link}
-      target={item.link_target === "_blank" ? "_blank" : undefined}
-      rel={item.link_target === "_blank" ? "noreferrer" : undefined}
+      target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
     >
       {item.title}
     </a>

@@ -3,6 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("successful callback submission navigates to the PHP confirmation page", async () => {
+  const callbackRoute = await readFile(
+    new URL("../src/routes/callback.js", import.meta.url),
+    "utf8",
+  );
+  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
   const php = await readFile(
     new URL("../../../call_me_back.php", import.meta.url),
     "utf8",
@@ -19,7 +24,7 @@ test("successful callback submission navigates to the PHP confirmation page", as
     "utf8",
   );
   const staticPage = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
 
@@ -40,5 +45,17 @@ test("successful callback submission navigates to the PHP confirmation page", as
   assert.match(
     staticPage,
     /dangerouslySetInnerHTML=\{\{\s*__html:\s*localizeRichContent\(page\.description\)/,
+  );
+  assert.match(callbackRoute, /router\.post\("\/api\/public\/callback"/);
+  assert.match(
+    callbackRoute,
+    /customer_name:\s*z\.string\(\)\.max\(255\)\.default\(""\)/,
+  );
+  assert.match(callbackRoute, /verifyRecaptcha\(data\.recaptcha_token\)/);
+  assert.match(callbackRoute, /to:\s*config\.callbackRecipientEmail/);
+  assert.match(callbackRoute, /buildCallMeBackEmailHtml\(data\)/);
+  assert.match(
+    app,
+    /createCallbackRouter\(\{ config, mailer, verifyRecaptcha, getSiteTitle \}\)/,
   );
 });

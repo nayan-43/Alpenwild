@@ -4,17 +4,21 @@ import test from "node:test";
 
 test("attribute type and value IDs are initialized and synchronized at startup", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const routes = await readFile(
+    new URL("../src/routes/admin/attributes.js", import.meta.url),
+    "utf8",
+  );
   const typeIdentity = app.match(
     /async function ensureLegacyAttributeTypeIdentity\(\) \{[\s\S]*?\n\}/,
   )?.[0];
   const valueIdentity = app.match(
     /async function ensureLegacyAttributeValueIdentity\(\) \{[\s\S]*?\n\}/,
   )?.[0];
-  const typeCreate = app.match(
-    /app\.post\("\/api\/attribute-types"[\s\S]*?\n\}\);/,
+  const typeCreate = routes.match(
+    /router\.post\("\/api\/attribute-types"[\s\S]*?\n  \}\);/,
   )?.[0];
-  const valueCreate = app.match(
-    /app\.post\("\/api\/attribute-values"[\s\S]*?\n\}\);/,
+  const valueCreate = routes.match(
+    /router\.post\("\/api\/attribute-values"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(typeIdentity, "attribute type identity setup exists");

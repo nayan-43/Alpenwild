@@ -3,23 +3,23 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("admin order details display products after the detail request loads", async () => {
-  const [backend, orderDetailPage, adminApp, styles] = await Promise.all([
-    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+  const [orders, orderDetailPage, adminApp, styles] = await Promise.all([
+    readFile(new URL("../src/routes/admin/orders.js", import.meta.url), "utf8"),
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/order/OrderDetailPage.jsx",
+        "../../frontend/src/pages/admin/order/OrderDetail.jsx",
         import.meta.url,
       ),
       "utf8",
     ),
     readFile(
-      new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+      new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
       "utf8",
     ),
     readFile(new URL("../../frontend/src/styles.css", import.meta.url), "utf8"),
   ]);
-  const orderView = backend.match(
-    /app\.get\("\/api\/orders\/:id"[\s\S]*?\n\}\);/,
+  const orderView = orders.match(
+    /router\.get\("\/api\/orders\/:id"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.match(orderView, /p\.product_name/);

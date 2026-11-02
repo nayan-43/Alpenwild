@@ -86,7 +86,7 @@ test("static page validation identifies invalid numeric fields", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
   const form = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/static-page/AddStaticPagePage.jsx",
+      "../../frontend/src/pages/admin/static-page/AddStaticPage.jsx",
       import.meta.url,
     ),
     "utf8",

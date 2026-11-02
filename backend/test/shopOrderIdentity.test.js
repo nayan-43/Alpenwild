@@ -36,9 +36,12 @@ test("shop order IDs are initialized using the admin startup identity pattern", 
 });
 
 test("order view sorts details by the ID column present in the legacy schema", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const orderView = app.match(
-    /app\.get\("\/api\/orders\/:id"[\s\S]*?\n\}\);/,
+  const orders = await readFile(
+    new URL("../src/routes/admin/orders.js", import.meta.url),
+    "utf8",
+  );
+  const orderView = orders.match(
+    /router\.get\("\/api\/orders\/:id"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.match(orderView, /information_schema\.columns/);

@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("public cart page follows PHP structure and legacy classes", async () => {
   const reactPage = await readFile(
-    new URL("../../frontend/src/pages/PublicCartPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/Cart.jsx", import.meta.url),
     "utf8",
   );
   const phpPage = await readFile(

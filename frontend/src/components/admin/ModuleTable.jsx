@@ -12,6 +12,7 @@ export default function ModuleTable({
   onDelete,
   renderActions,
   footerActions,
+  footerActionColumn,
   tableClassName = "",
   actionLabel = "Option",
   totalEntries = rows.length,
@@ -67,6 +68,7 @@ export default function ModuleTable({
     currentPage * pageSize,
   );
   const paginationItems = getPaginationItems(currentPage, pages);
+  const actionColumn = footerActionColumn ?? columns.length;
   function updateSort(key) {
     setPage(1);
     setHasUserSorted(true);
@@ -222,6 +224,15 @@ export default function ModuleTable({
               </tr>
             )}
           </tbody>
+          {footerActions ? (
+            <tfoot>
+              <tr>
+                <td colSpan={actionColumn} />
+                <td>{footerActions}</td>
+                <td colSpan={columns.length - actionColumn} />
+              </tr>
+            </tfoot>
+          ) : null}
         </table>
       </div>
       <div className="box-footer data-footer">
@@ -262,9 +273,6 @@ export default function ModuleTable({
             Next
           </button>
         </div>
-        {footerActions ? (
-          <div className="table-footer-actions">{footerActions}</div>
-        ) : null}
       </div>
     </Wrapper>
   );

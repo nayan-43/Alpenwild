@@ -77,7 +77,7 @@ test("copy utility falls back when clipboard API is unavailable", async () => {
 
 test("static page copy action validates the slug and uses fallback clipboard", async () => {
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   assert.match(adminApp, /if \(!item\.slug\)/);

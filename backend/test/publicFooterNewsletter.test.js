@@ -14,9 +14,12 @@ test("public footer newsletter follows PHP ValidationEngine rules", async () => 
     ),
     "utf8",
   );
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const publicNewsletterRoute = app.match(
-    /app\.post\("\/api\/public\/mailing-list"[\s\S]*?\n\}\);/,
+  const [apiAccess, mailingListRoutes] = await Promise.all([
+    readFile(new URL("../src/apiAccess.js", import.meta.url), "utf8"),
+    readFile(new URL("../src/routes/mailingList.js", import.meta.url), "utf8"),
+  ]);
+  const publicNewsletterRoute = mailingListRoutes.match(
+    /router\.post\("\/api\/public\/mailing-list"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.match(
@@ -52,10 +55,10 @@ test("public footer newsletter follows PHP ValidationEngine rules", async () => 
   assert.match(reactFooter, /\$form\.validationEngine\("detach"\)/);
   assert.match(reactFooter, /!?\$\(form\)\.validationEngine\("validate"\)/);
   assert.match(
-    app,
+    apiAccess,
     /const publicPostPaths = new Set\([\s\S]*?"\/public\/mailing-list"/,
   );
-  assert.match(app, /"\/public\/callback"/);
+  assert.match(apiAccess, /"\/public\/callback"/);
   assert.ok(publicNewsletterRoute, "public newsletter endpoint exists");
   assert.match(
     publicNewsletterRoute,

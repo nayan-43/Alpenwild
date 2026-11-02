@@ -4,16 +4,20 @@ import test from "node:test";
 
 test("admin recovery follows PHP and updates only the legacy password field", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const login = await readFile(
-    new URL("../../frontend/src/pages/admin/LoginPage.jsx", import.meta.url),
+  const auth = await readFile(
+    new URL("../src/routes/auth.js", import.meta.url),
     "utf8",
   );
-  const route = app.match(
-    /app\.post\(\s*"\/api\/auth\/forgot-password"[\s\S]*?\n\);/,
+  const login = await readFile(
+    new URL("../../frontend/src/pages/admin/Login.jsx", import.meta.url),
+    "utf8",
+  );
+  const route = auth.match(
+    /router\.post\(\s*"\/api\/auth\/forgot-password"[\s\S]*?\n  \);/,
   )?.[0];
 
   assert.ok(route, "forgot-password route exists");
-  assert.match(app, /function generateLegacyAdminPassword\(\)/);
+  assert.match(auth, /function generateLegacyAdminPassword\(\)/);
   assert.match(route, /SET administrator_password=\$1/);
   assert.doesNotMatch(
     route,
@@ -25,7 +29,7 @@ test("admin recovery follows PHP and updates only the legacy password field", as
   assert.match(route, /name: siteTitle/);
   assert.match(route, /address: config\.smtpFrom \|\| config\.smtpUser/);
   assert.match(route, /subject: `New Password \$\{siteTitle\}`/);
-  assert.match(route, /to: "webgrity43@gmail\.com"/);
+  assert.match(route, /to: await getAdminReceivingEmail\(\)/);
   assert.match(route, /Your New Password is:/);
   assert.match(
     route,
@@ -51,8 +55,12 @@ test("admin recovery follows PHP and updates only the legacy password field", as
 
 test("login validates the PHP administrator password column", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const loginRoute = app.match(
-    /app\.post\("\/api\/auth\/login"[\s\S]*?\n\}\);/,
+  const auth = await readFile(
+    new URL("../src/routes/auth.js", import.meta.url),
+    "utf8",
+  );
+  const loginRoute = auth.match(
+    /router\.post\(\s*"\/api\/auth\/login"[\s\S]*?\n  \);/,
   )?.[0];
 
   assert.ok(loginRoute, "login route exists");

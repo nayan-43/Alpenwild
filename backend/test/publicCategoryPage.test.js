@@ -5,7 +5,7 @@ import test from "node:test";
 test("public category page follows PHP structure and classes", async () => {
   const reactPage = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicCategoryPage.jsx",
+      "../../frontend/src/pages/Category.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -44,4 +44,24 @@ test("public category page follows PHP structure and classes", async () => {
     /Price \$\{Number\(product\.price \|\| 0\)\.toFixed\(2\)\}/,
   );
   assert.match(reactPage, /Sorry, no products found under this category\./);
+});
+
+test("public category endpoints are mounted from the category router", async () => {
+  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const router = await readFile(
+    new URL("../src/routes/categories.js", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(app, /app\.use\(\s*createPublicCategoriesRouter\(/);
+  assert.match(router, /router\.get\("\/api\/public-categories"/);
+  assert.match(router, /router\.get\("\/api\/public-categories\/:slug"/);
+  assert.match(
+    router,
+    /router\.get\(\s*"\/api\/public-category-images\/listing\/:filename"/,
+  );
+  assert.match(router, /category_status='Active'/);
+  assert.match(router, /product_status='Active'/);
+  assert.match(router, /categoryBoxImagesFor/);
+  assert.match(router, /\.resize\(270, 183/);
 });

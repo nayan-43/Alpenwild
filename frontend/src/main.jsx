@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { Suspense, useEffect, useLayoutEffect } from "react";
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
@@ -11,25 +11,26 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./vendor/validationEngine.jquery.min.css";
 import "./styles.css";
+import "./vendor/lightcase.css";
 import "./public.css";
 import "./public-legacy.css";
-import AdminApp from "./pages/AdminApp";
-import PublicSite from "./pages/PublicSite";
-import PublicTripPage from "./pages/PublicTripPage";
-import PublicTripTypePage from "./pages/PublicTripTypePage";
-import PublicTourCalendarPage from "./pages/PublicTourCalendarPage";
-import PublicStaticPage from "./pages/PublicStaticPage";
-import PublicCategoryPage from "./pages/PublicCategoryPage";
-import PublicTripLeaderListingPage from "./pages/PublicTripLeaderListingPage";
-import PublicTripLeaderPage from "./pages/PublicTripLeaderPage";
-import PublicTripBookingPage from "./pages/PublicTripBookingPage";
-import PublicSearchPage from "./pages/PublicSearchPage";
-import PublicProductPage from "./pages/PublicProductPage";
-import PublicCartPage from "./pages/PublicCartPage";
-import PublicCheckoutPage from "./pages/PublicCheckoutPage";
-import PublicCheckoutConfirmPage from "./pages/PublicCheckoutConfirmPage";
-import PublicUserRegistrationPage from "./pages/PublicUserRegistrationPage";
-import PublicNotFoundPage from "./pages/PublicNotFoundPage";
+const AdminApp = React.lazy(() => import("./pages/admin/AdminApp"));
+const Site = React.lazy(() => import("./pages/Site"));
+const Trip = React.lazy(() => import("./pages/Trip"));
+const TripType = React.lazy(() => import("./pages/TripType"));
+const TourCalendar = React.lazy(() => import("./pages/TourCalendar"));
+const StaticPage = React.lazy(() => import("./pages/StaticPage"));
+const Category = React.lazy(() => import("./pages/Category"));
+const TripLeaderListing = React.lazy(() => import("./pages/TripLeaderListing"));
+const TripLeader = React.lazy(() => import("./pages/TripLeader"));
+const TripBooking = React.lazy(() => import("./pages/TripBooking"));
+const Search = React.lazy(() => import("./pages/Search"));
+const Product = React.lazy(() => import("./pages/Product"));
+const Cart = React.lazy(() => import("./pages/Cart"));
+const Checkout = React.lazy(() => import("./pages/Checkout"));
+const CheckoutConfirm = React.lazy(() => import("./pages/CheckoutConfirm"));
+const UserRegistration = React.lazy(() => import("./pages/UserRegistration"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 import { localAppLink } from "@/lib/assets";
 
 function ScrollToTop() {
@@ -107,32 +108,31 @@ createRoot(document.getElementById("root")).render(
     <ScrollToTop />
     <PublicLegacyStylesheet />
     <PublicRedirectionResolver />
-    <Routes>
-      <Route path="/" element={<PublicSite />} />
-      <Route path="/administrator/*" element={<AdminApp />} />
-      <Route path="/admin/*" element={<LegacyAdminRedirect />} />
-      <Route path="/triptype/:slug" element={<PublicTripTypePage />} />
-      <Route path="/trip/:slug/:section" element={<PublicTripPage />} />
-      <Route path="/trip/:slug" element={<PublicTripPage />} />
-      <Route path="/tour-calendar" element={<PublicTourCalendarPage />} />
-      <Route path="/staticpage/:slug" element={<PublicStaticPage />} />
-      <Route path="/category/:slug" element={<PublicCategoryPage />} />
-      <Route
-        path="/staticpage/guides-and-trip-leaders/"
-        element={<PublicTripLeaderListingPage />}
-      />
-      <Route path="/tripleader/:slug" element={<PublicTripLeaderPage />} />
-      <Route path="/trip/:slug/booking/" element={<PublicTripBookingPage />} />
-      <Route path="/search" element={<PublicSearchPage />} />
-      <Route path="/product/:slug" element={<PublicProductPage />} />
-      <Route path="/cart" element={<PublicCartPage />} />
-      <Route
-        path="/user-registration"
-        element={<PublicUserRegistrationPage />}
-      />
-      <Route path="/checkout" element={<PublicCheckoutPage />} />
-      <Route path="/checkoutconfirm" element={<PublicCheckoutConfirmPage />} />
-      <Route path="*" element={<PublicNotFoundPage />} />
-    </Routes>
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<Site />} />
+        <Route path="/administrator/*" element={<AdminApp />} />
+        <Route path="/admin/*" element={<LegacyAdminRedirect />} />
+        <Route path="/triptype/:slug" element={<TripType />} />
+        <Route path="/trip/:slug/:section" element={<Trip />} />
+        <Route path="/trip/:slug" element={<Trip />} />
+        <Route path="/tour-calendar" element={<TourCalendar />} />
+        <Route path="/staticpage/:slug" element={<StaticPage />} />
+        <Route path="/category/:slug" element={<Category />} />
+        <Route
+          path="/staticpage/guides-and-trip-leaders/"
+          element={<TripLeaderListing />}
+        />
+        <Route path="/tripleader/:slug" element={<TripLeader />} />
+        <Route path="/trip/:slug/booking/" element={<TripBooking />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/product/:slug" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/user-registration" element={<UserRegistration />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkoutconfirm" element={<CheckoutConfirm />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   </BrowserRouter>,
 );

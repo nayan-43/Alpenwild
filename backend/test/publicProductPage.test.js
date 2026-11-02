@@ -4,10 +4,7 @@ import test from "node:test";
 
 test("public product page uses PHP structure and exposes product enjoy boxes", async () => {
   const reactPage = await readFile(
-    new URL(
-      "../../frontend/src/pages/PublicProductPage.jsx",
-      import.meta.url,
-    ),
+    new URL("../../frontend/src/pages/Product.jsx", import.meta.url),
     "utf8",
   );
   const phpPage = await readFile(
@@ -23,11 +20,11 @@ test("public product page uses PHP structure and exposes product enjoy boxes", a
     "utf8",
   );
   const backend = await readFile(
-    new URL("../src/app.js", import.meta.url),
+    new URL("../src/routes/products.js", import.meta.url),
     "utf8",
   );
   const productRoute = backend.match(
-    /app\.get\("\/api\/public-products\/:slug"[\s\S]*?\n\}\);/,
+    /router\.get\("\/api\/public-products\/:slug"/,
   )?.[0];
 
   for (const className of [
@@ -59,15 +56,18 @@ test("public product page uses PHP structure and exposes product enjoy boxes", a
     assert.ok(phpPage.includes(className), `PHP page uses ${className}`);
   }
   assert.ok(productRoute, "public product route exists");
-  assert.match(productRoute, /alpenwild_product_box_image_tbl/);
-  assert.match(productRoute, /box_images:\s*boxes\.rows\.map/);
+  assert.match(backend, /alpenwild_product_box_image_tbl/);
+  assert.match(backend, /box_images:\s*boxes\.rows\.map/);
   assert.match(reactPage, /product\?\.box_images\?\.length > 0/);
   assert.match(phpPage, /action="shopping_cart\.php"/);
   assert.match(phpPage, /value="Add To cart" class="button-style"/);
   assert.doesNotMatch(phpPage, /View Cart/i);
   assert.doesNotMatch(reactPage, /View Cart/i);
   assert.match(phpCart, /if \(\$productshopping\['action'\] == 'add'\)/);
-  assert.match(reactPage, /writeShopCart\(cart\);\s*setError\(""\);\s*navigate\("\/cart"\);/);
+  assert.match(
+    reactPage,
+    /writeShopCart\(cart\);\s*setError\(""\);\s*navigate\("\/cart"\);/,
+  );
   assert.match(reactPage, /className="bx-wrapper"/);
   assert.match(reactPage, /className="bx-viewport"/);
   assert.match(reactPage, /border: "1px solid rgba\(50, 50, 50, \.07\)"/);
@@ -85,7 +85,10 @@ test("public product page uses PHP structure and exposes product enjoy boxes", a
   assert.match(reactPage, /\{gallery\.length > 1 && \(/);
   assert.match(reactPage, /className="bx-prev"/);
   assert.match(reactPage, /className="bx-next"/);
-  assert.equal((reactPage.match(/transform: "translateY\(-50%\)"/g) || []).length, 2);
+  assert.equal(
+    (reactPage.match(/transform: "translateY\(-50%\)"/g) || []).length,
+    2,
+  );
   assert.match(reactPage, /fa-angle-left/);
   assert.match(reactPage, /fa-angle-right/);
   assert.match(

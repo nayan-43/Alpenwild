@@ -8,9 +8,12 @@ test("public trip selectors follow the PHP active-trip ordering", async () => {
     new URL("../../../page.php", import.meta.url),
     "utf8",
   );
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const trips = await readFile(
+    new URL("../src/routes/admin/trips.js", import.meta.url),
+    "utf8",
+  );
   const publicStaticPage = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const tripTypeQuery = phpStaticPage.match(
@@ -35,7 +38,7 @@ test("public trip selectors follow the PHP active-trip ordering", async () => {
     publicStaticPage,
     /Number\(first\.display_order\)\s*-\s*Number\(second\.display_order\)/,
   );
-  assert.match(app, /ORDER BY t\.trips_order, t\.trips_id/);
+  assert.match(trips, /ORDER BY t\.trips_order, t\.trips_id/);
 });
 
 test("public booking country options match the PHP booking form", async () => {
@@ -69,7 +72,7 @@ test("public booking page structure follows the PHP template", async () => {
   );
   const frontend = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicTripBookingPage.jsx",
+      "../../frontend/src/pages/TripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -97,7 +100,7 @@ test("public booking page structure follows the PHP template", async () => {
   );
   assert.match(
     frontend,
-    /<p\s+ref=\{bookingStatusRef\}[\s\S]*?\{submitState\.error \|\| submitState\.message\}\s*<\/p>/,
+    /<div\s+ref=\{bookingStatusRef\}[\s\S]*?\{submitState\.error \|\| submitState\.message\}\s*<\/div>/,
   );
   assert.match(
     phpBanner,
@@ -126,7 +129,7 @@ test("public booking page structure follows the PHP template", async () => {
   );
   assert.match(
     frontend,
-    /className="box"[\s\S]*?localizeRichContent\(trip\?\.activity \|\| ""\)/,
+    /className="box activity-box"[\s\S]*?localizeRichContent\(trip\?\.activity \|\| ""\)/,
   );
 });
 
@@ -192,9 +195,12 @@ test("public bookings set legacy optional user and billing IDs to their zero sen
 });
 
 test("booking lists use the first payment date when legacy booking date is missing", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const route = app.match(
-    /app\.get\("\/api\/trip-bookings",[\s\S]*?\n\}\);/,
+  const routes = await readFile(
+    new URL("../src/routes/admin/tripBookingLists.js", import.meta.url),
+    "utf8",
+  );
+  const route = routes.match(
+    /router\.get\("\/api\/trip-bookings",[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(route, "admin booking list route exists");
@@ -209,9 +215,12 @@ test("booking lists use the first payment date when legacy booking date is missi
 });
 
 test("admin booking updates cast optional start and end dates to PostgreSQL date", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const updateRoute = app.match(
-    /app\.patch\("\/api\/trip-bookings\/:bookingId"[\s\S]*?\n\}\);/,
+  const updates = await readFile(
+    new URL("../src/routes/admin/tripBookingUpdates.js", import.meta.url),
+    "utf8",
+  );
+  const updateRoute = updates.match(
+    /router\.patch\(\s*"\/api\/trip-bookings\/:bookingId"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(updateRoute, "admin booking update route exists");
@@ -220,10 +229,13 @@ test("admin booking updates cast optional start and end dates to PostgreSQL date
 });
 
 test("admin booking edits record entered deposits and recalculate the remaining balance", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const updates = await readFile(
+    new URL("../src/routes/admin/tripBookingUpdates.js", import.meta.url),
+    "utf8",
+  );
   const frontend = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/AddTripBookingPage.jsx",
+      "../../frontend/src/pages/admin/trip/AddTripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -235,8 +247,8 @@ test("admin booking edits record entered deposits and recalculate the remaining 
     ),
     "utf8",
   );
-  const updateRoute = app.match(
-    /app\.patch\("\/api\/trip-bookings\/:bookingId"[\s\S]*?\n\}\);/,
+  const updateRoute = updates.match(
+    /router\.patch\(\s*"\/api\/trip-bookings\/:bookingId"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(updateRoute, "admin booking update route exists");
@@ -267,9 +279,13 @@ test("admin booking edits record entered deposits and recalculate the remaining 
 
 test("admin booking edits send PHP-parity invoice emails without masking saved updates", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const updates = await readFile(
+    new URL("../src/routes/admin/tripBookingUpdates.js", import.meta.url),
+    "utf8",
+  );
   const frontend = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/AddTripBookingPage.jsx",
+      "../../frontend/src/pages/admin/trip/AddTripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -281,8 +297,8 @@ test("admin booking edits send PHP-parity invoice emails without masking saved u
     ),
     "utf8",
   );
-  const updateRoute = app.match(
-    /app\.patch\("\/api\/trip-bookings\/:bookingId"[\s\S]*?\n\}\);/,
+  const updateRoute = updates.match(
+    /router\.patch\(\s*"\/api\/trip-bookings\/:bookingId"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(updateRoute, "admin booking update route exists");
@@ -290,7 +306,7 @@ test("admin booking edits send PHP-parity invoice emails without masking saved u
   assert.match(php, /User_Email\s*==\s*'On'/);
   assert.match(updateRoute, /site_configuration_id=18/);
   assert.match(updateRoute, /b\.send_email\s*===\s*true/);
-  assert.match(updateRoute, /payments@alpenwild\.com,coder\.web@yahoo\.com/);
+  assert.match(updateRoute, /payments@yopmail\.com,webgrity43@gmail\.com/);
   assert.match(updateRoute, /createTripBookingInvoicePdf\(\{/);
   assert.match(updateRoute, /contentType:\s*"application\/pdf"/);
   assert.match(
@@ -301,17 +317,24 @@ test("admin booking edits send PHP-parity invoice emails without masking saved u
 });
 
 test("discount validation and admin edit adjustments follow the PHP booking flow", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const [app, apiAccess] = await Promise.all([
+    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../src/apiAccess.js", import.meta.url), "utf8"),
+  ]);
+  const updates = await readFile(
+    new URL("../src/routes/admin/tripBookingUpdates.js", import.meta.url),
+    "utf8",
+  );
   const publicPage = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicTripBookingPage.jsx",
+      "../../frontend/src/pages/TripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const adminPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/AddTripBookingPage.jsx",
+      "../../frontend/src/pages/admin/trip/AddTripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -331,8 +354,16 @@ test("discount validation and admin edit adjustments follow the PHP booking flow
     ),
     "utf8",
   );
-  const editRoute = app.match(
-    /app\.patch\("\/api\/trip-bookings\/:bookingId"[\s\S]*?\n\}\);/,
+  const discountRoutes = await readFile(
+    new URL("../src/routes/discounts.js", import.meta.url),
+    "utf8",
+  );
+  const bookingLookups = await readFile(
+    new URL("../src/routes/admin/tripBookingLookups.js", import.meta.url),
+    "utf8",
+  );
+  const editRoute = updates.match(
+    /router\.patch\(\s*"\/api\/trip-bookings\/:bookingId"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(editRoute, "admin booking update route exists");
@@ -341,8 +372,8 @@ test("discount validation and admin edit adjustments follow the PHP booking flow
   assert.match(publicPage, /fetch\("\/api\/discount-check"/);
   assert.match(publicPage, /onClick=\{checkDiscount\}/);
   assert.match(publicPage, /readOnly=\{discountState\.applied\}/);
-  assert.match(app, /app\.post\("\/api\/discount-check"/);
-  assert.match(app, /"\/discount-check"/);
+  assert.match(discountRoutes, /router\.post\("\/api\/discount-check"/);
+  assert.match(apiAccess, /"\/discount-check"/);
 
   assert.match(phpAdmin, /discount_type'\] == 'Percentage'/);
   assert.match(phpAdmin, /'sign' => rep\(\$sign_discount\)/);
@@ -353,16 +384,34 @@ test("discount validation and admin edit adjustments follow the PHP booking flow
     /INSERT INTO alpenwild_trips_additional_price_tbl[\s\S]*?VALUES \(\$1,\$2,\$3,'-'\)/,
   );
   assert.match(editRoute, /UPDATE alpenwild_trips_additional_price_tbl/);
-  assert.match(app, /AS additional_prices/);
+  assert.match(bookingLookups, /AS additional_prices/);
 });
 
 test("admin email lookup route is registered before the booking ID route", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const emailLookupIndex = app.indexOf('app.get("/api/trip-bookings/user"');
-  const bookingIdIndex = app.indexOf('app.get("/api/trip-bookings/:bookingId"');
+  const [app, routes] = await Promise.all([
+    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(
+      new URL("../src/routes/admin/tripBookingLookups.js", import.meta.url),
+      "utf8",
+    ),
+  ]);
+  const emailLookupIndex = routes.indexOf(
+    'router.get("/api/trip-bookings/user"',
+  );
+  const bookingIdIndex = routes.indexOf(
+    'router.get("/api/trip-bookings/:bookingId"',
+  );
+  const middlewareIndex = app.indexOf("createApiAccessMiddleware({");
+  const mountIndex = app.indexOf(
+    "app.use(createAdminTripBookingLookupsRouter(",
+  );
 
   assert.notEqual(emailLookupIndex, -1, "email lookup route exists");
   assert.notEqual(bookingIdIndex, -1, "booking ID route exists");
+  assert.ok(
+    mountIndex > middlewareIndex,
+    "lookup routes require API authorization",
+  );
   assert.ok(
     emailLookupIndex < bookingIdIndex,
     "the static user path must not be captured as a booking ID",
@@ -454,7 +503,7 @@ test("existing public booking users are not updated, matching the PHP booking fl
     "utf8",
   );
   const handler = app.match(
-    /async function handleTripBooking\(req, res, next\) \{[\s\S]*?\n\}\n\napp\.post\("\/api\/trip-bookings"/,
+    /async function handleTripBooking\(req, res, next\) \{[\s\S]*?\n\}\n/,
   )?.[0];
 
   assert.ok(handler, "trip booking handler exists");
@@ -467,12 +516,16 @@ test("existing public booking users are not updated, matching the PHP booking fl
 
 test("public booking sends customer confirmation and PHP-style staff payment notification", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const tripBookings = await readFile(
+    new URL("../src/routes/tripBookings.js", import.meta.url),
+    "utf8",
+  );
   const email = await readFile(
     new URL("../src/tripBookingEmail.js", import.meta.url),
     "utf8",
   );
-  const publicRoute = app.match(
-    /app\.post\("\/api\/public\/trip-bookings"[\s\S]*?\n\}\);/,
+  const publicRoute = tripBookings.match(
+    /router\.post\("\/api\/public\/trip-bookings"[\s\S]*?\n  \}\);/,
   )?.[0];
   const staffNotification = app.match(
     /if \(\s*paymentApproved &&\s*req\.path === "\/api\/public\/trip-bookings" &&\s*mailer\s*\) \{[\s\S]*?\n    \}\n    if \(data\.send_email/,
@@ -484,6 +537,11 @@ test("public booking sends customer confirmation and PHP-style staff payment not
     "approved public booking staff notification exists",
   );
   assert.match(publicRoute, /send_email:\s*true/);
+  assert.match(
+    tripBookings,
+    /router\.post\("\/api\/trip-bookings", handleTripBooking\)/,
+  );
+  assert.match(app, /createTripBookingsRouter\(\{/);
   assert.match(
     app,
     /FROM alpenwild_email_template_tbl[\s\S]*?email_template_id=\$1[\s\S]*?\[6\]/,
@@ -503,13 +561,13 @@ test("public booking sends customer confirmation and PHP-style staff payment not
 test("public booking redirects to the PHP thank-you page without a success alert", async () => {
   const bookingPage = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicTripBookingPage.jsx",
+      "../../frontend/src/pages/TripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const staticPage = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const php = await readFile(
@@ -529,13 +587,13 @@ test("public booking redirects to the PHP thank-you page without a success alert
 test("admin trip booking edits keep their form values and show one correct notice", async () => {
   const bookingForm = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/AddTripBookingPage.jsx",
+      "../../frontend/src/pages/admin/trip/AddTripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -574,7 +632,7 @@ test("admin booking saves return to the matching PHP booking list with a notice"
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -601,13 +659,16 @@ test("admin booking saves return to the matching PHP booking list with a notice"
 });
 
 test("public booking distinguishes a missing CAPTCHA from a failed CAPTCHA", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const tripPayments = await readFile(
+    new URL("../src/routes/tripPayments.js", import.meta.url),
+    "utf8",
+  );
   assert.match(
-    app,
+    tripPayments,
     /!data\.recaptcha_token[\s\S]*?Please click on the reCAPTCHA box/,
   );
   assert.match(
-    app,
+    tripPayments,
     /verifyRecaptcha\(data\.recaptcha_token\)[\s\S]*?Robot verification failed, please try again/,
   );
 });

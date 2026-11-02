@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("admin module delete confirmations match the PHP wording and entity labels", async () => {
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const phpFooter = await readFile(
@@ -59,7 +59,7 @@ test("admin module delete confirmations match the PHP wording and entity labels"
 
 test("booking, FAQ, and payment delete confirmations retain PHP wording", async () => {
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const phpFooter = await readFile(
@@ -68,21 +68,21 @@ test("booking, FAQ, and payment delete confirmations retain PHP wording", async 
   );
   const contestPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const faqPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/TripFaqPage.jsx",
+      "../../frontend/src/pages/admin/trip/TripFaq.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const tripSection = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+      "../../frontend/src/pages/admin/trip/TripSection.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -112,7 +112,7 @@ test("booking, FAQ, and payment delete confirmations retain PHP wording", async 
   assert.match(contestPage, /mode === "contestUsers"\s*\?\s*"User"/);
   assert.match(
     contestPage,
-    /mode === "contestSubmissions"\s*\?\s*"Submisiion"/,
+    /mode === "contestSubmissions"\s*\?\s*"Submission"/,
   );
   assert.match(contestPage, /:\s*"Contest"/);
   for (const entity of ["Contest", "User", "Submisiion"])

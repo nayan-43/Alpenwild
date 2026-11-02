@@ -3,15 +3,19 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("date handling uses null values instead of zero-date sentinels", async () => {
-  const [app, adminApp, tripSection] = await Promise.all([
+  const [app, exportRoutes, adminApp, tripSection] = await Promise.all([
     readFile(new URL("../src/app.js", import.meta.url), "utf8"),
     readFile(
-      new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+      new URL("../src/routes/admin/tripBookingExport.js", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
       "utf8",
     ),
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripSection.jsx",
         import.meta.url,
       ),
       "utf8",
@@ -22,8 +26,14 @@ test("date handling uses null values instead of zero-date sentinels", async () =
     app,
     /function validDateOrNull\(value\) \{\s*if \(!value\) return null;\s*const text = String\(value\)\.slice\(0, 10\);\s*return isValidIsoDate\(text\) \? text : null;/,
   );
-  assert.match(app, /const bookingStart = row\.booking_start_date \?\? null;/);
-  assert.match(app, /const bookingEnd = row\.booking_end_date \?\? null;/);
+  assert.match(
+    exportRoutes,
+    /const bookingStart = row\.booking_start_date \?\? null;/,
+  );
+  assert.match(
+    exportRoutes,
+    /const bookingEnd = row\.booking_end_date \?\? null;/,
+  );
   assert.match(
     adminApp,
     /function dateInputValue\(value\) \{\s*if \(value == null \|\| value === ""\) return "";/,
@@ -35,12 +45,18 @@ test("date handling uses null values instead of zero-date sentinels", async () =
 });
 
 test("new users and trip leaders are created with today's date", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const [app, tripLeaderRoutes] = await Promise.all([
+    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(
+      new URL("../src/routes/admin/tripLeaders.js", import.meta.url),
+      "utf8",
+    ),
+  ]);
   const userInsert = app.match(
     /function userInsert\(data\) \{[\s\S]*?\n\}/,
   )?.[0];
-  const tripLeaderCreate = app.match(
-    /app\.post\(\s*"\/api\/trip-leaders"[\s\S]*?\n\}\);/,
+  const tripLeaderCreate = tripLeaderRoutes.match(
+    /router\.post\(\s*"\/api\/trip-leaders"[\s\S]*?\n  \);/,
   )?.[0];
 
   assert.ok(userInsert, "user insert helper exists");

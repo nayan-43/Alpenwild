@@ -8,7 +8,7 @@ test("invoice delete shows the PHP success message after deleting", async () => 
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const remove = adminApp.match(

@@ -9,12 +9,10 @@ test("product create and edit regenerate PHP-compatible slugs from the name", as
     "utf8",
   );
   const backend = await readFile(
-    new URL("../src/app.js", import.meta.url),
+    new URL("../src/routes/admin/products.js", import.meta.url),
     "utf8",
   );
-  const productRoutes = backend.match(
-    /app\.post\("\/api\/products"[\s\S]*?app\.delete\(\s*"\/api\/products\/:productId\/additional-images/,
-  )?.[0];
+  const productRoutes = backend;
 
   assert.ok(productRoutes, "product create and edit routes exist");
   assert.match(
@@ -41,7 +39,7 @@ test("React product form and manage table retain the PHP product fields", async 
   );
   const reactForm = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/product/AddProductPage.jsx",
+      "../../frontend/src/pages/admin/product/AddProduct.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -52,13 +50,13 @@ test("React product form and manage table retain the PHP product fields", async 
   );
   const reactManage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/product/ManageProductPage.jsx",
+      "../../frontend/src/pages/admin/product/ManageProduct.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -110,7 +108,7 @@ test("React product form and manage table retain the PHP product fields", async 
   );
   assert.match(
     adminApp,
-    /page === "products" && \(\s*<ManageProductPage[\s\S]*?notice=\{notice\}[\s\S]*?onDismissNotice=\{\(\) => setNotice\(""\)\}/,
+    /page === "products" && \(\s*<ManageProduct[\s\S]*?notice=\{notice\}[\s\S]*?onDismissNotice=\{\(\) => setNotice\(""\)\}/,
   );
 });
 
@@ -124,11 +122,11 @@ test("product duplicate and delete feedback follows PHP", async () => {
     "utf8",
   );
   const backend = await readFile(
-    new URL("../src/app.js", import.meta.url),
+    new URL("../src/routes/admin/products.js", import.meta.url),
     "utf8",
   );
   const admin = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -163,7 +161,7 @@ test("product inserts initialize parent and image IDs and unchanged edits show w
     "utf8",
   );
   const admin = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const phpForm = await readFile(
@@ -231,6 +229,6 @@ test("product inserts initialize parent and image IDs and unchanged edits show w
   );
   assert.match(
     admin,
-    /page === "products" && \(\s*<ManageProductPage[\s\S]*?notice=\{notice\}[\s\S]*?onDismissNotice=\{\(\) => setNotice\(""\)\}/,
+    /page === "products" && \(\s*<ManageProduct[\s\S]*?notice=\{notice\}[\s\S]*?onDismissNotice=\{\(\) => setNotice\(""\)\}/,
   );
 });

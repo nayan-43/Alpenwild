@@ -6,7 +6,7 @@ test("trip booking tables use compact fixed columns and two-row actions", async 
   const [page, styles] = await Promise.all([
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripSection.jsx",
         import.meta.url,
       ),
       "utf8",
@@ -26,18 +26,21 @@ test("trip booking tables use compact fixed columns and two-row actions", async 
 });
 
 test("booking payment amounts match PHP currency and single-supplement details", async () => {
-  const [page, app] = await Promise.all([
+  const [page, routes] = await Promise.all([
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripSection.jsx",
         import.meta.url,
       ),
       "utf8",
     ),
-    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(
+      new URL("../src/routes/admin/tripBookingLists.js", import.meta.url),
+      "utf8",
+    ),
   ]);
-  const route = app.match(
-    /app\.get\("\/api\/trip-bookings",[\s\S]*?\n\}\);/,
+  const route = routes.match(
+    /router\.get\("\/api\/trip-bookings",[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(route, "admin booking list route exists");
@@ -56,15 +59,18 @@ test("booking payment amounts match PHP currency and single-supplement details",
 });
 
 test("payment details include the customer's full PHP-style address", async () => {
-  const [page, app, php] = await Promise.all([
+  const [page, routes, php] = await Promise.all([
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripSection.jsx",
         import.meta.url,
       ),
       "utf8",
     ),
-    readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(
+      new URL("../src/routes/admin/tripBookingLists.js", import.meta.url),
+      "utf8",
+    ),
     readFile(
       new URL(
         "../../../administrator/trips_booking_payment.php",
@@ -73,8 +79,8 @@ test("payment details include the customer's full PHP-style address", async () =
       "utf8",
     ),
   ]);
-  const paymentRoute = app.match(
-    /app\.get\("\/api\/trip-bookings\/payments",[\s\S]*?\n\}\);/,
+  const paymentRoute = routes.match(
+    /router\.get\("\/api\/trip-bookings\/payments",[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(paymentRoute, "trip payment listing route exists");
@@ -96,7 +102,7 @@ test("payment details use a compact loader while the payment request is pending"
   const [page, styles] = await Promise.all([
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripSection.jsx",
         import.meta.url,
       ),
       "utf8",

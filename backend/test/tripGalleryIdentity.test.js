@@ -4,14 +4,18 @@ import test from "node:test";
 
 test("legacy trip gallery inserts use an initialized generated ID sequence", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const routes = await readFile(
+    new URL("../src/routes/tripGalleries.js", import.meta.url),
+    "utf8",
+  );
   const identitySetup = app.match(
     /async function ensureLegacyTripGalleryIdentity\(\) \{[\s\S]*?\n\}/,
   )?.[0];
-  const insertHelper = app.match(
+  const insertHelper = routes.match(
     /async function insertTripGallery\(values\) \{[\s\S]*?\n\}/,
   )?.[0];
-  const createRoute = app.match(
-    /app\.post\(\s*"\/api\/trip-galleries"[\s\S]*?const result = await insertTripGallery\(\[([\s\S]*?)\]\);/,
+  const createRoute = routes.match(
+    /router\.post\(\s*"\/api\/trip-galleries"[\s\S]*?const result = await insertTripGallery\(\[([\s\S]*?)\]\);/,
   )?.[1];
 
   assert.ok(identitySetup, "trip gallery identity setup exists");
@@ -71,7 +75,7 @@ test("trip gallery status changes show the PHP success alert", async () => {
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const toggle = adminApp.match(

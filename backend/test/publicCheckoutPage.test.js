@@ -4,7 +4,10 @@ import test from "node:test";
 
 test("public checkout page follows PHP checkout structure and legacy classes", async () => {
   const reactPage = await readFile(
-    new URL("../../frontend/src/pages/PublicCheckoutPage.jsx", import.meta.url),
+    new URL(
+      "../../frontend/src/pages/Checkout.jsx",
+      import.meta.url,
+    ),
     "utf8",
   );
   const phpPage = await readFile(
@@ -13,6 +16,10 @@ test("public checkout page follows PHP checkout structure and legacy classes", a
   );
   const backend = await readFile(
     new URL("../src/app.js", import.meta.url),
+    "utf8",
+  );
+  const shopCustomers = await readFile(
+    new URL("../src/routes/shopCustomers.js", import.meta.url),
     "utf8",
   );
   const appRoutes = await readFile(
@@ -67,13 +74,14 @@ test("public checkout page follows PHP checkout structure and legacy classes", a
     reactPage,
     /saveShopCheckoutEmail\(email\);\s*navigate\("\/user-registration", \{ replace: true \}\)/,
   );
-  assert.match(backend, /app\.post\("\/api\/public\/shop-customer"/);
-  assert.match(backend, /LOWER\(user_email_address\)=LOWER\(\$1\)/);
-  assert.match(backend, /code: "ACCOUNT_NOT_FOUND"/);
+  assert.match(shopCustomers, /router\.post\("\/api\/public\/shop-customer"/);
+  assert.match(shopCustomers, /LOWER\(user_email_address\)=LOWER\(\$1\)/);
+  assert.match(shopCustomers, /code: "ACCOUNT_NOT_FOUND"/);
+  assert.match(backend, /createShopCustomersRouter\(\{/);
   assert.match(appRoutes, /path="\/user-registration"/);
 
   const addressDisplay = reactPage.match(
-    /function AddressDisplay[\s\S]*?(?=export default function PublicCheckoutPage)/,
+    /function AddressDisplay[\s\S]*?(?=export default function Checkout)/,
   )?.[0];
   assert.ok(addressDisplay, "Checkout includes a saved address display");
   assert.match(addressDisplay, /<p>\{name\}<\/p>/);
@@ -83,7 +91,7 @@ test("public checkout page follows PHP checkout structure and legacy classes", a
 test("public checkout registration uses PHP account fields and returns to checkout", async () => {
   const reactPage = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicUserRegistrationPage.jsx",
+      "../../frontend/src/pages/UserRegistration.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -96,8 +104,12 @@ test("public checkout registration uses PHP account fields and returns to checko
     new URL("../src/app.js", import.meta.url),
     "utf8",
   );
+  const shopCustomers = await readFile(
+    new URL("../src/routes/shopCustomers.js", import.meta.url),
+    "utf8",
+  );
   const cartPage = await readFile(
-    new URL("../../frontend/src/pages/PublicCartPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/Cart.jsx", import.meta.url),
     "utf8",
   );
 
@@ -169,18 +181,25 @@ test("public checkout registration uses PHP account fields and returns to checko
   assert.match(cartPage, /method="get"[\s\S]*action="\/checkout"/);
   assert.match(cartPage, /name="user_email_address"/);
   assert.doesNotMatch(reactPage, /Return to Cart|<Link/);
-  assert.match(backend, /app\.post\("\/api\/public\/shop-customer\/register"/);
-  assert.match(backend, /userSchema\.parse\(req\.body\)/);
+  assert.match(
+    shopCustomers,
+    /router\.post\("\/api\/public\/shop-customer\/register"/,
+  );
+  assert.match(shopCustomers, /userSchema\.parse\(req\.body\)/);
+  assert.match(backend, /createShopCustomersRouter\(\{/);
 });
 
 test("shop checkout displays PHP order confirmation before payment", async () => {
   const checkoutPage = await readFile(
-    new URL("../../frontend/src/pages/PublicCheckoutPage.jsx", import.meta.url),
+    new URL(
+      "../../frontend/src/pages/Checkout.jsx",
+      import.meta.url,
+    ),
     "utf8",
   );
   const confirmationPage = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicCheckoutConfirmPage.jsx",
+      "../../frontend/src/pages/CheckoutConfirm.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -191,6 +210,10 @@ test("shop checkout displays PHP order confirmation before payment", async () =>
   );
   const backend = await readFile(
     new URL("../src/app.js", import.meta.url),
+    "utf8",
+  );
+  const checkoutRoutes = await readFile(
+    new URL("../src/routes/shopCheckout.js", import.meta.url),
     "utf8",
   );
   const appRoutes = await readFile(
@@ -237,9 +260,11 @@ test("shop checkout displays PHP order confirmation before payment", async () =>
     confirmationPage,
     /document\.title = "Confirm Checkout \| Alpenwild"/,
   );
-  assert.match(backend, /RETURNING \*/);
+  assert.match(checkoutRoutes, /RETURNING \*/);
   assert.match(
-    backend,
+    checkoutRoutes,
     /detail\.rows\[0\]\.order_detail_id \?\? detail\.rows\[0\]\.order_details_id/,
   );
+  assert.match(backend, /createShopCheckoutRouter\(\{/);
+  assert.match(backend, /createShopCheckoutRouter\(\{[\s\S]*mailer,/);
 });

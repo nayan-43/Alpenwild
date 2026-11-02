@@ -12,7 +12,7 @@ test("location actions show PHP-matching alerts and scroll to the top", async ()
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const save = adminApp.match(
@@ -98,7 +98,7 @@ test("activity actions show PHP-matching alerts and scroll to the top", async ()
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const save = adminApp.match(

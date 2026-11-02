@@ -9,7 +9,7 @@ test("successful shop checkout follows the PHP thank-you page redirect", async (
   );
   const checkoutConfirmation = await readFile(
     new URL(
-      "../../frontend/src/pages/PublicCheckoutConfirmPage.jsx",
+      "../../frontend/src/pages/CheckoutConfirm.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -19,7 +19,7 @@ test("successful shop checkout follows the PHP thank-you page redirect", async (
     "utf8",
   );
   const staticPage = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const phpPage = await readFile(
@@ -37,7 +37,10 @@ test("successful shop checkout follows the PHP thank-you page redirect", async (
     /navigate\("\/staticpage\/thank-you-for-order-for-maps-books\/"\)/,
   );
   assert.match(checkoutConfirmation, /clearShopCart\(\)/);
-  assert.match(routes, /<Route path="\/staticpage\/:slug" element={<PublicStaticPage \/>} \/>/);
+  assert.match(
+    routes,
+    /<Route path="\/staticpage\/:slug" element={<StaticPage \/>} \/>/,
+  );
   assert.doesNotMatch(routes, /PublicShopThankYouPage|\/shop\/thank-you/);
   assert.match(phpPage, /<div class="section static_page">/);
   assert.match(staticPage, /<div className="section static_page">/);

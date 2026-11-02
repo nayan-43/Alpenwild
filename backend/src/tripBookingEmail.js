@@ -175,7 +175,7 @@ export function createTripBookingAdminNotificationHtml({
     : "";
 
   return `Dear Admin,<br>
-<p>Someone has booked a trip. You can view the details from the following link:<a href="http://www.alpenwild.com/trip/admin/trips_booking_manage.php">View Booking</a>.</p>
+<p>Someone has booked a trip. You can view the details from the following link:<a href="http://www.alpenwild.com/administrator/trip-booking/recent">View Booking</a>.</p>
 <p>Some of the booking details are:<br>
 <h1>Trip Details:</h1>
 Trip Name: ${text(tripName)}<br>

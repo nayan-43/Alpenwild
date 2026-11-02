@@ -4,11 +4,15 @@ import test from "node:test";
 
 test("invoice creation has a generated primary-key sequence initialized at startup", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const invoices = await readFile(
+    new URL("../src/routes/admin/invoices.js", import.meta.url),
+    "utf8",
+  );
   const identitySetup = app.match(
     /async function ensureInvoiceIdentity\(\) \{[\s\S]*?\n\}/,
   )?.[0];
-  const insertRoute = app.match(
-    /app\.post\("\/api\/invoices"[\s\S]*?\n\}\);/,
+  const insertRoute = invoices.match(
+    /router\.post\("\/api\/invoices"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(identitySetup, "invoice identity setup exists");

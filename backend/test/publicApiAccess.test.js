@@ -4,23 +4,42 @@ import test from "node:test";
 
 test("public API actions bypass admin authentication without exposing admin page data", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const middleware = app.match(
-    /const publicApiPaths = new Set\([\s\S]*?requireAuth\(req, res, \(\) => verifyRequestOrigin\(req, res, next\)\);\s*\}\);/,
+  const apiAccess = await readFile(
+    new URL("../src/apiAccess.js", import.meta.url),
+    "utf8",
+  );
+  const products = await readFile(
+    new URL("../src/routes/products.js", import.meta.url),
+    "utf8",
+  );
+  const publicPages = await readFile(
+    new URL("../src/routes/staticPages.js", import.meta.url),
+    "utf8",
+  );
+  const adminPages = await readFile(
+    new URL("../src/routes/admin/staticPages.js", import.meta.url),
+    "utf8",
+  );
+  const publicPaymentLinks = await readFile(
+    new URL("../src/routes/publicTripPaymentLinks.js", import.meta.url),
+    "utf8",
+  );
+  const middleware = apiAccess;
+  const publicStaticPages = publicPages.match(
+    /router\.get\("\/api\/public-static-pages",[\s\S]*?(?=\n\n  router\.get)/,
   )?.[0];
-  const publicStaticPages = app.match(
-    /app\.get\("\/api\/public-static-pages",[\s\S]*?\n\}\);/,
+  const staticPages = adminPages.match(
+    /router\.get\("\/api\/static-pages",[\s\S]*?\n  \}\);/,
   )?.[0];
-  const staticPages = app.match(
-    /app\.get\("\/api\/static-pages",[\s\S]*?\n\}\);/,
+  const paymentLinkLookup = publicPaymentLinks.match(
+    /router\.get\(\s*"\/api\/public-trip-payment-links\/:bookingId"[\s\S]*?\n  \);/,
   )?.[0];
-  const paymentLinkLookup = app.match(
-    /app\.get\("\/api\/public-trip-payment-links\/:bookingId"[\s\S]*?\n\}\);/,
-  )?.[0];
-  const publicProduct = app.match(
-    /app\.get\("\/api\/public-products\/:slug"[\s\S]*?\n\}\);/,
+  const publicProduct = products.match(
+    /router\.get\("\/api\/public-products\/:slug"/,
   )?.[0];
 
   assert.ok(middleware, "central API authentication middleware exists");
+  assert.match(app, /app\.use\(\s*"\/api",\s*createApiAccessMiddleware/);
   assert.match(middleware, /\/public\/mailing-list/);
   assert.match(middleware, /\/public\/callback/);
   assert.match(middleware, /\/public\/trip-bookings/);
@@ -42,40 +61,52 @@ test("public API actions bypass admin authentication without exposing admin page
   );
 
   assert.ok(publicStaticPages, "public search page endpoint exists");
-  assert.match(publicStaticPages, /static_page_status|status/);
-  assert.match(publicStaticPages, /='Active'/);
+  assert.match(publicPages, /static_page_status/);
+  assert.match(publicPages, /statusColumn.*?='Active'/s);
   assert.doesNotMatch(
     publicStaticPages,
     /staticPageBoxImages|staticPageDescriptionBlocks/,
   );
   assert.ok(staticPages, "admin static page endpoint remains separate");
   assert.match(staticPages, /staticPageBoxImages/);
+  assert.match(adminPages, /router\.post\("\/api\/static-pages"/);
+  assert.match(adminPages, /router\.patch\(\s*"\/api\/static-pages\/:id"/);
+  assert.match(adminPages, /router\.patch\("\/api\/static-pages\/:id\/status"/);
+  assert.match(adminPages, /router\.delete\("\/api\/static-pages\/:id"/);
+  assert.doesNotMatch(
+    app,
+    /app\.(?:get|post|patch|delete)\("\/api\/static-pages/,
+  );
   assert.ok(paymentLinkLookup, "signed public payment lookup exists");
   assert.match(paymentLinkLookup, /isValidPaymentLinkSignature/);
   assert.ok(publicProduct, "public product detail endpoint exists");
-  assert.match(publicProduct, /product_status='Active'/);
+  assert.match(products, /product_status='Active'/);
 
-  const publicNavigation = app.match(
-    /app\.get\("\/api\/public-navigation"[\s\S]*?\n\}\);/,
+  const publicNavigation = publicPages.match(
+    /router\.get\("\/api\/public-navigation",/,
   )?.[0];
   assert.ok(publicNavigation, "PHP-style public navigation endpoint exists");
-  assert.match(publicNavigation, /menu_assign|static_page_menu_assign/);
-  assert.match(publicNavigation, /Self In Header/);
-  assert.match(publicNavigation, /buildPublicNavigation/);
+  assert.match(publicPages, /menu_assign|static_page_menu_assign/);
+  assert.match(publicPages, /Self In Header/);
+  assert.match(publicPages, /buildPublicNavigation/);
 });
 
 test("expired admin sessions log out and show the PHP login message", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const auth = await readFile(
+    new URL("../src/routes/auth.js", import.meta.url),
+    "utf8",
+  );
   const api = await readFile(
     new URL("../../frontend/src/lib/api.js", import.meta.url),
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const login = await readFile(
-    new URL("../../frontend/src/pages/admin/LoginPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/Login.jsx", import.meta.url),
     "utf8",
   );
   const phpSession = await readFile(
@@ -89,10 +120,8 @@ test("expired admin sessions log out and show the PHP login message", async () =
 
   assert.match(phpSession, /Please login first to access this page!/);
   assert.match(phpLogout, /You have successfully logout\./);
-  assert.match(
-    app,
-    /code:\s*"ADMIN_SESSION_EXPIRED"[\s\S]*?Please login first to access this page!/,
-  );
+  assert.match(auth, /code:\s*"ADMIN_SESSION_EXPIRED"/);
+  assert.match(auth, /Please login first to access this page!/);
   assert.match(api, /admin-session-expired/);
   assert.match(adminApp, /setAuthUser\(null\)/);
   assert.match(
@@ -108,17 +137,16 @@ test("expired admin sessions log out and show the PHP login message", async () =
 });
 
 test("public settings expose the configured site title for PHP-style page titles", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const route = app.match(
-    /app\.get\("\/api\/public-settings"[\s\S]*?\n\}\);/,
-  )?.[0];
-
-  assert.ok(route, "public settings endpoint exists");
+  const app = await readFile(
+    new URL("../src/routes/public.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(app, /router\.get\("\/api\/public-settings"/);
   assert.match(
-    route,
+    app,
     /site_configuration_id = 1 OR site_configuration_id BETWEEN 20 AND 27/,
   );
-  assert.match(route, /\["site_title", 1\]/);
+  assert.match(app, /\["site_title", 1\]/);
 });
 
 test("mail senders use the configured site title with an Alpenwild fallback", async () => {

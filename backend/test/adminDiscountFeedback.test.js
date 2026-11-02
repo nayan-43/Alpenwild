@@ -12,7 +12,7 @@ test("discount actions show PHP-matching alerts and scroll to the top", async ()
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const save = adminApp.match(
@@ -58,8 +58,11 @@ test("discount actions show PHP-matching alerts and scroll to the top", async ()
   );
   assert.match(remove, /setNotice\("Discount details deleted successfully"\)/);
 
-  assert.match(navigate, /pageName === "discounts" \|\|/);
   assert.match(navigate, /pageName === "addDiscount"/);
+  assert.match(
+    navigate,
+    /window\.scrollTo\(\{ top: 0, left: 0, behavior: "auto" \}\)/,
+  );
   assert.match(
     toggle,
     /await load\(\);[\s\S]*?setNotice\("Discount Status is updated successfully"\);[\s\S]*?scrollAdminListToTop\(\)/,

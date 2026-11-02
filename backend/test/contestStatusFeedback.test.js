@@ -9,7 +9,7 @@ test("contest status actions show PHP success messages", async () => {
   );
   const contestPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -51,7 +51,7 @@ test("contest add, edit, and unchanged messages survive navigation and match PHP
   );
   const contestPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -91,7 +91,7 @@ test("contest deletion shows PHP-matching success feedback", async () => {
   );
   const contestPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",
@@ -115,7 +115,7 @@ test("contest deletion shows PHP-matching success feedback", async () => {
 test("opening Add Contest resets values left from a prior edit", async () => {
   const contestPage = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",

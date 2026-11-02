@@ -17,12 +17,12 @@ test("trip itinerary structure and save messages match the PHP form", async () =
         "utf8",
       ),
       readFile(
-        new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+        new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
         "utf8",
       ),
       readFile(
         new URL(
-          "../../frontend/src/pages/admin/trip/TripItineraryPage.jsx",
+          "../../frontend/src/pages/admin/trip/TripItinerary.jsx",
           import.meta.url,
         ),
         "utf8",

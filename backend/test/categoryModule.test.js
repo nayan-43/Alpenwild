@@ -8,15 +8,15 @@ test("category slugs follow the PHP title sanitizer for accents and punctuation"
     new URL("../../../includes/formatting.php", import.meta.url),
     "utf8",
   );
-  const backend = await readFile(
-    new URL("../src/app.js", import.meta.url),
+  const categories = await readFile(
+    new URL("../src/routes/admin/categories.js", import.meta.url),
     "utf8",
   );
 
   assert.match(phpFormatting, /function sanitize_title_with_dashes/);
   assert.match(phpFormatting, /strip_tags\(remove_accents\(\$title\)\)/);
   assert.match(phpFormatting, /str_replace\('\.', '-', \$title\)/);
-  assert.match(backend, /slugifyCategoryName\(parsedData\.name\)/);
+  assert.match(categories, /slugifyCategoryName\(parsedData\.name\)/);
   assert.equal(slugifyCategoryName("Crème Brûlée"), "creme-brulee");
   assert.equal(slugifyCategoryName("R&D"), "rd");
   assert.equal(slugifyCategoryName("日本"), "%e6%97%a5%e6%9c%ac");
@@ -32,12 +32,12 @@ test("category duplicate and delete feedback matches the PHP module", async () =
     new URL("../../../includes/classes/category_class.php", import.meta.url),
     "utf8",
   );
-  const backend = await readFile(
-    new URL("../src/app.js", import.meta.url),
+  const categories = await readFile(
+    new URL("../src/routes/admin/categories.js", import.meta.url),
     "utf8",
   );
   const admin = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -46,7 +46,7 @@ test("category duplicate and delete feedback matches the PHP module", async () =
     /Sorry, name is already added\. Please use another name\./,
   );
   assert.match(
-    backend,
+    categories,
     /Sorry, name is already added\. Please use another name\./,
   );
   assert.match(
@@ -54,7 +54,7 @@ test("category duplicate and delete feedback matches the PHP module", async () =
     /Product existing under this category\. First delete product and then delete this category\./,
   );
   assert.match(
-    backend,
+    categories,
     /Product existing under this category\. First delete product and then delete this category\./,
   );
   assert.match(phpClass, /Category details deleted successfully/);
@@ -73,7 +73,7 @@ test("category IDs are initialized and meta fields omit remaining-character text
   );
   const form = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/category/AddCategoryPage.jsx",
+      "../../frontend/src/pages/admin/category/AddCategory.jsx",
       import.meta.url,
     ),
     "utf8",

@@ -15,7 +15,7 @@ test("mailing list save and delete feedback matches PHP and survives navigation"
     "utf8",
   );
   const adminApp = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const save = adminApp.match(

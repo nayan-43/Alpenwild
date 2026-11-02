@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("homepage trip boxes are re-equalized after images and fonts load", async () => {
   const page = await readFile(
-    new URL("../../frontend/src/pages/PublicSite.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/Site.jsx", import.meta.url),
     "utf8",
   );
 

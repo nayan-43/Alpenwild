@@ -9,7 +9,7 @@ test("Manage Contest dates use the same raw timestamp format as PHP", async () =
   );
   const react = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",

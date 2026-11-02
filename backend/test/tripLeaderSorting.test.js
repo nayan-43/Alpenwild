@@ -5,7 +5,7 @@ import test from "node:test";
 test("trip leader columns map to sortable data and DataTables indicators do not block clicks", async () => {
   const page = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip-leader/ManageTripLeaderPage.jsx",
+      "../../frontend/src/pages/admin/trip-leader/ManageTripLeader.jsx",
       import.meta.url,
     ),
     "utf8",

@@ -11,6 +11,7 @@ test("trip FAQ form and listing retain the PHP AdminLTE structure", async () => 
     adminLayout,
     styles,
     backendApp,
+    tripFaqRoutes,
     adminApp,
   ] = await Promise.all([
     readFile(
@@ -23,7 +24,7 @@ test("trip FAQ form and listing retain the PHP AdminLTE structure", async () => 
     ),
     readFile(
       new URL(
-        "../../frontend/src/pages/admin/trip/TripFaqPage.jsx",
+        "../../frontend/src/pages/admin/trip/TripFaq.jsx",
         import.meta.url,
       ),
       "utf8",
@@ -44,8 +45,9 @@ test("trip FAQ form and listing retain the PHP AdminLTE structure", async () => 
     ),
     readFile(new URL("../../frontend/src/styles.css", import.meta.url), "utf8"),
     readFile(new URL("../src/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../src/routes/tripFaqs.js", import.meta.url), "utf8"),
     readFile(
-      new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+      new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
       "utf8",
     ),
   ]);
@@ -103,7 +105,7 @@ test("trip FAQ form and listing retain the PHP AdminLTE structure", async () => 
     /\.faq-panel \.faq-data-table \.options button\.btn-link:hover,[\s\S]*?text-decoration: none !important;/,
   );
   assert.match(
-    backendApp,
+    tripFaqRoutes,
     /VALUES \(\$1,\$2,\$3,COALESCE\(\(SELECT MAX\(faq_order\) \+ 1 FROM alpenwild_faq_page_tbl WHERE static_page_id=\$4\),1\)\)[\s\S]*?\[data\.question, data\.answer, req\.params\.tripId, req\.params\.tripId\]/,
   );
   assert.match(

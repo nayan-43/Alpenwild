@@ -4,7 +4,10 @@ import test from "node:test";
 import { serializeComparableForm } from "../../frontend/src/lib/adminFormSnapshot.js";
 
 test("unchanged discount edits return the PHP no-update message without updating", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const routes = await readFile(
+    new URL("../src/routes/discounts.js", import.meta.url),
+    "utf8",
+  );
   const phpClass = await readFile(
     new URL("../../../includes/classes/discount_class.php", import.meta.url),
     "utf8",
@@ -13,8 +16,8 @@ test("unchanged discount edits return the PHP no-update message without updating
     new URL("../../../administrator/add_discount.php", import.meta.url),
     "utf8",
   );
-  const editRoute = app.match(
-    /app\.patch\("\/api\/discounts\/:id"[\s\S]*?\n\}\);/,
+  const editRoute = routes.match(
+    /router\.patch\("\/api\/discounts\/:id"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(editRoute, "discount edit route exists");
@@ -31,7 +34,7 @@ test("unchanged discount edits return the PHP no-update message without updating
 
 test("unchanged discount edits show the PHP warning on the manage page", async () => {
   const app = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const table = await readFile(
@@ -60,7 +63,7 @@ test("unchanged discount edits show the PHP warning on the manage page", async (
 
 test("React detects unchanged edits across all AdminApp form modules", async () => {
   const app = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
 
@@ -134,39 +137,39 @@ test("form snapshots ignore object key ordering but preserve nested values", () 
 test("separate Contest, FAQ, and booking edit forms reject unchanged submits", async () => {
   const contest = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/contest/ContestModulePage.jsx",
+      "../../frontend/src/pages/admin/contest/ContestModule.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const faq = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/TripFaqPage.jsx",
+      "../../frontend/src/pages/admin/trip/TripFaq.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const booking = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/AddTripBookingPage.jsx",
+      "../../frontend/src/pages/admin/trip/AddTripBooking.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const itinerary = await readFile(
-    new URL("../../frontend/src/pages/AdminApp.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/admin/AdminApp.jsx", import.meta.url),
     "utf8",
   );
   const tripSection = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/trip/TripSectionPage.jsx",
+      "../../frontend/src/pages/admin/trip/TripSection.jsx",
       import.meta.url,
     ),
     "utf8",
   );
   const settings = await readFile(
     new URL(
-      "../../frontend/src/pages/admin/settings/AdminSettingsPage.jsx",
+      "../../frontend/src/pages/admin/settings/AdminSettings.jsx",
       import.meta.url,
     ),
     "utf8",

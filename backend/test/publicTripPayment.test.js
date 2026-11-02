@@ -5,7 +5,7 @@ import { createPaymentRequestId } from "../../frontend/src/lib/paymentRequestId.
 
 test("public make-payment form follows PHP structure and classes", async () => {
   const frontend = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const php = await readFile(
@@ -77,16 +77,20 @@ test("payment request IDs support browsers without crypto.randomUUID", () => {
 
 test("approved trip payments follow the PHP receipt flow without internal recipients", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const tripPayments = await readFile(
+    new URL("../src/routes/tripPayments.js", import.meta.url),
+    "utf8",
+  );
   const frontend = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const php = await readFile(
     new URL("../../../make_payment_process.php", import.meta.url),
     "utf8",
   );
-  const route = app.match(
-    /app\.post\("\/api\/trip-payments"[\s\S]*?\n\}\);/,
+  const route = tripPayments.match(
+    /router\.post\("\/api\/trip-payments"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(route, "public trip payment route exists");
@@ -124,9 +128,12 @@ test("approved trip payments follow the PHP receipt flow without internal recipi
 });
 
 test("payment thank-you redirect resolves the same active static page content", async () => {
-  const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  const publicPages = await readFile(
+    new URL("../src/routes/staticPages.js", import.meta.url),
+    "utf8",
+  );
   const frontend = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
     "utf8",
   );
   const phpPayment = await readFile(
@@ -141,8 +148,8 @@ test("payment thank-you redirect resolves the same active static page content", 
   assert.match(phpPayment, /static_page_id=1620/);
   assert.match(phpPayment, /static_page_slug/);
   assert.match(phpStaticPage, /static_page_slug=:sps1/);
-  assert.match(app, /app\.get\("\/api\/public-static-pages\/:slug"/);
-  assert.match(app, /\$\{statusColumn\}='Active'/);
+  assert.match(publicPages, /router\.get\("\/api\/public-static-pages\/:slug"/);
+  assert.match(publicPages, /\$\{statusColumn\}='Active'/);
   assert.match(
     frontend,
     /fetch\(`\/api\/public-static-pages\/\$\{encodeURIComponent\(slug\)\}`\)/,
@@ -152,18 +159,30 @@ test("payment thank-you redirect resolves the same active static page content", 
 
 test("admin payment links preload and target the signed booking", async () => {
   const app = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
-  const frontend = await readFile(
-    new URL("../../frontend/src/pages/PublicStaticPage.jsx", import.meta.url),
+  const tripPayments = await readFile(
+    new URL("../src/routes/tripPayments.js", import.meta.url),
     "utf8",
   );
-  const linkEmailRoute = app.match(
-    /app\.post\(\s*"\/api\/trip-bookings\/:bookingId\/payment-link"[\s\S]*?\n\}\);/,
+  const publicPaymentLinks = await readFile(
+    new URL("../src/routes/publicTripPaymentLinks.js", import.meta.url),
+    "utf8",
+  );
+  const adminPaymentLinks = await readFile(
+    new URL("../src/routes/admin/tripBookingPaymentLinks.js", import.meta.url),
+    "utf8",
+  );
+  const frontend = await readFile(
+    new URL("../../frontend/src/pages/StaticPage.jsx", import.meta.url),
+    "utf8",
+  );
+  const linkEmailRoute = adminPaymentLinks.match(
+    /router\.post\(\s*"\/api\/trip-bookings\/:bookingId\/payment-link"[\s\S]*?\n  \);/,
   )?.[0];
-  const linkLookupRoute = app.match(
-    /app\.get\("\/api\/public-trip-payment-links\/:bookingId"[\s\S]*?\n\}\);/,
+  const linkLookupRoute = publicPaymentLinks.match(
+    /router\.get\(\s*"\/api\/public-trip-payment-links\/:bookingId"[\s\S]*?\n  \);/,
   )?.[0];
-  const paymentRoute = app.match(
-    /app\.post\("\/api\/trip-payments"[\s\S]*?\n\}\);/,
+  const paymentRoute = tripPayments.match(
+    /router\.post\("\/api\/trip-payments"[\s\S]*?\n  \}\);/,
   )?.[0];
 
   assert.ok(linkEmailRoute, "admin payment-link email route exists");
