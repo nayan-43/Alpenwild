@@ -147,6 +147,9 @@ export default function Trip() {
   const [galleryOpening, setGalleryOpening] = useState(false);
   const [galleryClosing, setGalleryClosing] = useState(false);
   const [galleryContentVisible, setGalleryContentVisible] = useState(true);
+  const [galleryImageLoaded, setGalleryImageLoaded] = useState(false);
+  const [galleryLoading, setGalleryLoading] = useState(false);
+  const galleryTransitionRef = useRef(false);
   const [printOpen, setPrintOpen] = useState(false);
   const [printError, setPrintError] = useState("");
   const [bannerAction, setBannerAction] = useState("");
@@ -255,33 +258,70 @@ export default function Trip() {
     };
   }, [galleryIndex, gallery.length, galleryClosing]);
 
-  function openGallery(index) {
+  async function openGallery(index) {
     setGalleryClosing(false);
+    setGalleryLoading(true);
+    setGalleryImageLoaded(false);
     setGalleryOpening(true);
-    setGalleryContentVisible(true);
+    setGalleryContentVisible(false);
     setGalleryIndex(index);
     window.requestAnimationFrame(() => setGalleryOpening(false));
+    await preloadGalleryImage(gallery[index]);
+    setGalleryImageLoaded(true);
+    setGalleryLoading(false);
+    setGalleryContentVisible(true);
   }
 
-  function navigateGallery(direction) {
+  function preloadGalleryImage(item) {
+    if (!item?.image_url || item.video_url) return Promise.resolve(false);
+    return new Promise((resolve) => {
+      const image = new window.Image();
+      image.onload = () => resolve(true);
+      image.onerror = () => resolve(true);
+      image.src = localAssetUrl(item.image_url);
+      if (image.complete && image.naturalWidth > 0) {
+        resolve(false);
+        return;
+      }
+    });
+  }
+
+  async function navigateGallery(direction) {
     if (
       galleryIndex === null ||
       galleryClosing ||
       !galleryContentVisible ||
+      galleryTransitionRef.current ||
       gallery.length < 2
     )
       return;
+
+    const nextIndex =
+      (galleryIndex + direction + gallery.length) % gallery.length;
+    galleryTransitionRef.current = true;
+    setGalleryLoading(true);
+    setGalleryImageLoaded(false);
     setGalleryContentVisible(false);
-    window.setTimeout(() => {
-      setGalleryIndex(
-        (galleryIndex + direction + gallery.length) % gallery.length,
-      );
-      setGalleryContentVisible(true);
-    }, 250);
+    try {
+      await preloadGalleryImage(gallery[nextIndex]);
+      window.setTimeout(() => {
+        setGalleryIndex(nextIndex);
+        setGalleryImageLoaded(true);
+        setGalleryLoading(false);
+        setGalleryContentVisible(true);
+        galleryTransitionRef.current = false;
+      }, 250);
+    } catch (error) {
+      setGalleryLoading(false);
+      galleryTransitionRef.current = false;
+      throw error;
+    }
   }
 
   function closeGallery() {
     if (galleryIndex === null || galleryClosing) return;
+    setGalleryLoading(false);
+    setGalleryImageLoaded(false);
     setGalleryClosing(true);
     window.setTimeout(() => {
       setGalleryIndex(null);
@@ -1106,11 +1146,21 @@ export default function Trip() {
             }}
             onClick={(event) => event.stopPropagation()}
           >
+            {galleryLoading && (
+              <a
+                className="lightcase-icon-spin"
+                id="lightcase-loading"
+                href="#loading"
+                aria-label="Loading"
+              >
+                <span>Loading</span>
+              </a>
+            )}
             <div id="lightcase-content">
               <div
                 className="lightcase-contentInner"
                 style={{
-                  opacity: galleryContentVisible ? 1 : 0,
+                  opacity: galleryContentVisible && galleryImageLoaded ? 1 : 0,
                   transition: "opacity 250ms ease",
                 }}
               >
@@ -1127,6 +1177,11 @@ export default function Trip() {
                   <img
                     src={localAssetUrl(gallery[galleryIndex].image_url)}
                     alt={gallery[galleryIndex].image_alt || trip.name}
+                    onLoad={() => {
+                      setGalleryImageLoaded(true);
+                      setGalleryLoading(false);
+                      setGalleryContentVisible(true);
+                    }}
                   />
                 )}
               </div>
