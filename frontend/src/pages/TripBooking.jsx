@@ -458,6 +458,9 @@ export default function TripBooking() {
             <section
               className="inner_banner client-detail-banner"
               ref={bannerRef}
+              style={{
+                backgroundImage: `url("${imageUrl(trip, "banner")}")`,
+              }}
             >
               <img
                 src={imageUrl(trip, "banner")}

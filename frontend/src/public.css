@@ -916,6 +916,47 @@ h4,*/
   overflow-y: auto;
 }
 
+@media (max-width: 767px) {
+  .client-detail-banner {
+    min-height: 200px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .client-detail-banner > img {
+    display: none;
+  }
+
+  .client-detail-banner-copy {
+    top: 50%;
+    bottom: auto;
+    width: 100%;
+    padding: 15px 30px;
+    transform: translateY(-50%);
+    background: transparent;
+    text-align: center;
+  }
+
+  .client-detail-banner-copy h1 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 24px;
+    line-height: 28px;
+    text-shadow: 0 0 3px #000;
+  }
+
+  .client-detail-banner-copy h1::after,
+  .client-detail-banner-copy p {
+    display: none;
+  }
+
+  .client-detail-banner > .activity-level {
+    display: none;
+  }
+}
+
 .client-trip-listing {
   padding-top: 35px;
 }
@@ -1756,6 +1797,92 @@ h4,*/
   padding: 40px 0 60px;
   width: auto;
   margin: 0;
+}
+
+.client-detail-banner {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  overflow: hidden;
+  background: #1d3440;
+}
+
+.client-detail-banner > img {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  object-fit: cover;
+}
+
+.client-detail-banner-copy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 15px;
+  color: #fff;
+  text-align: left;
+  background: linear-gradient(transparent, rgb(17 27 38 / 85%));
+}
+
+.client-detail-banner-copy h1 {
+  position: relative;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 0 0 15px;
+  font:
+    500 35px/39px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-detail-banner-copy h1::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: min(100%, 900px);
+  height: 1px;
+  background: #fff;
+  content: "";
+}
+
+.client-detail-banner-copy p {
+  margin: 0 0 8px;
+  color: #f0f0f0;
+  font:
+    400 14px/22px "Alpen Lato",
+    Arial,
+    sans-serif;
+}
+
+.client-detail-banner > .fa {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.client-detail-banner > .activity-level {
+  position: absolute;
+  right: 55px;
+  bottom: 15px;
+  width: 30px;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .client-detail-banner {
+    min-height: 200px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .client-detail-banner > img {
+    display: none;
+  }
 }
 
 .rs label {
