@@ -1252,14 +1252,14 @@ h4,*/
     sans-serif;
 }
 
-.client-print-day p {
+/* .client-print-day p {
   margin: 0 0 20px;
   color: #191717;
   font:
     500 16px/24px "Alpen Lato",
     Arial,
     sans-serif;
-}
+} */
 
 .client-trip-sidebar-section {
   position: relative;
@@ -1295,9 +1295,9 @@ h4,*/
   line-height: 24px;
 }
 
-.client-trip-testimonial em {
+/* .client-trip-testimonial em {
   font-size: 13px;
-}
+} */
 
 /* .client-trip-posts ul {
   margin: 0;
@@ -3184,7 +3184,7 @@ small {
 }
 
 .client-modal.client-print-modal {
-  width: min(900px, 100%);
+  width: min(475px, 100%);
 }
 
 .client-callback-form {

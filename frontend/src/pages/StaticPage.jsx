@@ -600,7 +600,11 @@ export default function StaticPage() {
     const requests = [
       fetch(`/api/public-static-pages/${encodeURIComponent(slug)}`).then(
         (response) => {
-          if (!response.ok) throw new Error("Unable to load this page.");
+          if (!response.ok) {
+            const pageError = new Error("Unable to load this page.");
+            pageError.status = response.status;
+            throw pageError;
+          }
           return response.json();
         },
       ),
@@ -693,7 +697,12 @@ export default function StaticPage() {
         },
       )
       .catch((loadError) => {
-        if (!cancelled) setError(loadError.message);
+        if (cancelled) return;
+        if (loadError.status === 404) {
+          navigate("/", { replace: true });
+          return;
+        }
+        setError(loadError.message);
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -701,7 +710,7 @@ export default function StaticPage() {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, navigate]);
 
   useEffect(() => {
     if (!page) return undefined;

@@ -78,6 +78,86 @@ function tripDateLabel(trip, date) {
     : label;
 }
 
+const featuredArticlesByTripId = {
+  7: [
+    {
+      image: "USA_Today.png",
+      width: 370,
+      height: 72,
+      url: "http://traveltips.usatoday.com/hiking-eiger-matterhorn-switzerland-105429.html",
+    },
+  ],
+  30: [
+    {
+      image: "TotalPrestige logo.jpg",
+      width: 370,
+      height: 72,
+      url: "/uploads/TotalPrestige_Jan2017_ChocolateTour.pdf",
+      imageStyle: { border: "5px solid #000" },
+    },
+  ],
+  27: [
+    {
+      image: "tl-logo-small.png",
+      width: 370,
+      height: 120,
+      url: "http://www.travelandleisure.com/operation-vacation/hunt-truffles-alps-switzerland",
+    },
+    {
+      image: "nat-logo.jpg",
+      width: 370,
+      height: 120,
+      url: "http://www.nationalgeographic.com/travel/travel-interests/food-and-drink/best-food-tours-around-world/",
+    },
+    {
+      image: "food-tour-logo.jpg",
+      width: 370,
+      height: 120,
+      url: "https://weblogtheworld.com/countries/europe-countries/alpenwild-tours",
+    },
+  ],
+  28: [
+    {
+      image: "nat-logo.jpg",
+      width: 370,
+      height: 120,
+      url: "http://www.nationalgeographic.com/travel/travel-interests/food-and-drink/best-food-tours-around-world/",
+    },
+  ],
+  20: [
+    {
+      image: "Smithsonain-Magazein.jpg",
+      width: 280,
+      height: 156,
+      url: "http://www.smithsonianmag.com/travel/live-alpine-cheesemaker-switzerland-180958167/",
+    },
+  ],
+  2: [
+    {
+      image: "Smithsonain-Magazein.jpg",
+      width: 280,
+      height: 156,
+      url: "http://www.smithsonianmag.com/travel/live-alpine-cheesemaker-switzerland-180958167/",
+    },
+  ],
+  10: [
+    {
+      image: "Barrons-Logo1.png",
+      width: 280,
+      height: 156,
+      url: "https://www.barrons.com/articles/hiking-the-swiss-alps-in-style-1531937173",
+    },
+  ],
+  16: [
+    {
+      image: "Chicago-Tribune-Logo1.png",
+      width: 280,
+      height: 156,
+      url: "http://www.chicagotribune.com/lifestyles/travel/sc-trav-trips-0703-story.html",
+    },
+  ],
+};
+
 function overviewDescriptionPreview(markup) {
   const parsed = new DOMParser().parseFromString(markup, "text/html");
   const nodes = Array.from(parsed.body.childNodes);
@@ -157,6 +237,18 @@ export default function Trip() {
   const [loading, setLoading] = useState(true);
   const bannerRef = useRef(null);
   const printContentRef = useRef(null);
+  const lightboxItems = trip?.map_image_url
+    ? [
+        ...gallery,
+        {
+          id: "trip-map",
+          image_url: trip.map_image_url,
+          image_alt: `${trip.name} map`,
+        },
+      ]
+    : gallery;
+  const isMapView =
+    galleryIndex !== null && lightboxItems[galleryIndex]?.id === "trip-map";
 
   useEffect(() => {
     let cancelled = false;
@@ -248,15 +340,15 @@ export default function Trip() {
     document.body.style.overflow = "hidden";
     const handleKeyDown = (event) => {
       if (event.key === "Escape") closeGallery();
-      if (event.key === "ArrowLeft") navigateGallery(-1);
-      if (event.key === "ArrowRight") navigateGallery(1);
+      if (!isMapView && event.key === "ArrowLeft") navigateGallery(-1);
+      if (!isMapView && event.key === "ArrowRight") navigateGallery(1);
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [galleryIndex, gallery.length, galleryClosing]);
+  }, [galleryIndex, isMapView, lightboxItems.length, galleryClosing]);
 
   async function openGallery(index) {
     setGalleryClosing(false);
@@ -266,7 +358,7 @@ export default function Trip() {
     setGalleryContentVisible(false);
     setGalleryIndex(index);
     window.requestAnimationFrame(() => setGalleryOpening(false));
-    await preloadGalleryImage(gallery[index]);
+    await preloadGalleryImage(lightboxItems[index]);
     setGalleryImageLoaded(true);
     setGalleryLoading(false);
     setGalleryContentVisible(true);
@@ -292,18 +384,18 @@ export default function Trip() {
       galleryClosing ||
       !galleryContentVisible ||
       galleryTransitionRef.current ||
-      gallery.length < 2
+      lightboxItems.length < 2
     )
       return;
 
     const nextIndex =
-      (galleryIndex + direction + gallery.length) % gallery.length;
+      (galleryIndex + direction + lightboxItems.length) % lightboxItems.length;
     galleryTransitionRef.current = true;
     setGalleryLoading(true);
     setGalleryImageLoaded(false);
     setGalleryContentVisible(false);
     try {
-      await preloadGalleryImage(gallery[nextIndex]);
+      await preloadGalleryImage(lightboxItems[nextIndex]);
       window.setTimeout(() => {
         setGalleryIndex(nextIndex);
         setGalleryImageLoaded(true);
@@ -556,6 +648,43 @@ export default function Trip() {
                             ))}
                           </ul>
                         </div>
+                      </div>
+                    )}
+                    {featuredArticlesByTripId[trip.id] && (
+                      <div
+                        id="feature"
+                        className="side_div client-trip-sidebar-section client-trip-featured"
+                      >
+                        <h3>Featured in</h3>
+                        {featuredArticlesByTripId[trip.id].map((article) => (
+                          <div
+                            className="box clearfix text-center"
+                            key={article.image}
+                          >
+                            <p>
+                              <img
+                                src={thumbnailAssetUrl(
+                                  `/uploads/${article.image}`,
+                                  article.width,
+                                  article.height,
+                                  3,
+                                )}
+                                alt=""
+                                style={article.imageStyle}
+                              />
+                            </p>
+                            <a
+                              href={article.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ margin: "0 5px 0 0" }}
+                            >
+                              <div className="book" style={{ float: "none" }}>
+                                Read the Article
+                              </div>
+                            </a>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </aside>
@@ -839,7 +968,6 @@ export default function Trip() {
                                         date.status,
                                       ) && dateLabel(date),
                                   )
-                                  .slice(0, 5)
                                   .map((date) => (
                                     <p key={date.id}>
                                       <strong>
@@ -893,7 +1021,13 @@ export default function Trip() {
                         {trip.map_image_url && (
                           <div className="side_div order-1">
                             <div className="map">
-                              <a href={localAssetUrl(trip.map_image_url)}>
+                              <a
+                                href={localAssetUrl(trip.map_image_url)}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  openGallery(gallery.length);
+                                }}
+                              >
                                 <img
                                   src={thumbnailAssetUrl(
                                     trip.map_image_url,
@@ -1118,7 +1252,7 @@ export default function Trip() {
       )}
       <PublicFooterExtras publicSettings={publicSettings} />
       <PublicFooter footerMenus={footerMenus} />
-      {galleryIndex !== null && gallery[galleryIndex] && (
+      {galleryIndex !== null && lightboxItems[galleryIndex] && (
         <>
           <div
             id="lightcase-overlay"
@@ -1135,7 +1269,9 @@ export default function Trip() {
             role="dialog"
             aria-modal="true"
             aria-label="Trip gallery"
-            data-lc-type={gallery[galleryIndex].video_url ? "video" : "image"}
+            data-lc-type={
+              lightboxItems[galleryIndex].video_url ? "video" : "image"
+            }
             style={{
               display: "block",
               opacity: galleryClosing || galleryOpening ? 0 : 1,
@@ -1164,19 +1300,19 @@ export default function Trip() {
                   transition: "opacity 250ms ease",
                 }}
               >
-                {gallery[galleryIndex].video_url ? (
+                {lightboxItems[galleryIndex].video_url ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${youtubeVideoId(
-                      gallery[galleryIndex].video_url,
+                      lightboxItems[galleryIndex].video_url,
                     )}`}
-                    title={gallery[galleryIndex].image_alt || trip.name}
+                    title={lightboxItems[galleryIndex].image_alt || trip.name}
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                   />
                 ) : (
                   <img
-                    src={localAssetUrl(gallery[galleryIndex].image_url)}
-                    alt={gallery[galleryIndex].image_alt || trip.name}
+                    src={localAssetUrl(lightboxItems[galleryIndex].image_url)}
+                    alt={lightboxItems[galleryIndex].image_alt || trip.name}
                     onLoad={() => {
                       setGalleryImageLoaded(true);
                       setGalleryLoading(false);
@@ -1187,8 +1323,10 @@ export default function Trip() {
               </div>
             </div>
             <div id="lightcase-info">
-              {gallery[galleryIndex].image_alt && (
-                <p id="lightcase-caption">{gallery[galleryIndex].image_alt}</p>
+              {lightboxItems[galleryIndex].image_alt && (
+                <p id="lightcase-caption">
+                  {lightboxItems[galleryIndex].image_alt}
+                </p>
               )}
             </div>
           </div>
@@ -1205,28 +1343,32 @@ export default function Trip() {
             >
               <span>Close</span>
             </a>
-            <a
-              className="lightcase-icon-prev"
-              href="#previous"
-              aria-label="Previous gallery item"
-              onClick={(event) => {
-                event.preventDefault();
-                navigateGallery(-1);
-              }}
-            >
-              <span>Previous</span>
-            </a>
-            <a
-              className="lightcase-icon-next"
-              href="#next"
-              aria-label="Next gallery item"
-              onClick={(event) => {
-                event.preventDefault();
-                navigateGallery(1);
-              }}
-            >
-              <span>Next</span>
-            </a>
+            {!isMapView && (
+              <>
+                <a
+                  className="lightcase-icon-prev"
+                  href="#previous"
+                  aria-label="Previous gallery item"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigateGallery(-1);
+                  }}
+                >
+                  <span>Previous</span>
+                </a>
+                <a
+                  className="lightcase-icon-next"
+                  href="#next"
+                  aria-label="Next gallery item"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigateGallery(1);
+                  }}
+                >
+                  <span>Next</span>
+                </a>
+              </>
+            )}
           </div>
         </>
       )}
